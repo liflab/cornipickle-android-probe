@@ -19,7 +19,7 @@ public class Main2Activity extends AppCompatActivity {
         s.getHierarchyActivity();
        // Log.d("sonde", s.getHierarchyActivity());
         Log.d("sonde1", s.jsonObj.toString());
-
-        s.sendStart();
+        s.sendStart("http://192.168.2.12:10101/mobiletest/",s.jsonObj.toString(), Sonde.RequestName.autre);
+     //   s.sendStart("s.sendStart(\"http://192.168.109.1:10101/mobiletest/\");
     }
 }
