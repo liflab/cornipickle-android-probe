@@ -3,6 +3,7 @@ package ca.liflab.sonde;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -42,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
             "  @description All list items should either be left- or top-aligned.\n" +
             "  @severity Warning\n" +
             "\"\"\"\n" +
-            "For each $z in $(linearlayout) (\n" +
-
+            "For each $z in $(.menu li) (\n" +
+            "  For each $t in $(.menu li) (\n" +
             "    ($z and $t are left-aligned)\n" +
             "    Or\n" +
             "    ($z and $t are top-aligned)\n" +
-
+            "  )\n" +
             ").\n");
 
     @Override
@@ -68,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
                                                   );
                                                   toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
                                                   toast.show();
-
-                                                  s.sendStart("http://192.168.109.1:10101/mobiletest/", s.getDataImage(), Sonde.RequestName.image);
+String l=s.getDataImage();
+                                                  Log.d("interpret",l);
+                                                  s.sendStart("http://192.168.109.1:10101/mobiletest/",l , Sonde.RequestName.image);
 
                                               }
                                           }
@@ -85,8 +87,11 @@ public class MainActivity extends AppCompatActivity {
                                             toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
                                             toast.show();
 
-                                            if (s != null)
+                                            if (s != null) {
+                                              //  pro.
                                                 s.sendStart("http://192.168.109.1:10101/addProp/", pro.toString(), Sonde.RequestName.add);
+
+                                            }
                                         }
                                     }
 

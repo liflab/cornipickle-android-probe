@@ -40,6 +40,8 @@ public class Sonde {
      * e.g.: localhost:10101
      */
     public String server_name = "localhost:10101";
+    final StringBuilder st= new StringBuilder("{\"tagname\":\"window\",\"URL\":\"localhost:10101/examples/misaligned-elements.html\",\"aspect-ratio\":2.0031578947368422,\"orientation\":\"portrait\",\"width\":1903,\"height\":950,\"device-width\":1920,\"device-height\":1040,\"device-aspect-ratio\":1.8461538461538463,\"mediaqueries\":{\"2\":\"true\"},\"children\":[{\"children\":[{\"children\":[{\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Example\"}]},{\"children\":[{\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Back to example list\"}]}]},{\"tagname\":\"div\",\"cornipickleid\":0,\"class\":\"playground\",\"top\":116,\"left\":8,\"event\":\"click\",\"children\":[{\"tagname\":\"ul\",\"cornipickleid\":1,\"class\":\"menu\",\"top\":153,\"left\":29,\"children\":[{\"tagname\":\"li\",\"cornipickleid\":2,\"top\":153,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"First menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":3,\"top\":172,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Second menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":4,\"top\":191,\"left\":79,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Another menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":5,\"top\":210,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Final menu item\"}]}]}]},{\"tagname\":\"CDATA\",\"text\":\" Cornipickle explanation \"},{\"tagname\":\"CDATA\",\"text\":\" /explanation \"}]},{\"tagname\":\"CDATA\",\"text\":\" /contents \"}]}]}");
+
 
     /**
      * The probe's id
@@ -103,7 +105,7 @@ public class Sonde {
             jsonObj.put("device-height", Util.getHeight(acCurrent));
             this.jsonChildreen = new JSONArray();
 
-            jsonObj.put("childreen", jsonChildreen);
+            jsonObj.put("children", jsonChildreen);
 
 
         } catch (JSONException e) {
@@ -115,29 +117,26 @@ public class Sonde {
 
     public String getDataImage() {
         this.getHierarchyActivity();
-        try {
+      /*  try {
             JSONObject data = new JSONObject();
             data.put("contents", jsonObj.toString());
             data.put("interpreter", interpreter);
             data.put(hash, "interpreter");
             data.put("id", probe_id);
-            return jsonObj.toString();
-            // return data.toString();
+         //   return jsonObj.toString();
+            return data.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return "";
-     /*   data="contents=" + s.jsonObj;
-        data  += "&interpreter=" +s.interpreter;
-        data+="&id="+s.probe_id;
-        data +="&hash="+s.hash;
-        */
-     /*  String  data="contents=" + jsonObj.toString() +"\n";
-        data  += "&interpreter=" +interpreter  +"\n";
-        data+="&id="+probe_id +"\n";
-        data +="&hash="+hash  +"\n";*/
-    /*   String data="contents=";
-        return data;*/
+        return "";*/
+
+
+        String data = "contents=" + jsonObj;
+        data += "&interpreter=" + interpreter;
+        data += "&id=" + probe_id;
+        data += "&hash=" + hash;
+    /*   String data="contents=";*/
+        return data;
     }
 
     /**
@@ -162,7 +161,7 @@ public class Sonde {
 
     public void getHierarchyActivity() {
         serialiseWindow();
-        analyseViews((ViewGroup) this._view, 0, jsonChildreen);
+       analyseViews((ViewGroup) this._view, 0, jsonChildreen);
 
     }
 
@@ -180,83 +179,87 @@ public class Sonde {
     	*
 
      */
-    private void analyseViews(ViewGroup v, int level, JSONArray jsc) {
+    private void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren) {
         final int childCount = v.getChildCount();
         v.getId();
         try {
-            JSONObject j = new JSONObject();
+            JSONObject jNode = new JSONObject();
 
 
-            j.put("id", v.getId());
-            j.put("name", v.getClass().getName());
-            j.put("level", level);
+            jNode.put("id", v.getId());
+            jNode.put("tagname", v.getClass().getName());
+           // j.put("level", level);
             v.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-            j.put("width", v.getWidth());
-            j.put("height", v.getHeight());
-            j.put("left", v.getLeft());
-            j.put("right", v.getRight());
-            j.put("top", v.getTop());
-            j.put("bottom", v.getBottom());
-            jsc.put(j);
+            jNode.put("width", v.getWidth());
+            jNode.put("height", v.getHeight());
+            jNode.put("left", v.getLeft());
+            jNode.put("right", v.getRight());
+            jNode.put("top", v.getTop());
+            jNode.put("bottom", v.getBottom());
+            jsArrayChildren.put(jNode);
 
             for (int i = 0; i < childCount; i++) {
                 View child = v.getChildAt(i);
 
-                JSONObject jsonObjn = new JSONObject();
+                JSONObject jNodeChild = new JSONObject();
 
                 if ((child instanceof ViewGroup)) {
 
-                    JSONArray jjj = new JSONArray();
+                    JSONArray jArrayChild = new JSONArray();
                     //  jsonChildreen.put(jsonObj);
-                    j.put("childreen", jjj);
-                    analyseViews((ViewGroup) child, level + 1, jjj);
+                    jNodeChild.put("children", jArrayChild);
+                    jNode.put(String.valueOf(i),jNodeChild);
+                    analyseViews((ViewGroup) child, level + 1, jArrayChild);
 
                 } else {
-                    jsonObjn.put("id", child.getId());
-                    jsonObjn.put("width", v.getWidth());
-                    jsonObjn.put("height", v.getHeight());
-                    jsonObjn.put("left", v.getLeft());
-                    jsonObjn.put("right", v.getRight());
-                    jsonObjn.put("top", v.getTop());
-                    jsonObjn.put("bottom", v.getBottom());
+                    jNodeChild.put("id", child.getId());
+                    jNodeChild.put("width", v.getWidth());
+                    jNodeChild.put("height", v.getHeight());
+                    jNodeChild.put("left", v.getLeft());
+                    jNodeChild.put("right", v.getRight());
+                    jNodeChild.put("top", v.getTop());
+                    jNodeChild.put("bottom", v.getBottom());
                     if (child instanceof ToggleButton) {
+                        jNodeChild.put("tagname", "CDATA");
 
-
-                        jsonObjn.put("text", ((ToggleButton) child).getText());
-                        jsonObjn.put("class", "Toogle");
-                        jsonObjn.put("level", level);
+                        jNodeChild.put("text", ((ToggleButton) child).getText());
+                        jNodeChild.put("class", "Toogle");
+                       // jsonObjn.put("level", level);
 
                     } else if (child instanceof Switch) {
 
-
-                        jsonObjn.put("text", ((Switch) child).getText());
-                        jsonObjn.put("class", "Switch");
-                        jsonObjn.put("level", level);
+                        jNodeChild.put("tagname", "CDATA");
+                        jNodeChild.put("text", ((Switch) child).getText());
+                        jNodeChild.put("class", "Switch");
+                       // jsonObjn.put("level", level);
 
 
                     } else if (child instanceof Button) {
 
-
-                        jsonObjn.put("text", ((Button) child).getText());
-                        jsonObjn.put("class", "Button");
-                        jsonObjn.put("level", level);
+                        jNodeChild.put("tagname", "CDATA");
+                        jNodeChild.put("text", ((Button) child).getText());
+                        jNodeChild.put("class", "Button");
+                     //   jsonObjn.put("level", level);
 
 
                     } else if (child instanceof TextView) {
 
+                        jNodeChild.put("tagname", "CDATA");
+                        jNodeChild.put("text", ((TextView) child).getText());
+                        jNodeChild.put("class", "Text");
 
-                        jsonObjn.put("text", ((TextView) child).getText());
-                        jsonObjn.put("class", "Text");
-                        jsonObjn.put("level", level);
+                     //  jsonObjn.put("tagname", ((TextView) child).);
+                      //  jsonObjn.put("level", level);
 
                     } else {
+                        jNodeChild.put("tagname", "CDATA");
+                        jNodeChild.put("text", child.getClass().getName());
 
-                        jsonObjn.put("name", child.getClass().getName());
-                        jsonObjn.put("class", "Others");
-                        jsonObjn.put("level", level);
+                    //    jsonObjn.put("level", level);
                     }
 
-                    j.put("child" + i, jsonObjn);
+                    jNode.put(String.valueOf(i), jNodeChild);
+
                 }
 
 
@@ -326,28 +329,22 @@ public class Sonde {
                                 "&lName=" + URLEncoder.encode("???", "UTF-8");
 
 
-                HttpURLConnection conn = (HttpURLConnection) url1.openConnection();
-                conn.setReadTimeout(15000);
-                conn.setConnectTimeout(15000);
+
+
+                HttpURLConnection conn;
+                conn = (HttpURLConnection) url1.openConnection();
+
+                conn.setReadTimeout(15000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");// text/plain
-                conn.setUseCaches(false);
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
-                //Send request
-                DataOutputStream wr = new DataOutputStream(
-                        conn.getOutputStream());
-                wr.writeBytes(_dataToSend);
-                wr.flush();
-                wr.close();
-
-                // OutputStream os = conn.getOutputStream();
-                // os.write(this._dataToSend.getBytes());
-             /*   BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(this._dataToSend.getBytes());
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(_dataToSend.toString());
                 writer.flush();
-                writer.close();*/
-                // os.close();
+                writer.close();
+
 
                 int responseCode = conn.getResponseCode();
 
@@ -423,36 +420,23 @@ public class Sonde {
 
                 }
 
+            } else if (this._requestName == RequestName.image) {
+
+                try {
+                    JSONObject jsonObj = new JSONObject(result);
+                    String _inter = jsonObj.getString("global-verdict");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
 
         }
     }
 
 
-    public String getPostDataString(JSONObject params) throws Exception {
 
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        Iterator<String> itr = params.keys();
-
-        while (itr.hasNext()) {
-
-            String key = itr.next();
-            Object value = params.get(key);
-
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-        }
-        return result.toString();
-    }
 
 }
 
