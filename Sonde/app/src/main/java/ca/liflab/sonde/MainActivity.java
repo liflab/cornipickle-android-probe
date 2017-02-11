@@ -27,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
             "  $x's top equals $y's top\n" +
             ").\n" +
             "\n" +
-            "We say that the page is big when (\n" +
-            "  The media query \"(min-width: 200px)\" applies\n" +
-            ").\n" +
-            "\n" +
-            "The following rules apply when (\n" +
-            "the page is big\n" +
-            ").\n" +
-            "\n" +
             "# We then express the fact that all menu items are either\n" +
             "# left- or top-aligned.\n" +
             "\n" +
