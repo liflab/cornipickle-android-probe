@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "ca.liflab.sonde"
-        minSdkVersion 9
+        minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
  /*   compile 'org.apache.httpcomponents:httpcore:4.4.1'
     compile 'org.apache.httpcomponents:httpclient:4.5'*/
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

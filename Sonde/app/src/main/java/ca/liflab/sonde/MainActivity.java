@@ -1,13 +1,23 @@
 package ca.liflab.sonde;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Range;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     Sonde s;
@@ -35,13 +45,48 @@ public class MainActivity extends AppCompatActivity {
             "  @description All list items should either be left- or top-aligned.\n" +
             "  @severity Warning\n" +
             "\"\"\"\n" +
-            "For each $z in $(.menu li) (\n" +
-            "  For each $t in $(.menu li) (\n" +
+            "For each $z in $(LinearLayout) (\n" +
+            "For each $t in $(LinearLayout) (\n" +
+            "    ($z and $t are left-aligned)\n" +
+            "    Or\n" +
+            "    ($z and $t are top-aligned)\n" +
+    ")\n"+
+            ").\n");
+    final StringBuilder pro1 = new StringBuilder("# We define a predicate using the construct\n" +
+            "# \"We say that <arguments> is/are <predicate name> when\".\n" +
+            "\n" +
+            "We say that $x and $y are left-aligned when (\n" +
+            "  $x's left equals $y's left\n" +
+            ").\n" +
+            "\n" +
+            "We say that $x and $y are top-aligned when (\n" +
+            "  $x's top equals $y's top\n" +
+            ").\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "# We then express the fact that all menu items are either\n" +
+            "# left- or top-aligned.\n" +
+            "\n" +
+            "\"\"\"\n" +
+            "  @name Menus aligned\n" +
+            "  @description All list items should either be left- or top-aligned.\n" +
+            "  @severity Warning\n" +
+            "\"\"\"\n" +
+            "For each $z in $(linearlayout button) (\n" +
+            "  For each $t in $(linearlayout button) (\n" +
             "    ($z and $t are left-aligned)\n" +
             "    Or\n" +
             "    ($z and $t are top-aligned)\n" +
             "  )\n" +
             ").\n");
+
+    Boolean _btnBugClicked = false;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +98,49 @@ public class MainActivity extends AppCompatActivity {
         Button _btn_add = (Button) findViewById(R.id.btnAdd);
 
         Button _btnInterepter = (Button) findViewById(R.id.btnInterpreter);
+        final Button _btnBug = (Button) findViewById(R.id.btnBug);
+
+        _btnBug.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                _btnBugClicked = !_btnBugClicked;
+                Button b = (Button) findViewById(R.id.button);
+                Random r = new Random();
+                int i1 = r.nextInt(500 - 20) + 20;
+                b.setText(i1+ "kjhghjgkh");
+                if (!_btnBugClicked) {
+
+                //    Button b = (Button) findViewById(R.id.button);
+                   b.setX(100);
+                    b.setGravity(Gravity.CENTER);
+                //    b.setWidth(100);
+              //  Log.d("b", b.getX()+"");
+
+                }
+                else {
+
+
+
+                    b.setX(300);
+                    b.setText(String.valueOf(b.getX()));
+                }
+                Log.d("baaaaaaaaaaaa", b.getLeft()+" "+ b.getPaddingLeft() + "  x" +b.getX());
+               // f();
+            }
+        });
 
         _btnInterepter.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
-                                                  Toast toast = Toast.makeText(getApplicationContext(), "interpter " + s.interpreter, Toast.LENGTH_LONG
+                                               //   onWindowFocusChanged(true);
+
+                                               /*   Toast toast = Toast.makeText(getApplicationContext(), "interpter " + s.interpreter, Toast.LENGTH_LONG
                                                   );
                                                   toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
-                                                  toast.show();
-String l=s.getDataImage();
-                                                  Log.d("interpret",l);
-                                                  s.sendStart("http://192.168.109.1:10101/mobiletest/",l , Sonde.RequestName.image);
+                                                  toast.show();*/
+                                                  String l = s.getDataImage();
+                                                  Log.d("interpret", l);
+                                                  s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
 
                                               }
                                           }
@@ -74,14 +151,14 @@ String l=s.getDataImage();
         _btn_add.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            Toast toast = Toast.makeText(getApplicationContext(), pro.toString(), Toast.LENGTH_LONG
+                                          /*  Toast toast = Toast.makeText(getApplicationContext(), pro1.toString(), Toast.LENGTH_LONG
                                             );
                                             toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
-                                            toast.show();
+                                            toast.show();*/
 
                                             if (s != null) {
-                                              //  pro.
-                                                s.sendStart("http://192.168.109.1:10101/addProp/", pro.toString(), Sonde.RequestName.add);
+                                                //  pro.
+                                                s.sendStart("http://192.168.109.1:10101/addProp/", pro1.toString(), Sonde.RequestName.add);
 
                                             }
                                         }
@@ -114,8 +191,23 @@ String l=s.getDataImage();
         });
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+public  void f(){
 
+
+    // s.getHierarchyActivity();
+    s = new Sonde(this);
+    //   Log.d("sonde1", s.jsonObj.toString());
+
+    // s.sendStart("http://192.168.109.1:10101/mobiletest/");
+    Toast toast = Toast.makeText(getApplicationContext(), "you can send now", Toast.LENGTH_LONG
+    );
+    toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
+    toast.show();
+}
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
 
@@ -143,4 +235,39 @@ String l=s.getDataImage();
         }
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }

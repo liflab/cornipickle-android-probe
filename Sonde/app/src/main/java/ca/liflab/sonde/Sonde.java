@@ -1,12 +1,15 @@
 package ca.liflab.sonde;
 
 import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +33,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static android.R.attr.max;
 
 public class Sonde {
     View _view;
@@ -41,8 +47,7 @@ public class Sonde {
      * e.g.: localhost:10101
      */
     public String server_name = "localhost:10101";
-    final StringBuilder st= new StringBuilder("{\"tagname\":\"window\",\"URL\":\"localhost:10101/examples/misaligned-elements.html\",\"aspect-ratio\":2.0031578947368422,\"orientation\":\"portrait\",\"width\":1903,\"height\":950,\"device-width\":1920,\"device-height\":1040,\"device-aspect-ratio\":1.8461538461538463,\"mediaqueries\":{\"2\":\"true\"},\"children\":[{\"children\":[{\"children\":[{\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Example\"}]},{\"children\":[{\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Back to example list\"}]}]},{\"tagname\":\"div\",\"cornipickleid\":0,\"class\":\"playground\",\"top\":116,\"left\":8,\"event\":\"click\",\"children\":[{\"tagname\":\"ul\",\"cornipickleid\":1,\"class\":\"menu\",\"top\":153,\"left\":29,\"children\":[{\"tagname\":\"li\",\"cornipickleid\":2,\"top\":153,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"First menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":3,\"top\":172,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Second menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":4,\"top\":191,\"left\":79,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Another menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":5,\"top\":210,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Final menu item\"}]}]}]},{\"tagname\":\"CDATA\",\"text\":\" Cornipickle explanation \"},{\"tagname\":\"CDATA\",\"text\":\" /explanation \"}]},{\"tagname\":\"CDATA\",\"text\":\" /contents \"}]}]}");
-
+    final StringBuilder st = new StringBuilder("{\"tagname\":\"window\",\"URL\":\"localhost:10101/examples/misaligned-elements.html\",\"aspect-ratio\":1.4217536071032186,\"orientation\":\"portrait\",\"width\":1281,\"height\":901,\"device-width\":1920,\"device-height\":1080,\"device-aspect-ratio\":1.7777777777777777,\"mediaqueries\":{},\"children\":[{\"children\":[{\"children\":[{\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Example\"}]},{\"children\":[{\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Back to example list\"}]}]},{\"children\":[{\"tagname\":\"ul\",\"cornipickleid\":0,\"class\":\"menu\",\"top\":153,\"left\":29,\"children\":[{\"tagname\":\"li\",\"cornipickleid\":1,\"top\":153,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"First menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":2,\"top\":172,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Second menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":3,\"top\":191,\"left\":79,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Another menu item\"}]},{\"tagname\":\"li\",\"cornipickleid\":4,\"top\":210,\"left\":69,\"children\":[{\"tagname\":\"CDATA\",\"text\":\"Final menu item\"}]}]}]},{\"tagname\":\"CDATA\",\"text\":\" Cornipickle explanation \"},{\"tagname\":\"CDATA\",\"text\":\" /explanation \"}]},{\"tagname\":\"CDATA\",\"text\":\" /contents \"}]}]}");
 
     /**
      * The probe's id
@@ -63,18 +68,20 @@ public class Sonde {
     ArrayList<String> lstAttributes = new ArrayList<String>();
 
     ArrayList<String> lstContainer = new ArrayList<String>();
+    int cornipickleid = 0;
+
 
     public void setLstAttributes(ArrayList<String> lst) {
 
-        lstAttributes.clear();
-        lstAttributes.addAll(lst);
+        this.lstAttributes.clear();
+        this.lstAttributes.addAll(lst);
 
     }
 
     public void setLstContainer(ArrayList<String> lst) {
 
-        lstAttributes.clear();
-        lstAttributes.addAll(lst);
+        this.lstContainer.clear();
+        this.lstContainer.addAll(lst);
 
     }
 
@@ -94,6 +101,11 @@ public class Sonde {
 
     }
 
+    public void testjson() {
+
+
+    }
+
     void serialiseWindow() {
 
         try {
@@ -104,6 +116,8 @@ public class Sonde {
             jsonObj.put("height", Util.getHeight(acCurrent));
             jsonObj.put("device-width", Util.getWidth(acCurrent));
             jsonObj.put("device-height", Util.getHeight(acCurrent));
+            jsonObj.put("url", "");
+            jsonObj.put("device-aspect-ratio", Util.getAspectRatio(acCurrent));
             this.jsonChildreen = new JSONArray();
 
             jsonObj.put("children", jsonChildreen);
@@ -118,24 +132,11 @@ public class Sonde {
 
     public String getDataImage() {
         this.getHierarchyActivity();
-      /*  try {
-            JSONObject data = new JSONObject();
-            data.put("contents", jsonObj.toString());
-            data.put("interpreter", interpreter);
-            data.put(hash, "interpreter");
-            data.put("id", probe_id);
-         //   return jsonObj.toString();
-            return data.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return "";*/
 
-
-        String data ="";
+        String data = "";
         try {
-             data ="contents="+ URLEncoder.encode(jsonObj.toString(),"UTF-8");// "contents=%7B%22tagname%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22tagname%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(jsonObj.toString(),"UTF-8");
-            data += "&interpreter=" + URLEncoder.encode(interpreter,"UTF-8");
+            data = "contents=" + URLEncoder.encode(jsonObj.toString(), "UTF-8");// "contents=%7B%22tagname%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22tagname%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(jsonObj.toString(),"UTF-8");
+            data += "&interpreter=" + URLEncoder.encode(interpreter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -146,7 +147,7 @@ public class Sonde {
     }
 
     /**
-     * commencer l'envoie de l'hierarchie
+     * commencer l'envoie de data
      */
 
 
@@ -167,7 +168,7 @@ public class Sonde {
 
     public void getHierarchyActivity() {
         serialiseWindow();
-       analyseViews((ViewGroup) this._view, 0, jsonChildreen);
+        analyseViews((ViewGroup) this._view, 0, jsonChildreen);
 
     }
 
@@ -177,7 +178,57 @@ public class Sonde {
         }
     }
 
+    boolean isAttributeExists(String property_name) {
 
+
+        if (lstAttributes.contains(property_name))
+
+            return true;
+
+        return false;
+    }
+
+    void addAttributeIfDefined(JSONObject jNodeChild, View v) {
+        try {
+
+            // jNodeChild.put("id", v.getId());
+
+            jNodeChild.put("cornipickleid", cornipickleid++);
+            if(isAttributeExists("width"))
+                jNodeChild.put("width", v.getWidth());
+            if(isAttributeExists("height"))
+                jNodeChild.put("height", v.getHeight());
+            Random r = new Random();
+            int i1 = r.nextInt(500 - 20) + 20;
+            if(isAttributeExists("left"))
+                jNodeChild.put("left", i1);
+            if(isAttributeExists("right"))
+                jNodeChild.put("right", v.getRight());
+            if(isAttributeExists("top"))
+                jNodeChild.put("top", v.getTop());
+            if(isAttributeExists("bottom"))
+                jNodeChild.put("bottom", v.getBottom());
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public String getThemeName()
+    {
+        PackageInfo packageInfo;
+        try
+        {
+            packageInfo = acCurrent.getPackageManager().getPackageInfo(acCurrent.getPackageName(), PackageManager.GET_META_DATA);
+            int themeResId = packageInfo.applicationInfo.theme;
+            return acCurrent.getResources().getResourceEntryName(themeResId);
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return null;
+        }
+    }
     /*
         *Cette methodes analyse les elements de chaque view recursivment et retourne tous les widgets
     	*  les elements retournes sous forme json avec leur proprites
@@ -185,25 +236,27 @@ public class Sonde {
     	*
 
      */
-    private void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren) {
+
+   public void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren) {
         final int childCount = v.getChildCount();
         v.getId();
         try {
             JSONObject jNode = new JSONObject();
 
 
-            jNode.put("id", v.getId());
-            jNode.put("tagname", v.getClass().getName());
-           // j.put("level", level);
-            v.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-            jNode.put("width", v.getWidth());
-            jNode.put("height", v.getHeight());
-            jNode.put("left", v.getLeft());
-            jNode.put("right", v.getRight());
-            jNode.put("top", v.getTop());
-            jNode.put("bottom", v.getBottom());
+            String _tagname = v.getClass().getName();
+            Log.d("_tagname1",_tagname + " "+ this.lstContainer.size() + " "+ interpreter.length());
+           _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
+          if(lstContainer.contains(_tagname)) {
+
+                jNode.put("tagname",_tagname );
+
+                addAttributeIfDefined(jNode, v);
+           }
             jsArrayChildren.put(jNode);
 
+            // if(childCount>0)
+            JSONArray jArrayChild = new JSONArray();
             for (int i = 0; i < childCount; i++) {
                 View child = v.getChildAt(i);
 
@@ -211,65 +264,63 @@ public class Sonde {
 
                 if ((child instanceof ViewGroup)) {
 
-                    JSONArray jArrayChild = new JSONArray();
+
                     //  jsonChildreen.put(jsonObj);
                     jNodeChild.put("children", jArrayChild);
-                    jNode.put(String.valueOf(i),jNodeChild);
+                    //   jNode.put(String.valueOf(i),jNodeChild);
                     analyseViews((ViewGroup) child, level + 1, jArrayChild);
 
-                } else {
-                    jNodeChild.put("id", child.getId());
-                    jNodeChild.put("width", v.getWidth());
-                    jNodeChild.put("height", v.getHeight());
-                    jNodeChild.put("left", v.getLeft());
-                    jNodeChild.put("right", v.getRight());
-                    jNodeChild.put("top", v.getTop());
-                    jNodeChild.put("bottom", v.getBottom());
-                    if (child instanceof ToggleButton) {
-                        jNodeChild.put("tagname", "CDATA");
-
-                        jNodeChild.put("text", ((ToggleButton) child).getText());
-                        jNodeChild.put("class", "Toogle");
-                       // jsonObjn.put("level", level);
-
-                    } else if (child instanceof Switch) {
-
-                        jNodeChild.put("tagname", "CDATA");
-                        jNodeChild.put("text", ((Switch) child).getText());
-                        jNodeChild.put("class", "Switch");
-                       // jsonObjn.put("level", level);
+                }
+                else {
 
 
-                    } else if (child instanceof Button) {
-
-                        jNodeChild.put("tagname", "CDATA");
-                        jNodeChild.put("text", ((Button) child).getText());
-                        jNodeChild.put("class", "Button");
-                     //   jsonObjn.put("level", level);
+                 if(child instanceof ToggleButton){
+                        _tagname = "togglebutton";
 
 
-                    } else if (child instanceof TextView) {
+                    }else if(child instanceof Switch){
 
-                        jNodeChild.put("tagname", "CDATA");
-                        jNodeChild.put("text", ((TextView) child).getText());
-                        jNodeChild.put("class", "Text");
 
-                     //  jsonObjn.put("tagname", ((TextView) child).);
-                      //  jsonObjn.put("level", level);
+                        _tagname =  "switch";
 
-                    } else {
-                        jNodeChild.put("tagname", "CDATA");
-                        jNodeChild.put("text", child.getClass().getName());
 
-                    //    jsonObjn.put("level", level);
+                    }else if(child instanceof Button){
+                        _tagname =  "Button";
+
+
                     }
 
-                    jNode.put(String.valueOf(i), jNodeChild);
+                    _tagname=_tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
+                    Log.d("_tagname",_tagname + " "+ this.lstContainer.size());
+                 if(lstContainer.contains(_tagname)) {
+
+                        jNodeChild.put("tagname", _tagname);
+                     addAttributeIfDefined(jNodeChild,child);
+
+                     if(child instanceof Button){
+
+                         jNodeChild.put("text", ((Button)child).getText());
+
+
+                     }
+
+               }else {
+
+                        jNodeChild.put("tagname", "CDATA");
+                        jNodeChild.put("text", ((TextView)child).getText());
+
+                        //    jsonObjn.put("level", level);
+                   }
+
+                    jArrayChild.put(jNodeChild);
 
                 }
 
-
             }
+
+
+
+            jNode.put("children", jArrayChild);
 
 
         } catch (JSONException exc) {
@@ -282,7 +333,7 @@ public class Sonde {
 
     public class SendPostRequest extends AsyncTask<String, Void, String> {
         String _url = "http://192.168.109.1:10101/addProp";
-        String _dataToSend = "gog gog0 gog0ggk";
+        String _dataToSend = "";
         boolean _addPro = false;
         RequestName _requestName = RequestName.add;
 
@@ -335,8 +386,6 @@ public class Sonde {
                                 "&lName=" + URLEncoder.encode("???", "UTF-8");
 
 
-
-
                 HttpURLConnection conn;
                 conn = (HttpURLConnection) url1.openConnection();
 
@@ -365,7 +414,7 @@ public class Sonde {
                     while ((line = in.readLine()) != null) {
 
                         sb.append(line);
-                        Log.e("params2", sb.toString());
+                    //    Log.e("params2", sb.toString());
                         handleRepsonse(sb.toString());
                         break;
                     }
@@ -386,12 +435,13 @@ public class Sonde {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.e("result", result);
+        /*   Log.e("result", result);
             Toast toast = Toast.makeText(acCurrent.getApplicationContext(), result,
                     Toast.LENGTH_LONG);
 
             toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
             toast.show();
+            */
 
         }
 
@@ -408,7 +458,7 @@ public class Sonde {
                     interpreter = _inter;
                     // looping through All Contacts
                     ArrayList<String> lst = new ArrayList<String>();
-
+                    ArrayList<String> lst2 = new ArrayList<String>();
                     for (int i = 0; i < arr.length(); i++) {
                         String c = arr.getString(i);
                         Log.d("attribute :", c);
@@ -417,9 +467,11 @@ public class Sonde {
                     for (int i = 0; i < arrTags.length(); i++) {
                         String c = arrTags.getString(i);
                         Log.d("tags ", c);
-                        // lst.add(c);
+                        lst2.add(c);
                     }
                     setLstAttributes(lst);
+                    setLstContainer(lst2);
+                    Log.d("size2 ", lst.size()+"");
 
                 } catch (JSONException exc) {
                     exc.printStackTrace();
@@ -431,6 +483,9 @@ public class Sonde {
                 try {
                     JSONObject jsonObj = new JSONObject(result);
                     String _inter = jsonObj.getString("global-verdict");
+                    JSONArray _hightlight=jsonObj.getJSONArray("highlight-ids");
+
+                    Log.e("verdict", _inter+ "/n"+ _hightlight.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -440,8 +495,6 @@ public class Sonde {
 
         }
     }
-
-
 
 
 }
