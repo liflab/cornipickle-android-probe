@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.View;
 
 /**
  * Created by chafik on 2016-12-08.
@@ -52,5 +53,40 @@ public class Util {
         DisplayMetrics metrics =  new DisplayMetrics();
         acCurrent.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         return metrics.heightPixels;
+    }
+
+    public  static float getAbsoluteLeft(View v){
+
+
+        int[] location = new int[2];
+        v.getLocationInWindow(location);
+        int x = location[0];
+        int y = location[1];
+        return  x;
+    }
+    public  static float getAbsoluteTop(View v){
+
+
+        int[] location = new int[2];
+        v.getLocationInWindow(location);
+        int x = location[0];
+        int y = location[1];
+        return  y;
+    }
+    public  static float getAbsoluteRight(Activity ac,View v){
+
+float width=v.getWidth();
+      float right=getWidth(ac) -( getAbsoluteLeft(v)+width);
+
+
+        return  right;
+    }
+    public  static float getAbsoluteBottom(Activity ac,View v){
+
+        float h=v.getHeight();
+        float right=getWidth(ac) -( getAbsoluteTop(v)+h);
+
+
+        return  right;
     }
 }
