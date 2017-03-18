@@ -119,6 +119,7 @@ public class MainActivity extends Activity {
 
         final TextView imgErr = (TextView) findViewById(R.id.imgError);
         btnBox.setOnClickListener(boutonClik);
+
         _btnBug.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -127,6 +128,7 @@ public class MainActivity extends Activity {
                 Random r = new Random();
                 int i1 = r.nextInt(500 - 20) + 20;
                 // b.setText(i1+ "kjhghjgkh");
+                setContentView(R.layout.bottom_navigation);
                 if (!_btnBugClicked) {
 
                     //    Button b = (Button) findViewById(R.id.button);
