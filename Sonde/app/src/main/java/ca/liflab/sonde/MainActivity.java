@@ -1,27 +1,20 @@
 package ca.liflab.sonde;
 
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.Range;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +26,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
+
+
 
 public class MainActivity extends Activity {
     Sonde s;
@@ -387,5 +382,30 @@ public class MainActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    public static class MenuTabFragment extends Fragment {
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.tab_menu_fragment, container, false);
+
+            TextView tv = (TextView) v.findViewById(R.id.textView);
+            tv.setText(getArguments().getString("msg"));
+
+            return v;
+        }
+
+        public static MenuTabFragment newInstance(String text) {
+
+            MenuTabFragment f = new MenuTabFragment();
+            Bundle b = new Bundle();
+            b.putString("msg", text);
+
+            f.setArguments(b);
+
+            return f;
+        }
     }
 }

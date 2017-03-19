@@ -13,12 +13,7 @@
         android:icon="@drawable/ic_access_time_white_24dp"
         android:title="@string/text_schedules"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_music"
-        android:enabled="true"
-        android:icon="@drawable/ic_audiotrack_white_24dp"
-        android:title="@string/text_music"
-        app:showAsAction="ifRoom" />
+
 
 
 </menu>

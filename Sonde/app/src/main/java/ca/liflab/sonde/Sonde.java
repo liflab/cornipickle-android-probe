@@ -5,12 +5,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -43,6 +45,7 @@ import java.util.Random;
 import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
+
 
 import static android.R.attr.accessibilityEventTypes;
 import static android.R.attr.max;
@@ -87,13 +90,13 @@ public class Sonde {
         public float y;
         public float height;
 
-        public infoHighId(int id, float width, float x, float y,float height) {
+        public infoHighId(int id, float width, float x, float y, float height) {
 
             this.id = id;
             this.width = width;
             this.x = x;
             this.y = y;
-            this.height=height;
+            this.height = height;
 
         }
 
@@ -225,7 +228,7 @@ public class Sonde {
             // jNodeChild.put("id", v.getId());
 
             jNodeChild.put("cornipickleid", cornipickleid++);
-            idMap.put(cornipickleid - 1,new infoHighId(v.getId(),v.getWidth(),Util.getAbsoluteLeft(v),Util.getAbsoluteTop(v) ,v.getHeight()));
+            idMap.put(cornipickleid - 1, new infoHighId(v.getId(), v.getWidth(), Util.getAbsoluteLeft(v), Util.getAbsoluteTop(v), v.getHeight()));
             // res.getResourceEntryName(view.getId())
             //v.getResources().getResourceEntryName(v.getId()
             //    jNodeChild.put("idl", res.getResourceEntryName(view.getId());
@@ -277,8 +280,9 @@ public class Sonde {
 
 
             String _tagname = v.getClass().getName();
-            Log.d("_tagname1", _tagname + " " + this.lstContainer.size() + " " + interpreter.length());
+
             _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
+            Log.d("_tagname1", _tagname + " " + this.lstContainer.size() + " " + interpreter.length());
             if (lstContainer.contains(_tagname)) {
 
                 jNode.put("tagname", _tagname);
@@ -303,7 +307,6 @@ public class Sonde {
                     analyseViews((ViewGroup) child, level + 1, jArrayChild);
 
                 } else {
-
 
                     if (child instanceof ToggleButton) {
                         _tagname = "togglebutton";
@@ -344,6 +347,7 @@ public class Sonde {
                     }
 
                     jArrayChild.put(jNodeChild);
+
 
                 }
 
@@ -465,13 +469,22 @@ public class Sonde {
 
         @Override
         protected void onPostExecute(String result) {
-        /*   Log.e("result", result);
-            Toast toast = Toast.makeText(acCurrent.getApplicationContext(), result,
-                    Toast.LENGTH_LONG);
+            if (this._requestName == RequestName.add) {
+                Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
+                        Toast.LENGTH_LONG);
 
-            toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-            toast.show();
-            */
+                toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
+                toast.show();
+            } else if (this._requestName == RequestName.image) {
+
+                Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received ",
+                        Toast.LENGTH_LONG);
+
+                toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
+                toast.show();
+
+            }
+
             handleRepsonse(result);
         }
 
@@ -514,7 +527,7 @@ public class Sonde {
                     JSONObject jsonObj = new JSONObject(result);
                     String _inter = jsonObj.getString("global-verdict");
                     JSONArray _hightlight = jsonObj.getJSONArray("highlight-ids");
-                    TextView txtView = (TextView) acCurrent.findViewById(R.id.lblResult);
+                    TextView txtView = (TextView) acCurrent.findViewById(R.id.txtResult);
                     txtView.setText(_inter);
                     Log.e("verdict", _inter + "/n" + _hightlight.toString());
                     //Nous récupérons un Set contenant des entiers
@@ -522,9 +535,9 @@ public class Sonde {
                     //Utilisation d'un itérateur générique
                     Iterator<Integer> it = setInt.iterator();
                     System.out.println("Parcours d'une Map avec keySet : ");
-                    RelativeLayout l5 = (RelativeLayout)acCurrent.findViewById(R.id.prest);
+                    RelativeLayout l5 = (RelativeLayout) acCurrent.findViewById(R.id.prest);
                     //ensuite vous savez faire
-                    while (it.hasNext()) {
+                /*    while (it.hasNext()) {
                         int key = it.next();
                         System.out.println("Valeur pour la clé " + key + " = " + idMap.get(key).x);
 
@@ -540,7 +553,7 @@ addButton.setBackgroundColor(0xff99cc00);
 
                         l5.addView(addButton,params);
                      //   acCurrent.findViewById(R.id.prest
-                    }
+                    }*/
 
                     if (idMap.containsKey(5)) {
                         //  int id = acCurrent.getResources().getIdentifier(idMap.get(5), "id", acCurrent.getPackageName());
