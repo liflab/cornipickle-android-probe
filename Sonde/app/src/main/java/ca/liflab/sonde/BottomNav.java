@@ -11,8 +11,8 @@ public class BottomNav extends SondeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottom_navigation);
-        nameFile = "prop1.txt";
+        setContentView(R.layout.tab_menu);
+        nameFile = "prop2.txt";
     }
 
 
@@ -29,7 +29,7 @@ public class BottomNav extends SondeActivity {
                 return true;
 
             default:
-                return super.onKeyUp(keyCode, event);
+                return true;
         }
     }
 

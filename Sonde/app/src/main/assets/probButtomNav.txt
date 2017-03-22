@@ -1,0 +1,21 @@
+A Limit is any of  "3" , "4" , "5" .
+
+We say that $x doesn't contain $y when (
+ Not ($x's text matches $y's value)
+).
+
+
+
+"""
+@description Yo
+@name Limit
+@severity Warning
+"""
+
+For each $limit in "Limit" (
+
+5 \u002b 7 .
+
+   // $i doesn't contain $limit .
+).
+

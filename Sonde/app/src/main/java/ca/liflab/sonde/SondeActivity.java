@@ -35,7 +35,7 @@ sendPropToserver(nameFile);
                 return true;
 
             default:
-                return super.onKeyUp(keyCode, event);
+                return true;
         }
     }
 

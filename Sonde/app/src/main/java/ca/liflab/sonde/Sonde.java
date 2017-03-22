@@ -7,8 +7,10 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -226,9 +228,9 @@ public class Sonde {
         try {
 
             // jNodeChild.put("id", v.getId());
-
-            jNodeChild.put("cornipickleid", cornipickleid++);
-            idMap.put(cornipickleid - 1, new infoHighId(v.getId(), v.getWidth(), Util.getAbsoluteLeft(v), Util.getAbsoluteTop(v), v.getHeight()));
+            cornipickleid=cornipickleid+1;
+            jNodeChild.put("cornipickleid",cornipickleid);
+            idMap.put(cornipickleid, new infoHighId(v.getId(), v.getWidth(), Util.getAbsoluteLeft(v), Util.getAbsoluteTop(v), v.getHeight()));
             // res.getResourceEntryName(view.getId())
             //v.getResources().getResourceEntryName(v.getId()
             //    jNodeChild.put("idl", res.getResourceEntryName(view.getId());
@@ -246,6 +248,9 @@ public class Sonde {
                 jNodeChild.put("top", v.getTop());
             if (isAttributeExists("bottom"))
                 jNodeChild.put("bottom", v.getBottom());
+
+            if (isAttributeExists("text"))
+                jNodeChild.put("text", v.getBottom());
 
 
         } catch (JSONException e) {
@@ -293,64 +298,93 @@ public class Sonde {
 
             // if(childCount>0)
             JSONArray jArrayChild = new JSONArray();
-            for (int i = 0; i < childCount; i++) {
-                View child = v.getChildAt(i);
 
-                JSONObject jNodeChild = new JSONObject();
-
-                if ((child instanceof ViewGroup)) {
+            if (v instanceof BottomNavigationView) {
 
 
-                    //  jsonChildreen.put(jsonObj);
-                    jNodeChild.put("children", jArrayChild);
-                    //   jNode.put(String.valueOf(i),jNodeChild);
-                    analyseViews((ViewGroup) child, level + 1, jArrayChild);
 
-                } else {
-
-                    if (child instanceof ToggleButton) {
-                        _tagname = "togglebutton";
-
-
-                    } else if (child instanceof Switch) {
-
-
-                        _tagname = "switch";
-
-
-                    } else if (child instanceof Button) {
-                        _tagname = "Button";
-
-
+                Menu m = ((BottomNavigationView) v).getMenu();
+                if (lstContainer.contains(_tagname)) {
+                    if (isAttributeExists("size")){
+                        jNode.put("size",m.size());
                     }
 
-                    _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
-                    Log.d("_tagname", _tagname + " " + this.lstContainer.size());
-                    if (lstContainer.contains(_tagname)) {
+                }
+                if (lstContainer.contains("menuItem")) {
+                    for (int i = 0; i < m.size(); i++) {
 
-                        jNodeChild.put("tagname", _tagname);
-                        addAttributeIfDefined(jNodeChild, child);
 
-                        if (child instanceof Button) {
+                        JSONObject jNodeChild = new JSONObject();
+                        Log.d("menu", m.getItem(i).toString());
+                        jNodeChild.put("tagname", "menuItem");
+                        if (isAttributeExists("menuItemText"))
+                            jNodeChild.put("menuItemText", m.getItem(i).toString());
+                        jArrayChild.put(jNodeChild);
+                    }
 
-                            jNodeChild.put("text", ((Button) child).getText());
+                }
+
+            } else {
+                for (int i = 0; i < childCount; i++) {
+                    View child = v.getChildAt(i);
+
+                    JSONObject jNodeChild = new JSONObject();
+
+                    if ((child instanceof ViewGroup)) {
+
+
+                        //  jsonChildreen.put(jsonObj);
+                        jNodeChild.put("children", jArrayChild);
+                        //   jNode.put(String.valueOf(i),jNodeChild);
+                        analyseViews((ViewGroup) child, level + 1, jArrayChild);
+
+                    } else {
+
+                        if (child instanceof ToggleButton) {
+                            _tagname = "togglebutton";
+
+
+                        } else if (child instanceof Switch) {
+
+
+                            _tagname = "switch";
+
+
+                        } else if (child instanceof Button) {
+                            _tagname = "Button";
 
 
                         }
 
-                    } else {
+                        _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
+                        Log.d("_tagname", _tagname + " " + this.lstContainer.size());
+                        if (lstContainer.contains(_tagname)) {
 
-                        jNodeChild.put("tagname", "CDATA");
-                        jNodeChild.put("text", ((TextView) child).getText());
+                            jNodeChild.put("tagname", _tagname);
+                            addAttributeIfDefined(jNodeChild, child);
 
-                        //    jsonObjn.put("level", level);
+                            if (child instanceof Button) {
+
+                                jNodeChild.put("text", ((Button) child).getText());
+
+
+                            }
+
+                        } else {
+
+                            jNodeChild.put("tagname", "CDATA");
+                            //  jNodeChild.put("text", ((TextView) child).getText());
+
+                            //    jsonObjn.put("level", level);
+                        }
+
+                        jArrayChild.put(jNodeChild);
+
+// fin else
                     }
-
-                    jArrayChild.put(jNodeChild);
 
 
                 }
-
             }
 
 
@@ -536,14 +570,26 @@ public class Sonde {
                     Iterator<Integer> it = setInt.iterator();
                     System.out.println("Parcours d'une Map avec keySet : ");
                     RelativeLayout l5 = (RelativeLayout) acCurrent.findViewById(R.id.prest);
+                    // Highlight elements, if any
+                    for (int j = 0; j < _hightlight.length(); j++){
+
+                        JSONObject set_of_tuples1 =    (JSONObject) _hightlight.get(j);
+                        JSONArray js=set_of_tuples1.getJSONArray("ids");
+                        for(int z=0;z<js.length();z++){
+
+                            Log.d("zzzzzz",js.get(0).toString()+"");
+
+                        }
+                    }
+
                     //ensuite vous savez faire
-                /*    while (it.hasNext()) {
+                  while (it.hasNext()) {
                         int key = it.next();
-                        System.out.println("Valeur pour la clé " + key + " = " + idMap.get(key).x);
+                      Log.d("Valeur pour la clé ",  key + " = " + idMap.get(key).id);
 
 
 
-                        Button addButton =new Button(acCurrent);
+                      /*  Button addButton =new Button(acCurrent);
                         addButton.setText("F");
 addButton.setBackgroundColor(0xff99cc00);
                        // addButton.getBackground().setAlpha(45);
@@ -552,8 +598,9 @@ addButton.setBackgroundColor(0xff99cc00);
                         params.topMargin = (int)idMap.get(key).y-110;
 
                         l5.addView(addButton,params);
+                        */
                      //   acCurrent.findViewById(R.id.prest
-                    }*/
+                    }
 
                     if (idMap.containsKey(5)) {
                         //  int id = acCurrent.getResources().getIdentifier(idMap.get(5), "id", acCurrent.getPackageName());
