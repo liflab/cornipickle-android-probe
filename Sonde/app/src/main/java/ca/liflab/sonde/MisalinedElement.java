@@ -31,7 +31,7 @@ public class MisalinedElement extends SondeActivity {
                 return true;
 
             default:
-                return super.onKeyUp(keyCode, event);
+                return true;
         }
     }
 

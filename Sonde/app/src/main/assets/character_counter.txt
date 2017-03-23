@@ -1,0 +1,26 @@
+
+# Define what it means to be selected
+We say that $x and $y are redline when (
+  ($x's length is greater than 10) And
+  ($y's color matches "RGB\(255,0,0\)")
+).
+
+We say that $x and $y are blueline when (
+ ( $x's length is less than 9)
+ And ($y's color matches "RGB\(0,0,255\)")
+).
+
+
+"""
+  @name Menus aligned
+  @description All list items
+  @severity Warning
+"""
+
+For each $z in $(#txtEdit1) (
+For each $t in $(#colorLineCounter1) (
+    ($z and $t are blueline)  Or
+    ($z and $t are redline)
+
+)
+).

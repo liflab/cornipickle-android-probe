@@ -16,20 +16,15 @@ import android.text.TextWatcher;
 import android.text.style.AlignmentSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.widget.TextView;
 
-/**
- * Material Design Guidlines:
- * http://www.google.com/design/spec/patterns/errors.html#errors-user-input-errors
- * see section headed "Text field input - Over/under character or word count"
- *
- * @author Simon Lightfoot <simon@demondevelopers.com>
- */
+
 public class CharacterCounter implements TextWatcher
 {
     private final TextInputLayout mTextInputLayout;
     private final TextView txtCounter;
-
+public  boolean inverse=false;
     private final ForegroundColorSpan mNormalTextAppearance;
     private final AlignmentSpan mAlignmentSpan = new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE);
     private final SpannableStringBuilder mErrorText = new SpannableStringBuilder();
@@ -57,14 +52,31 @@ this.txtCounter=txtCounter;
             txtCounter.append(String.valueOf(length));
             txtCounter.append(" / ");
             txtCounter.append(String.valueOf(mMaxLen));
-            txtCounter.setTextColor(Color.RED);
-            mTextInputLayout.getEditText().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-            if(hasValidLength()){
-
+            if(inverse) {
                 txtCounter.setTextColor(Color.BLUE);
-
                 mTextInputLayout.getEditText().getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+            }
+            else {
+                txtCounter.setTextColor(Color.RED);
+                mTextInputLayout.getEditText().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
 
+            }
+            int clr=txtCounter.getCurrentTextColor();
+
+
+            if(hasValidLength()){
+                if(inverse) {
+                    txtCounter.setTextColor(Color.RED);
+                    mTextInputLayout.getEditText().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+                }
+                else {
+
+                      txtCounter.setTextColor(Color.BLUE);
+                    mTextInputLayout.getEditText().getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+                }
+                clr=txtCounter.getCurrentTextColor();
+                mTextInputLayout.getEditText().getBackground().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+     //    Log.d("color2", "RGB(" + Color.red(clr)+","+Color.green(clr)+","+Color.blue(clr)+"");
             }
         }
 

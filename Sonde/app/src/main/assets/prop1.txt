@@ -17,8 +17,8 @@ We say that $x and $y are top-aligned when (
   @description All list items should either be left- or top-aligned.
   @severity Warning
 """
-For each $z in findBy(linearlayout button) (
-  For each $t in findBy(linearlayout button) (
+For each $z in $(linearlayout button) (
+  For each $t in $(linearlayout button) (
     ($z and $t are left-aligned)
     Or
     ($z and $t are top-aligned)

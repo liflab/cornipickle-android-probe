@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.os.Debug;
 import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -42,15 +44,19 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
 
 import static android.R.attr.accessibilityEventTypes;
 import static android.R.attr.max;
+import static android.R.attr.restoreAnyVersion;
 
 public class Sonde {
     View _view;
@@ -228,8 +234,8 @@ public class Sonde {
         try {
 
             // jNodeChild.put("id", v.getId());
-            cornipickleid=cornipickleid+1;
-            jNodeChild.put("cornipickleid",cornipickleid);
+            cornipickleid = cornipickleid + 1;
+            jNodeChild.put("cornipickleid", cornipickleid);
             idMap.put(cornipickleid, new infoHighId(v.getId(), v.getWidth(), Util.getAbsoluteLeft(v), Util.getAbsoluteTop(v), v.getHeight()));
             // res.getResourceEntryName(view.getId())
             //v.getResources().getResourceEntryName(v.getId()
@@ -245,12 +251,9 @@ public class Sonde {
             if (isAttributeExists("right"))
                 jNodeChild.put("right", Util.getAbsoluteRight(acCurrent, v));
             if (isAttributeExists("top"))
-                jNodeChild.put("top", v.getTop());
+                jNodeChild.put("top", Util.getAbsoluteTop(v));
             if (isAttributeExists("bottom"))
-                jNodeChild.put("bottom", v.getBottom());
-
-            if (isAttributeExists("text"))
-                jNodeChild.put("text", v.getBottom());
+                jNodeChild.put("bottom", Util.getAbsoluteBottom(acCurrent, v));
 
 
         } catch (JSONException e) {
@@ -269,6 +272,46 @@ public class Sonde {
             return null;
         }
     }
+
+    public boolean canIncludeThisView(JSONObject jNodeChild, View v) {
+
+
+        int id = v.getId();
+        String _tagname = v.getClass().getSimpleName();
+        for (String s : lstContainer) {
+
+
+            if (s.toLowerCase().equals(_tagname.toLowerCase())) {
+
+
+                return true;
+            }
+            //  int ID = Integer.parseInt("R.id."+s.substring(1));
+
+            //  Log.d("gogogog",getidResourceByName(s.substring(1)) + " " +s.substring(1) +" "  + " "+v.getId());
+            //txtResult
+            if (s.startsWith("#") && getidResourceByName(s.substring(1)) == v.getId()) {
+                try {
+                    jNodeChild.put("id", s.substring(1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
+
+        }
+
+
+        return false;
+
+    }
+
+    private int getidResourceByName(String aString) {
+        String packageName = acCurrent.getPackageName();
+        int resId = acCurrent.getResources().getIdentifier(aString, "id", packageName);
+        return resId;
+    }
+
     /*
         *Cette methodes analyse les elements de chaque view recursivment et retourne tous les widgets
     	*  les elements retournes sous forme json avec leur proprites
@@ -282,13 +325,13 @@ public class Sonde {
         v.getId();
         try {
             JSONObject jNode = new JSONObject();
+            Log.d("_tagname5", v.getClass().getSimpleName());
+
+            String _tagname = v.getClass().getSimpleName();
 
 
-            String _tagname = v.getClass().getName();
-
-            _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
-            Log.d("_tagname1", _tagname + " " + this.lstContainer.size() + " " + interpreter.length());
-            if (lstContainer.contains(_tagname)) {
+            Log.d("_tagname1", _tagname + " " + this.lstContainer.size());
+            if (canIncludeThisView(jNode, v)) {
 
                 jNode.put("tagname", _tagname);
 
@@ -302,11 +345,10 @@ public class Sonde {
             if (v instanceof BottomNavigationView) {
 
 
-
                 Menu m = ((BottomNavigationView) v).getMenu();
                 if (lstContainer.contains(_tagname)) {
-                    if (isAttributeExists("size")){
-                        jNode.put("size",m.size());
+                    if (isAttributeExists("size")) {
+                        jNode.put("size", m.size());
                     }
 
                 }
@@ -340,25 +382,10 @@ public class Sonde {
 
                     } else {
 
-                        if (child instanceof ToggleButton) {
-                            _tagname = "togglebutton";
-
-
-                        } else if (child instanceof Switch) {
-
-
-                            _tagname = "switch";
-
-
-                        } else if (child instanceof Button) {
-                            _tagname = "Button";
-
-
-                        }
-
+                        _tagname = child.getClass().getName();
                         _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
-                        Log.d("_tagname", _tagname + " " + this.lstContainer.size());
-                        if (lstContainer.contains(_tagname)) {
+                        Log.d("_tagname", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
+                        if (canIncludeThisView(jNodeChild, child)) {
 
                             jNodeChild.put("tagname", _tagname);
                             addAttributeIfDefined(jNodeChild, child);
@@ -368,14 +395,33 @@ public class Sonde {
                                 jNodeChild.put("text", ((Button) child).getText());
 
 
+                            } else if (child instanceof TextView) {
+                                TextView tx = (TextView) child;
+                                if (isAttributeExists("length"))
+                                jNodeChild.put("length", tx.getText().length());
+                                if (isAttributeExists("text"))
+                                jNodeChild.put("text", tx.getText());
+                                if (isAttributeExists("color")) {
+                                    int clr=tx.getCurrentTextColor();
+                                    jNodeChild.put("color", "RGB(" + Color.red(clr)+","+Color.green(clr)+","+Color.blue(clr)+")");
+                                }
+
+                            } else if (child instanceof EditText) {
+                                EditText tx = (EditText) child;
+                                if (isAttributeExists("length"))
+                                jNodeChild.put("length", tx.getText().length());
+                                if (isAttributeExists("text"))
+                                jNodeChild.put("text", tx.getText());
+                                if (isAttributeExists("color")) {
+                                    int clr = tx.getCurrentTextColor();
+                                    jNodeChild.put("color", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
+                                }
+
                             }
 
                         } else {
 
                             jNodeChild.put("tagname", "CDATA");
-                            //  jNodeChild.put("text", ((TextView) child).getText());
-
-                            //    jsonObjn.put("level", level);
                         }
 
                         jArrayChild.put(jNodeChild);
@@ -558,54 +604,54 @@ public class Sonde {
             } else if (this._requestName == RequestName.image) {
 
                 try {
-                    JSONObject jsonObj = new JSONObject(result);
-                    String _inter = jsonObj.getString("global-verdict");
-                    JSONArray _hightlight = jsonObj.getJSONArray("highlight-ids");
-                    TextView txtView = (TextView) acCurrent.findViewById(R.id.txtResult);
-                    txtView.setText(_inter);
-                    Log.e("verdict", _inter + "/n" + _hightlight.toString());
-                    //Nous récupérons un Set contenant des entiers
-                    Set<Integer> setInt = idMap.keySet();
-                    //Utilisation d'un itérateur générique
-                    Iterator<Integer> it = setInt.iterator();
-                    System.out.println("Parcours d'une Map avec keySet : ");
-                    RelativeLayout l5 = (RelativeLayout) acCurrent.findViewById(R.id.prest);
-                    // Highlight elements, if any
-                    for (int j = 0; j < _hightlight.length(); j++){
+                    if (result != "") {
+                        JSONObject jsonObj = new JSONObject(result);
+                        String _inter = jsonObj.getString("global-verdict");
+                        JSONArray _hightlight = jsonObj.getJSONArray("highlight-ids");
 
-                        JSONObject set_of_tuples1 =    (JSONObject) _hightlight.get(j);
-                        JSONArray js=set_of_tuples1.getJSONArray("ids");
-                        for(int z=0;z<js.length();z++){
+                        TextView txtView = (TextView) acCurrent.findViewById(R.id.txtResult);
+                        txtView.setText(_inter);
+                        Log.e("verdict", _inter + "/n" + _hightlight.toString());
+                        //Nous récupérons un Set contenant des entiers
+                        Set<Integer> setInt = idMap.keySet();
+                        //Utilisation d'un itérateur générique
+                        Iterator<Integer> it = setInt.iterator();
+                        System.out.println("Parcours d'une Map avec keySet : ");
+                        RelativeLayout l5 = (RelativeLayout) acCurrent.findViewById(R.id.prest);
+                        // Highlight elements, if any
+                        for (int j = 0; j < _hightlight.length(); j++) {
 
-                            Log.d("zzzzzz",js.get(0).toString()+"");
+                            JSONObject set_of_tuples1 = (JSONObject) _hightlight.get(j);
+                            JSONArray js = set_of_tuples1.getJSONArray("ids");
+                            for (int z = 0; z < js.length(); z++) {
+                                JSONArray js2=js.getJSONArray(0);
 
+                                Log.d("zzzzzz", js2.get(0) + "");
+                                int key=js2.getInt(0);
+                                if(idMap.containsKey(key)) {
+                                    View v = acCurrent.findViewById(idMap.get(key).id);
+                                  //  v.setBackgroundResource(R.drawable.shape_border);
+                                }
+                                 key=js2.getInt(1);
+                                if(idMap.containsKey(key)) {
+                                    View v = acCurrent.findViewById(idMap.get(key).id);
+                                 //   v.setBackgroundResource(R.drawable.shape_border);
+                                }
+
+                            }
                         }
-                    }
-
-                    //ensuite vous savez faire
-                  while (it.hasNext()) {
-                        int key = it.next();
-                      Log.d("Valeur pour la clé ",  key + " = " + idMap.get(key).id);
 
 
+                        //ensuite vous savez faire
+                        while (it.hasNext()) {
+                            int key = it.next();
+                            Log.d("Valeur pour la clé ", key + " = " + idMap.get(key).toString());
+                        //    View v = acCurrent.findViewById(idMap.get(key).id);
 
-                      /*  Button addButton =new Button(acCurrent);
-                        addButton.setText("F");
-addButton.setBackgroundColor(0xff99cc00);
-                       // addButton.getBackground().setAlpha(45);
-                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int)idMap.get(key).width, (int)idMap.get(key).height);
-                        params.leftMargin = (int)idMap.get(key).x-55;
-                        params.topMargin = (int)idMap.get(key).y-110;
+                           // v.setBackgroundResource(R.drawable.shape_border_none);
+                        }
 
-                        l5.addView(addButton,params);
-                        */
-                     //   acCurrent.findViewById(R.id.prest
-                    }
 
-                    if (idMap.containsKey(5)) {
-                        //  int id = acCurrent.getResources().getIdentifier(idMap.get(5), "id", acCurrent.getPackageName());
-                        //   Button b1 = (Button) acCurrent.findViewById(id);
-                        //    b1.setText("gggg");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

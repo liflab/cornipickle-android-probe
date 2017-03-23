@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/txtEdit1"
             style="@style/Base.TextAppearance.AppCompat.Headline"
 
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:textAppearance="@style/TextAppearance.Design.Hint" />
 
         <TextView
-            android:id="@+id/txtCounter"
+            android:id="@+id/colorLineCounter1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="0/10" />
@@ -43,7 +43,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Text Hint 2"
-            android:singleLine="false" />
+            android:singleLine="false"
+      />
     </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/colorLineCounter2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
