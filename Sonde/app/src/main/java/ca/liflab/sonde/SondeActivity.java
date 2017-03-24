@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -16,21 +17,22 @@ import java.io.StringReader;
 public class SondeActivity extends Activity {
     Sonde s;
     String nameFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.activity_sonde);
+        //  setContentView(R.layout.activity_sonde);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     @Override
-   public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_I:
-sendActivityUiToServer();
+                sendActivityUiToServer();
                 return true;
             case KeyEvent.KEYCODE_A:
-sendPropToserver(nameFile);
+                sendPropToserver(nameFile);
                 return true;
             case KeyEvent.KEYCODE_B:
 
@@ -43,28 +45,38 @@ sendPropToserver(nameFile);
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-
-        s = new Sonde(this);
+        if (s == null ||  (s!=null && s.acCurrent!=this)) {
+            s = new Sonde(this);
+        }
         displayTost("you can send know prop");
 
     }
-  protected  void sendPropToserver(String nameFile){
-      this.nameFile=nameFile;
 
-      if (s != null) {
+    protected void sendPropToserver(String nameFile) {
+        this.nameFile = nameFile;
 
-          s.sendStart("http://192.168.109.1:10101/addProp/", readdPropFromFile(nameFile).toString(), Sonde.RequestName.add);
+        if (s != null) {
 
-      }
+            s.sendStart("http://192.168.109.1:10101/addProp/", readdPropFromFile(nameFile).toString(), Sonde.RequestName.add);
 
-  }
-  protected  void sendActivityUiToServer(){
+        }
 
-      String l = s.getDataImage();
-      //Log.d("interpret", l);
-      s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
+    }
 
-  }
+    protected void sendActivityUiToServer() {
+
+        String l = s.getDataImage();
+        //Log.d("interpret", l);
+        s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
+
+    }
+    protected void sendActivityUiToServer(View v) {
+
+        String l = s.getDataImage(v);
+        //Log.d("interpret", l);
+        s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
+
+    }
     public void displayTost(String msg) {
 
 

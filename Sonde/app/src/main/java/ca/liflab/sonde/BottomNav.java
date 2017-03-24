@@ -5,14 +5,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class BottomNav extends SondeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab_menu);
-        nameFile = "prop2.txt";
+        setContentView(R.layout.bottom_navigation);
+        nameFile = "probButtomNav.txt";
     }
 
 

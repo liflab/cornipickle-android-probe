@@ -1,0 +1,19 @@
+# Define what it means the flat button
+#link https://material.io/guidelines/components/buttons.html#buttons-style
+We say that $x is Button1 when (
+  (($x's width  is greater than  88) And ($x's height is greater than  48))   And
+  ( Not ($x's bgcolor matches "RGB\(0,0,0\)") )
+
+).
+
+
+"""
+  @name Menus aligned
+  @description All list items
+  @severity Warning
+"""
+
+For each $z in $(Button) (
+
+$z is Button1
+).

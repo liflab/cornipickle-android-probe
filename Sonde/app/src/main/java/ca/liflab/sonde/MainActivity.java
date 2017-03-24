@@ -4,10 +4,16 @@ package ca.liflab.sonde;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
+import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends Activity {
@@ -109,7 +116,7 @@ public class MainActivity extends Activity {
         Button _btn_add = (Button) findViewById(R.id.btnAdd);
 
         Button _btnInterepter = (Button) findViewById(R.id.btnInterpreter);
-        final Button _btnBug = (Button) findViewById(R.id.btnBug);
+        Button _btnBug = (Button) findViewById(R.id.button2);
         Button btnBox = (Button) findViewById(R.id.btnStart);
 
         final TextView imgErr = (TextView) findViewById(R.id.imgError);
@@ -120,11 +127,20 @@ public class MainActivity extends Activity {
                 // Perform action on click
                 _btnBugClicked = !_btnBugClicked;
                 Button b = (Button) findViewById(R.id.button);
+            //    b.setBackgroundColor(Color.RED);
+
                 Random r = new Random();
                 int i1 = r.nextInt(500 - 20) + 20;
+                //  Log("background"+b.getBackground() +"");
                 // b.setText(i1+ "kjhghjgkh");
-                setContentView(R.layout.bottom_navigation);
-                if (!_btnBugClicked) {
+                //   setContentView(R.layout.bottom_navigation);
+             //   if (b.getBackground() instanceof ColorDrawable) {
+                    ColorDrawable buttonColor = (ColorDrawable) b.getBackground();
+                    if (buttonColor != null)
+                        Log.d("backgound", buttonColor.getColor() + "");
+             //   }
+
+           /*     if (!_btnBugClicked) {
 
                     //    Button b = (Button) findViewById(R.id.button);
                     // b.setX(100);
@@ -147,8 +163,8 @@ public class MainActivity extends Activity {
                     b.setLayoutParams(params);
                     imgErr.setX(1);
                     //  b.setText(String.valueOf(b.getX()));
-                }
-                Log.d("baaaaaaaaaaaa", b.getLeft() + " " + b.getPaddingLeft() + "  x" + b.getX());
+                }*/
+//
                 // f();
             }
         });
@@ -163,7 +179,7 @@ public class MainActivity extends Activity {
                                                   toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
                                                   toast.show();*/
                                                   String l = s.getDataImage();
-                                                  Log.d("interpret", l);
+                                                  //             Log.d("interpret", l);
                                                   s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
 
                                               }
@@ -220,6 +236,7 @@ public class MainActivity extends Activity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+
     public StringBuilder readdPr() {
         StringBuilder text = new StringBuilder();
         try {
@@ -252,6 +269,12 @@ public class MainActivity extends Activity {
             Log.d("exception", e.toString());
         }
         return text;
+    }
+
+    public int pxToDp(int px) {
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
     }
 
     /*

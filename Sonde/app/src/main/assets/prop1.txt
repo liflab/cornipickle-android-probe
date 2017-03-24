@@ -6,7 +6,7 @@ We say that $x and $y are left-aligned when (
 ).
 
 We say that $x and $y are top-aligned when (
-  $x's top equals $y's top
+  $x's width equals $y's top
 ).
 
 # We then express the fact that all menu items are either
@@ -17,8 +17,8 @@ We say that $x and $y are top-aligned when (
   @description All list items should either be left- or top-aligned.
   @severity Warning
 """
-For each $z in $(linearlayout button) (
-  For each $t in $(linearlayout button) (
+For each $z in $(LinearLayout Button ImageButton) (
+  For each $t in $(LinearLayout Button) (
     ($z and $t are left-aligned)
     Or
     ($z and $t are top-aligned)

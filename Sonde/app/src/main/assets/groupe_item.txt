@@ -1,0 +1,13 @@
+# Define what it means the flat button
+"""
+  @name Menus aligned
+  @description All list should be aigned
+  @severity Warning
+"""
+For each $z in $(RelativeLayout SeekBar) (
+There exists $x in $(RelativeLayout TextView) such that (
+
+    $z's top equals  $x's top
+
+   )
+).

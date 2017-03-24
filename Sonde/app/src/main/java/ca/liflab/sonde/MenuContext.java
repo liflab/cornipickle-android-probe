@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +29,7 @@ public class MenuContext extends SondeActivity{
         listView1.setAdapter(adapter);
         nameFile = "probList.txt";
         // Register the ListView  for Context menu
-        registerForContextMenu(listView1);
+         registerForContextMenu(listView1);
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -74,19 +75,30 @@ public class MenuContext extends SondeActivity{
     public void returnToNormal() {
 
     }
-
+View v;
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
+       // s=new Sonde(this);
+
         super.onCreateContextMenu(menu, v, menuInfo);
+
         menu.setHeaderTitle("Select The Action");
         menu.add(0, v.getId(), 0, "Call");//groupId, itemId, order, title
         menu.add(0, v.getId(), 0, "SMS");
+        this.v=v;
+      //  ViewGroup m =(ViewGroup) menu;
+       // sendActivityUiToServer(m);
+       // menu.getItem(0).
+
     }
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getTitle()=="Call"){
-            Toast.makeText(getApplicationContext(),"calling code",Toast.LENGTH_LONG).show();
+            sendActivityUiToServer(v);
+
+            Toast.makeText(getApplicationContext(),"calling code"+v.getClass().getSimpleName(),Toast.LENGTH_LONG).show();
+            return  false;
         }
         else if(item.getTitle()=="SMS"){
             Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();

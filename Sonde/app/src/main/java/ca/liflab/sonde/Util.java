@@ -6,6 +6,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Created by chafik on 2016-12-08.
  */

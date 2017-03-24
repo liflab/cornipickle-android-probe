@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Debug;
@@ -187,6 +188,21 @@ public class Sonde {
     /*   String data="contents=";*/
         return data;
     }
+    public String getDataImage(View v) {
+        this.getHierarchyActivity(v);
+
+        String data = "";
+        try {
+            data = "contents=" + URLEncoder.encode(jsonObj.toString(), "UTF-8");// "contents=%7B%22tagname%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22tagname%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(jsonObj.toString(),"UTF-8");
+            data += "&interpreter=" + URLEncoder.encode(interpreter, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        data += "&id=" + probe_id;
+        data += "&hash=" + hash;
+    /*   String data="contents=";*/
+        return data;
+    }
 
     /**
      * commencer l'envoie de data
@@ -214,6 +230,11 @@ public class Sonde {
 
     }
 
+    public void getHierarchyActivity(View v) {
+        serialiseWindow();
+        analyseViews((ViewGroup) v, 0, jsonChildreen);
+
+    }
     private void decaler(StringBuffer buffer, int level) {
         for (int i = 0; i < level; i++) {
             buffer.append("  ");
@@ -254,6 +275,18 @@ public class Sonde {
                 jNodeChild.put("top", Util.getAbsoluteTop(v));
             if (isAttributeExists("bottom"))
                 jNodeChild.put("bottom", Util.getAbsoluteBottom(acCurrent, v));
+            if (isAttributeExists("bgcolor")) {
+                //est appelle juste apres setbacgroundcolor
+                if (v.getBackground() instanceof ColorDrawable) {
+                    ColorDrawable vColor = (ColorDrawable) v.getBackground();
+                    if (vColor != null) {
+                        int clr = vColor.getColor();
+                        jNodeChild.put("bgcolor", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
+                    }
+
+                }
+                // jNodeChild.put("backgroundColor", );
+            }
 
 
         } catch (JSONException e) {
@@ -325,12 +358,13 @@ public class Sonde {
         v.getId();
         try {
             JSONObject jNode = new JSONObject();
-            Log.d("_tagname5", v.getClass().getSimpleName());
+            // Log.d("_tagname5", v.getClass().getSimpleName());
 
-            String _tagname = v.getClass().getSimpleName();
+            String _tagname = v.getClass().getName();
 
+            _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);//.toLowerCase();
+            Log.d("_tagname2", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
 
-            Log.d("_tagname1", _tagname + " " + this.lstContainer.size());
             if (canIncludeThisView(jNode, v)) {
 
                 jNode.put("tagname", _tagname);
@@ -383,7 +417,7 @@ public class Sonde {
                     } else {
 
                         _tagname = child.getClass().getName();
-                        _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1).toLowerCase();
+                        _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);//.toLowerCase();
                         Log.d("_tagname", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
                         if (canIncludeThisView(jNodeChild, child)) {
 
@@ -398,20 +432,20 @@ public class Sonde {
                             } else if (child instanceof TextView) {
                                 TextView tx = (TextView) child;
                                 if (isAttributeExists("length"))
-                                jNodeChild.put("length", tx.getText().length());
+                                    jNodeChild.put("length", tx.getText().length());
                                 if (isAttributeExists("text"))
-                                jNodeChild.put("text", tx.getText());
+                                    jNodeChild.put("text", tx.getText());
                                 if (isAttributeExists("color")) {
-                                    int clr=tx.getCurrentTextColor();
-                                    jNodeChild.put("color", "RGB(" + Color.red(clr)+","+Color.green(clr)+","+Color.blue(clr)+")");
+                                    int clr = tx.getCurrentTextColor();
+                                    jNodeChild.put("color", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
                                 }
 
                             } else if (child instanceof EditText) {
                                 EditText tx = (EditText) child;
                                 if (isAttributeExists("length"))
-                                jNodeChild.put("length", tx.getText().length());
+                                    jNodeChild.put("length", tx.getText().length());
                                 if (isAttributeExists("text"))
-                                jNodeChild.put("text", tx.getText());
+                                    jNodeChild.put("text", tx.getText());
                                 if (isAttributeExists("color")) {
                                     int clr = tx.getCurrentTextColor();
                                     jNodeChild.put("color", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
@@ -421,7 +455,7 @@ public class Sonde {
 
                         } else {
 
-                            jNodeChild.put("tagname", "CDATA");
+                            jNodeChild.put("tagname", _tagname);
                         }
 
                         jArrayChild.put(jNodeChild);
@@ -557,7 +591,7 @@ public class Sonde {
                 toast.show();
             } else if (this._requestName == RequestName.image) {
 
-                Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received ",
+                Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received",
                         Toast.LENGTH_LONG);
 
                 toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
@@ -605,7 +639,7 @@ public class Sonde {
 
                 try {
                     if (result != "") {
-                        JSONObject jsonObj = new JSONObject(result);
+                        JSONObject jsonObj = new JSONObject(result.toString());
                         String _inter = jsonObj.getString("global-verdict");
                         JSONArray _hightlight = jsonObj.getJSONArray("highlight-ids");
 
@@ -624,18 +658,19 @@ public class Sonde {
                             JSONObject set_of_tuples1 = (JSONObject) _hightlight.get(j);
                             JSONArray js = set_of_tuples1.getJSONArray("ids");
                             for (int z = 0; z < js.length(); z++) {
-                                JSONArray js2=js.getJSONArray(0);
-
-                                Log.d("zzzzzz", js2.get(0) + "");
-                                int key=js2.getInt(0);
-                                if(idMap.containsKey(key)) {
-                                    View v = acCurrent.findViewById(idMap.get(key).id);
-                                  //  v.setBackgroundResource(R.drawable.shape_border);
-                                }
-                                 key=js2.getInt(1);
-                                if(idMap.containsKey(key)) {
-                                    View v = acCurrent.findViewById(idMap.get(key).id);
-                                 //   v.setBackgroundResource(R.drawable.shape_border);
+                                JSONArray js2 = js.getJSONArray(0);
+                                if (js2.length() > 2) {
+                                    Log.d("zzzzzz", js2.get(0) + "");
+                                    int key = js2.getInt(0);
+                                    if (idMap.containsKey(key)) {
+                                        View v = acCurrent.findViewById(idMap.get(key).id);
+                                        //  v.setBackgroundResource(R.drawable.shape_border);
+                                    }
+                                    key = js2.getInt(1);
+                                    if (idMap.containsKey(key)) {
+                                        View v = acCurrent.findViewById(idMap.get(key).id);
+                                        //   v.setBackgroundResource(R.drawable.shape_border);
+                                    }
                                 }
 
                             }
@@ -646,9 +681,9 @@ public class Sonde {
                         while (it.hasNext()) {
                             int key = it.next();
                             Log.d("Valeur pour la clé ", key + " = " + idMap.get(key).toString());
-                        //    View v = acCurrent.findViewById(idMap.get(key).id);
+                            //    View v = acCurrent.findViewById(idMap.get(key).id);
 
-                           // v.setBackgroundResource(R.drawable.shape_border_none);
+                            // v.setBackgroundResource(R.drawable.shape_border_none);
                         }
 
 
