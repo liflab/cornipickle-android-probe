@@ -10,11 +10,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TouchTargetSize">
+        <activity android:name=".MenuContext">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuContext" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <meta-data
@@ -22,6 +27,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".MisalinedElement"></activity>
+        <activity android:name=".BottomNav"></activity>
+        <activity android:name=".FlatActivity"></activity>
+        <activity android:name=".GoupeItemSlider"></activity>
+        <activity android:name=".TouchTargetSize"></activity>
+        <activity android:name=".CharacterActivityCounter"></activity>
     </application>
 
 </manifest>

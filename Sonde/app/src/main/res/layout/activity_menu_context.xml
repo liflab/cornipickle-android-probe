@@ -10,20 +10,19 @@
         android:id="@+id/lstViewMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="53dp" />
+        android:layout_alignEnd="@+id/txtResult"
+        android:layout_alignRight="@+id/txtResult"
+        android:layout_marginTop="100dp" />
 
     <TextView
-        android:id="@+id/txtResult"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="61dp"
-        android:layout_marginRight="61dp"
-        android:layout_marginTop="21dp"
-        android:text="TextView" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Cornipickle Examples"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>

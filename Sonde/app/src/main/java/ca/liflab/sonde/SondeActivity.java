@@ -1,6 +1,7 @@
 package ca.liflab.sonde;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,7 +38,11 @@ public class SondeActivity extends Activity {
             case KeyEvent.KEYCODE_B:
 
                 return true;
+            case KeyEvent.KEYCODE_BACK:
+                Intent intent = new Intent(this, MenuContext.class);
+                startActivity(intent);
 
+                return true;
             default:
                 return true;
         }

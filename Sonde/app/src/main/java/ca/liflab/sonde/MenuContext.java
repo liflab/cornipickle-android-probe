@@ -1,6 +1,7 @@
 package ca.liflab.sonde;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -16,25 +17,50 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MenuContext extends SondeActivity{
+public class MenuContext extends Activity{
     ListView listView1;
-    String contacts[]={"it1","ite2","i3","i4","i5"};
+    String activities[]={"Bottom Navigation","Groupe Item","Text Field","target touch size","Button Flat","List View","Button Floating"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_context);
         listView1=(ListView)findViewById(R.id.lstViewMenu);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,contacts);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,activities);
         listView1.setAdapter(adapter);
-        nameFile = "probList.txt";
+       // nameFile = "probList.txt";
         // Register the ListView  for Context menu
-         registerForContextMenu(listView1);
+        // registerForContextMenu(listView1);
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
+
+                switch (position){
+
+
+                    case 0:{
+                        Intent intent = new Intent(view.getContext(), BottomNav.class);
+                        startActivity(intent);
+                    } break;
+                    case 1:{
+                        Intent intent = new Intent(view.getContext(), GoupeItemSlider.class);
+                        startActivity(intent);
+                    } break;
+                    case 2:{
+                        Intent intent = new Intent(view.getContext(), CharacterActivityCounter.class);
+                        startActivity(intent);
+                    } break;
+                    case 3:{
+                        Intent intent = new Intent(view.getContext(), TouchTargetSize.class);
+                        startActivity(intent);
+                    } break;
+                    case 4:{
+                        Intent intent = new Intent(view.getContext(), FlatActivity.class);
+                        startActivity(intent);
+                    } break;
+                }
 
                 // Display the selected item text on TextView
             //    view.setText("Your favorite : " + selectedItem);
@@ -95,7 +121,7 @@ View v;
     @Override
     public boolean onContextItemSelected(MenuItem item){
         if(item.getTitle()=="Call"){
-            sendActivityUiToServer(v);
+          //  sendActivityUiToServer(v);
 
             Toast.makeText(getApplicationContext(),"calling code"+v.getClass().getSimpleName(),Toast.LENGTH_LONG).show();
             return  false;
