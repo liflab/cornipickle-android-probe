@@ -17,7 +17,6 @@ public class FloatingButton extends SondeActivity {
         nameFile = "floating_button.txt";
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +56,17 @@ public class FloatingButton extends SondeActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Snackbar.make(view, "It's a wrong action", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Action", null).show();
+
+
             }
         });
     }
 
     public void returnToNormal() {
+
         setContentView(R.layout.activity_floating_button);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 

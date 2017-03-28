@@ -88,6 +88,7 @@ public class Sonde {
 
     ArrayList<String> lstAttributes = new ArrayList<String>();
 
+
     ArrayList<String> lstContainer = new ArrayList<String>();
     int cornipickleid = 0;
     Map<Integer, infoHighId> idMap = new HashMap<Integer, infoHighId>();
@@ -303,6 +304,8 @@ public class Sonde {
                 jNodeChild.put("top", Util.getAbsoluteTop(v));
             if (isAttributeExists("bottom"))
                 jNodeChild.put("bottom", Util.getAbsoluteBottom(acCurrent, v));
+            if (isAttributeExists("size") && v instanceof  ViewGroup)
+                jNodeChild.put("size", ((ViewGroup) v).getChildCount());
             if (isAttributeExists("bgcolor")) {
                 //est appelle juste apres setbacgroundcolor
                 if (v.getBackground() instanceof ColorDrawable) {
@@ -322,7 +325,7 @@ public class Sonde {
                     if ((event.getAction() == MotionEvent.ACTION_DOWN))
                         jNodeChild.put("event","click");
                    else if ((event.getAction() == MotionEvent.ACTION_UP))
-                        jNodeChild.put("event","action_up");
+                        jNodeChild.put("event","ACTION_UP");
                    else if ((event.getAction() == MotionEvent.ACTION_MOVE))
                         jNodeChild.put("event","move");
                 }
@@ -409,6 +412,7 @@ public class Sonde {
 
             _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);//.toLowerCase();
             Log.d("_tagname2", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
+
 
             if (canIncludeThisView(jNode, v)) {
 
