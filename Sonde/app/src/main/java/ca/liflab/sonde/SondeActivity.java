@@ -2,18 +2,17 @@ package ca.liflab.sonde;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 
 public class SondeActivity extends Activity {
     Sonde s;
@@ -28,32 +27,35 @@ public class SondeActivity extends Activity {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
+
         switch (keyCode) {
-            case KeyEvent.KEYCODE_I:
-                sendActivityUiToServer();
-                return true;
+            /*
             case KeyEvent.KEYCODE_A:
-                sendPropToserver(nameFile);
+              //  sendPropToserver(nameFile);
                 return true;
             case KeyEvent.KEYCODE_B:
 
-                return true;
+                return true;*/
             case KeyEvent.KEYCODE_BACK:
-                Intent intent = new Intent(this, MenuContext.class);
+                Intent intent = new Intent(this, MenuListManager.class);
                 startActivity(intent);
 
                 return true;
             default:
+                sendActivityUiToServer(null);
                 return true;
+
         }
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (s == null ||  (s!=null && s.acCurrent!=this)) {
+        if (s == null || (s != null && s.acCurrent != this)) {
             s = new Sonde(this);
+            sendPropToserver(nameFile);
         }
-        displayTost("you can send know prop");
+        displayTost("you can send  now prop");
+
 
     }
 
@@ -68,20 +70,22 @@ public class SondeActivity extends Activity {
 
     }
 
-    protected void sendActivityUiToServer() {
+    protected void sendActivityUiToServer(MotionEvent event) {
 
-        String l = s.getDataImage();
+        String l = s.getDataImage(event);
         //Log.d("interpret", l);
         s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
 
     }
-    protected void sendActivityUiToServer(View v) {
 
-        String l = s.getDataImage(v);
+    protected void sendActivityUiToServer(View v, MotionEvent event) {
+
+        String l = s.getDataImage(v, event);
         //Log.d("interpret", l);
         s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
 
     }
+
     public void displayTost(String msg) {
 
 
@@ -108,5 +112,18 @@ public class SondeActivity extends Activity {
             Log.d("exception", e.toString());
         }
         return text;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+
+       // if()
+
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+            sendActivityUiToServer(event);
+        }
+        return super.dispatchTouchEvent(event);
     }
 }

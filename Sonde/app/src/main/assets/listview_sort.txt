@@ -1,0 +1,13 @@
+# Define what it means to be sort
+"""
+ @name ListView sort
+ @description All list should be sort
+ @severity Warning
+"""
+
+For each $x in $(ListView TextView) (
+   For each $y in $(ListView TextView) (
+       If ($y's top is greater than $x's top)
+       Then ($y's text is greater than $x's text)
+   )
+).

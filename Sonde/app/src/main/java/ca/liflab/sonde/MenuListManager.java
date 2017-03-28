@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -17,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MenuContext extends Activity{
+public class MenuListManager extends Activity{
     ListView listView1;
     String activities[]={"Bottom Navigation","Groupe Item","Text Field","target touch size","Button Flat","List View","Button Floating"};
 
@@ -37,7 +38,7 @@ public class MenuContext extends Activity{
                 // Get the selected item text from ListView
                 String selectedItem = (String) parent.getItemAtPosition(position);
 
-                switch (position){
+               switch (position){
 
 
                     case 0:{
@@ -60,6 +61,14 @@ public class MenuContext extends Activity{
                         Intent intent = new Intent(view.getContext(), FlatActivity.class);
                         startActivity(intent);
                     } break;
+                    case 5:{
+                        Intent intent = new Intent(view.getContext(), SortElement.class);
+                        startActivity(intent);
+                    } break;
+                   case 6:{
+                       Intent intent = new Intent(view.getContext(), FloatingButton.class);
+                       startActivity(intent);
+                   } break;
                 }
 
                 // Display the selected item text on TextView

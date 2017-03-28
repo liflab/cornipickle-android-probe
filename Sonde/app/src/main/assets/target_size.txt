@@ -1,19 +1,12 @@
-# Define what it means the flat button
-#link https://material.io/guidelines/components/buttons.html#buttons-style
-We say that $x is Button1 when (
-  (($x's width  is greater than  88) And ($x's height is greater than  48))   And
-  ( Not ($x's bgcolor matches "RGB\(0,0,0\)") )
-
-).
-
 
 """
-  @name Menus aligned
-  @description All list items
+  @name Accommodate floating action button
+  @description The button should not be hidden
   @severity Warning
 """
+For each $x in $(Button) (
+    For each $y in $(Button) (
 
-For each $z in $(Button) (
-
-$z is Button1
+    (((($x's top addto $x's bottom) / 2) addto ($x's height / 2)) addto ((($y's top addto $y's bottom) / 2) addto ($y's height / 2))) is less than 20
+    )
 ).

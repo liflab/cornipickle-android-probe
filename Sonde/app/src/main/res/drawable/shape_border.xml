@@ -3,7 +3,9 @@
 
 
     <stroke
-        android:width="0.5dp"
-        android:color="#fd0261" ></stroke>
+        android:width="3dp"
+        android:color="#fd0261"
+        android:dashWidth="30dp"
+        ></stroke>
 
 </shape>

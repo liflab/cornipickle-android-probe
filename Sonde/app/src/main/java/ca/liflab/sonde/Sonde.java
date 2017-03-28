@@ -13,6 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -126,6 +127,31 @@ public class Sonde {
 
     }
 
+
+
+
+
+    /**
+     * Determines if given points are inside view
+     * @param x - x coordinate of point
+     * @param y - y coordinate of point
+     * @param view - view object to compare
+     * @return true if the points are within view bounds, false otherwise
+     */
+    public static boolean isViewContains(View view,float x, float y){
+        int location[] = new int[2];
+        view.getLocationOnScreen(location);
+        int viewX = location[0];
+        int viewY = location[1];
+
+        //point is inside view bounds
+        if(( x > viewX && x < (viewX + view.getWidth())) &&
+                ( y > viewY && y < (viewY + view.getHeight()))){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public enum RequestName {
 
         add,
@@ -173,8 +199,8 @@ public class Sonde {
 
     }
 
-    public String getDataImage() {
-        this.getHierarchyActivity();
+    public String getDataImage(MotionEvent event) {
+        this.getHierarchyActivity(event);
 
         String data = "";
         try {
@@ -188,8 +214,9 @@ public class Sonde {
     /*   String data="contents=";*/
         return data;
     }
-    public String getDataImage(View v) {
-        this.getHierarchyActivity(v);
+
+    public String getDataImage(View v,MotionEvent event) {
+        this.getHierarchyActivity(v,event);
 
         String data = "";
         try {
@@ -224,24 +251,25 @@ public class Sonde {
 
     }
 
-    public void getHierarchyActivity() {
+    public void getHierarchyActivity(MotionEvent event) {
         serialiseWindow();
-        analyseViews((ViewGroup) this._view, 0, jsonChildreen);
+        analyseViews((ViewGroup) this._view, 0, jsonChildreen,event);
 
     }
 
-    public void getHierarchyActivity(View v) {
+    public void getHierarchyActivity(View v,MotionEvent event) {
         serialiseWindow();
-        analyseViews((ViewGroup) v, 0, jsonChildreen);
+        analyseViews((ViewGroup) v, 0, jsonChildreen,event);
 
     }
+
     private void decaler(StringBuffer buffer, int level) {
         for (int i = 0; i < level; i++) {
             buffer.append("  ");
         }
     }
 
-    boolean isAttributeExists(String property_name) {
+  public   boolean isAttributeExists(String property_name) {
 
 
         if (lstAttributes.contains(property_name))
@@ -251,7 +279,7 @@ public class Sonde {
         return false;
     }
 
-    void addAttributeIfDefined(JSONObject jNodeChild, View v) {
+    void addAttributeIfDefined(JSONObject jNodeChild, View v, MotionEvent event) {
         try {
 
             // jNodeChild.put("id", v.getId());
@@ -262,9 +290,9 @@ public class Sonde {
             //v.getResources().getResourceEntryName(v.getId()
             //    jNodeChild.put("idl", res.getResourceEntryName(view.getId());
             if (isAttributeExists("width"))
-                jNodeChild.put("width", v.getWidth());
+                jNodeChild.put("width", Util.pxToDp(v.getWidth(), acCurrent));
             if (isAttributeExists("height"))
-                jNodeChild.put("height", v.getHeight());
+                jNodeChild.put("height", Util.pxToDp(v.getHeight(), acCurrent));
             Random r = new Random();
             //   int i1 = r.nextInt(500 - 20) + 20;
             if (isAttributeExists("left"))
@@ -287,7 +315,25 @@ public class Sonde {
                 }
                 // jNodeChild.put("backgroundColor", );
             }
+            if (isAttributeExists("event") && event!=null) {
 
+
+                if(isViewContains(v,(int) event.getX(), (int)event.getY())){
+                    if ((event.getAction() == MotionEvent.ACTION_DOWN))
+                        jNodeChild.put("event","click");
+                   else if ((event.getAction() == MotionEvent.ACTION_UP))
+                        jNodeChild.put("event","action_up");
+                   else if ((event.getAction() == MotionEvent.ACTION_MOVE))
+                        jNodeChild.put("event","move");
+                }
+            }
+            if (isAttributeExists("parent")) {
+
+
+
+                        jNodeChild.put("parent",v.getParent().getClass().getSimpleName());
+
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -313,9 +359,7 @@ public class Sonde {
         String _tagname = v.getClass().getSimpleName();
         for (String s : lstContainer) {
 
-
             if (s.toLowerCase().equals(_tagname.toLowerCase())) {
-
 
                 return true;
             }
@@ -331,6 +375,7 @@ public class Sonde {
                 }
                 return true;
             }
+
 
         }
 
@@ -353,7 +398,7 @@ public class Sonde {
 
      */
 
-    public void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren) {
+    public void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren,MotionEvent event) {
         final int childCount = v.getChildCount();
         v.getId();
         try {
@@ -369,7 +414,7 @@ public class Sonde {
 
                 jNode.put("tagname", _tagname);
 
-                addAttributeIfDefined(jNode, v);
+                addAttributeIfDefined(jNode, v,event);
             }
             jsArrayChildren.put(jNode);
 
@@ -412,17 +457,18 @@ public class Sonde {
                         //  jsonChildreen.put(jsonObj);
                         jNodeChild.put("children", jArrayChild);
                         //   jNode.put(String.valueOf(i),jNodeChild);
-                        analyseViews((ViewGroup) child, level + 1, jArrayChild);
+                        analyseViews((ViewGroup) child, level + 1, jArrayChild,event);
 
                     } else {
 
                         _tagname = child.getClass().getName();
                         _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);//.toLowerCase();
                         Log.d("_tagname", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
+
                         if (canIncludeThisView(jNodeChild, child)) {
 
                             jNodeChild.put("tagname", _tagname);
-                            addAttributeIfDefined(jNodeChild, child);
+                            addAttributeIfDefined(jNodeChild, child,event);
 
                             if (child instanceof Button) {
 
@@ -452,11 +498,18 @@ public class Sonde {
                                 }
 
                             }
+                            else {
 
-                        } else {
+                                jNodeChild.put("CDATA", _tagname);
+                            }
 
-                            jNodeChild.put("tagname", _tagname);
-                        }
+
+
+                        } /*else {
+
+                            jNodeChild.put("", _tagname);
+                        }*/
+                        if(jNodeChild.length()>0)
 
                         jArrayChild.put(jNodeChild);
 
@@ -659,18 +712,14 @@ public class Sonde {
                             JSONArray js = set_of_tuples1.getJSONArray("ids");
                             for (int z = 0; z < js.length(); z++) {
                                 JSONArray js2 = js.getJSONArray(0);
-                                if (js2.length() > 2) {
-                                    Log.d("zzzzzz", js2.get(0) + "");
-                                    int key = js2.getInt(0);
+                               for(int h=0;h< js2.length();h++) {
+                                    Log.d("zzzzzz", js2.get(h) + "");
+                                    int key = js2.getInt(h);
                                     if (idMap.containsKey(key)) {
                                         View v = acCurrent.findViewById(idMap.get(key).id);
-                                        //  v.setBackgroundResource(R.drawable.shape_border);
+                                        v.setBackgroundResource(R.drawable.shape_border);
                                     }
-                                    key = js2.getInt(1);
-                                    if (idMap.containsKey(key)) {
-                                        View v = acCurrent.findViewById(idMap.get(key).id);
-                                        //   v.setBackgroundResource(R.drawable.shape_border);
-                                    }
+
                                 }
 
                             }

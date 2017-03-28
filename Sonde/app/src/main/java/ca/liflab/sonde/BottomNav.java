@@ -1,12 +1,16 @@
 package ca.liflab.sonde;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 public class BottomNav extends SondeActivity {
 
@@ -14,9 +18,37 @@ public class BottomNav extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_navigation);
-        nameFile = "probButtomNav.txt";
-    }
 
+       nameFile = "probButtomNav.txt";
+       // nameFile = "floating_button.txt";
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_navigation);
+
+        RelativeLayout layout=(RelativeLayout)findViewById(R.id.ex);
+        layout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_favorites:
+
+                            case R.id.action_schedules:
+
+                            case R.id.action_music:
+
+                        }
+                        return true;
+                    }
+                });
+    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -39,7 +71,6 @@ public class BottomNav extends SondeActivity {
     public void generateBug() {
 
         setContentView(R.layout.bottom_navigation_two_item);
-
 
     }
 

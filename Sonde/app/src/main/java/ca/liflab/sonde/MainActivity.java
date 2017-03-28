@@ -122,6 +122,7 @@ public class MainActivity extends Activity {
         final TextView imgErr = (TextView) findViewById(R.id.imgError);
         btnBox.setOnClickListener(boutonClik);
 
+
         _btnBug.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -138,6 +139,11 @@ public class MainActivity extends Activity {
                     ColorDrawable buttonColor = (ColorDrawable) b.getBackground();
                     if (buttonColor != null)
                         Log.d("backgound", buttonColor.getColor() + "");
+
+
+
+            //    getResources(R.attr.background);
+            //    R.style.AppNew
              //   }
 
            /*     if (!_btnBugClicked) {
@@ -178,7 +184,7 @@ public class MainActivity extends Activity {
                                                   );
                                                   toast.setGravity(Gravity.CENTER | Gravity.LEFT, 0, 0);
                                                   toast.show();*/
-                                                  String l = s.getDataImage();
+                                                  String l = s.getDataImage(null);
                                                   //             Log.d("interpret", l);
                                                   s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
 

@@ -28,7 +28,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged (boolean hasFocus) {
         Sonde s=new Sonde(this);
-        s.getHierarchyActivity();
+        s.getHierarchyActivity(null);
        // Log.d("sonde", s.getHierarchyActivity());
         Log.d("sonde1", s.jsonObj.toString());
     //    s.sendStart("http://192.168.2.12:10101/mobiletest/",s.jsonObj.toString(), Sonde.RequestName.autre);

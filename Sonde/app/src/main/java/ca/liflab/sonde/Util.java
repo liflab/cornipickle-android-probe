@@ -92,5 +92,10 @@ public class Util {
         return right;
     }
 
+    public static int pxToDp(int px,Activity ac) {
+        DisplayMetrics displayMetrics = ac.getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
+    }
 
 }

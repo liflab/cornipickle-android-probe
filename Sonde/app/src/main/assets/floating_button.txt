@@ -1,0 +1,27 @@
+# Define what it means to be hidden
+
+
+We say that I click on button when (
+  	There exists $x in $(FloatingActionButton) such that (
+  		$x's event is "click"
+  	)
+  ).
+
+"""
+  @name Accommodate floating action button
+  @description The button should not be hidden
+  @severity Warning
+"""
+
+Always (
+  If (I click on button)
+   Then (
+      There exists $x in $(#fab) such that (
+
+          There exists $y in $(TextView) such that(
+            ($y's top  - $x's top) is greater than $x's height
+          )
+        )
+
+      )
+   ).
