@@ -7,107 +7,34 @@
     tools:context="ca.liflab.sonde.TouchTargetSize"
  >
 
-    <TextView
-        android:id="@+id/txtResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/button9"
-        android:layout_alignStart="@+id/button9" />
-
     <Button
-        android:id="@+id/button9"
+
+        android:id="@+id/button12"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
+
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtResult"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
         android:layout_marginTop="35dp"
+        android:tag="tag1"
         android:text="Button" />
 
     <Button
-        android:id="@+id/button10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button9"
-        android:layout_marginLeft="86dp"
-        android:layout_marginStart="86dp"
-        android:layout_toEndOf="@+id/button9"
-        android:layout_toRightOf="@+id/button9"
-        android:text="Button" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="106dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-        android:layout_below="@+id/button10"
-        android:layout_toLeftOf="@+id/imageButton4"
-        android:layout_toStartOf="@+id/imageButton4" />
+        android:id="@+id/button11"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-        android:layout_alignTop="@+id/imageButton3"
-        android:layout_alignLeft="@+id/button10"
-        android:layout_alignStart="@+id/button10" />
+        android:tag="tag1"
+        android:text="Button"
+        android:layout_marginLeft="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_below="@+id/button12"
+        android:layout_alignLeft="@+id/button12"
+        android:layout_alignStart="@+id/button12"
+        android:layout_marginTop="23dp" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button9"
-        android:layout_alignStart="@+id/button9"
-        android:layout_below="@+id/button9"
-        android:layout_marginTop="42dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_below="@+id/imageButton3"
-        android:layout_marginTop="69dp"
-        android:text="TextView" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_alignStart="@+id/imageButton3"
-        android:layout_alignTop="@+id/textView7"
-        android:text="CheckBox" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox"
-        android:layout_alignStart="@+id/checkBox"
-        android:layout_below="@+id/checkBox"
-        android:layout_marginTop="27dp"
-        android:text="CheckBox" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox2"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/imageButton4"
-        android:layout_toRightOf="@+id/imageButton4"
-        android:text="TextView" />
 
 </RelativeLayout>

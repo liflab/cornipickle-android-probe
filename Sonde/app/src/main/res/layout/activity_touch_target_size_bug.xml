@@ -7,57 +7,55 @@
     tools:context="ca.liflab.sonde.TouchTargetSize"
  >
 
-    <TextView
-        android:id="@+id/txtResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/button9"
-        android:layout_alignStart="@+id/button9" />
-
     <Button
         android:id="@+id/button9"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/txtResult"
         android:layout_marginLeft="21dp"
         android:layout_marginStart="21dp"
         android:layout_marginTop="35dp"
-        android:text="Button" />
+        android:tag="tag1"
+        android:text="Button"
+
+        />
 
     <Button
         android:id="@+id/button10"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignTop="@+id/button9"
-        android:text="Button"
-        android:layout_toEndOf="@+id/button9"
-        android:layout_alignLeft="@+id/button9"
-        android:layout_alignStart="@+id/button9" />
+        android:layout_width="46dp"
+        android:layout_height="48dp"
+        android:layout_above="@+id/textView6"
+        android:layout_alignEnd="@+id/checkBox"
+        android:layout_alignRight="@+id/checkBox"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        android:tag="tag1"
+        android:text="Button" />
 
     <ImageButton
         android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="106dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:tag="tag1"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal"
-        android:layout_below="@+id/button10"
-        android:layout_toLeftOf="@+id/imageButton4"
-        android:layout_toStartOf="@+id/imageButton4" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/button9"
+        android:layout_toEndOf="@+id/button9"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp" />
 
     <ImageButton
         android:id="@+id/imageButton4"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:layout_alignLeft="@+id/button10"
         android:layout_alignStart="@+id/button10"
         android:layout_alignTop="@+id/imageButton3"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
+        android:tag="tag1"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark_normal" />
 
     <TextView
@@ -68,7 +66,9 @@
         android:layout_alignStart="@+id/button9"
         android:layout_below="@+id/button9"
         android:layout_marginTop="42dp"
-        android:text="TextView" />
+        android:text="TextView"
+
+        />
 
     <TextView
         android:id="@+id/textView7"
@@ -93,11 +93,11 @@
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox"
-        android:layout_alignStart="@+id/checkBox"
+        android:text="CheckBox"
+        android:tag="tag1"
         android:layout_below="@+id/checkBox"
-        android:layout_marginTop="27dp"
-        android:text="CheckBox" />
+        android:layout_alignLeft="@+id/textView7"
+        android:layout_alignStart="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView9"
@@ -107,6 +107,7 @@
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/imageButton4"
         android:layout_toRightOf="@+id/imageButton4"
-        android:text="TextView" />
+        android:text="TextView"
+        />
 
 </RelativeLayout>

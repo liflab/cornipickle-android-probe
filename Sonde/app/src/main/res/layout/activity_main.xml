@@ -97,19 +97,6 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/btnStart"
-        android:layout_toRightOf="@+id/btnInterpreter"
-        android:layout_toEndOf="@+id/btnInterpreter"
-        android:layout_marginLeft="9dp"
-        android:layout_marginStart="9dp"
-        android:id="@+id/lblResult"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:gravity="center"
-        android:background="@color/common_action_bar_splitter" />
-
-    <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

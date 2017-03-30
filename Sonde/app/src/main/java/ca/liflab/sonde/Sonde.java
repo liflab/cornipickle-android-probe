@@ -8,12 +8,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Debug;
 import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -129,30 +131,29 @@ public class Sonde {
     }
 
 
-
-
-
     /**
      * Determines if given points are inside view
-     * @param x - x coordinate of point
-     * @param y - y coordinate of point
+     *
+     * @param x    - x coordinate of point
+     * @param y    - y coordinate of point
      * @param view - view object to compare
      * @return true if the points are within view bounds, false otherwise
      */
-    public static boolean isViewContains(View view,float x, float y){
+    public static boolean isViewContains(View view, float x, float y) {
         int location[] = new int[2];
         view.getLocationOnScreen(location);
         int viewX = location[0];
         int viewY = location[1];
 
         //point is inside view bounds
-        if(( x > viewX && x < (viewX + view.getWidth())) &&
-                ( y > viewY && y < (viewY + view.getHeight()))){
+        if ((x > viewX && x < (viewX + view.getWidth())) &&
+                (y > viewY && y < (viewY + view.getHeight()))) {
             return true;
         } else {
             return false;
         }
     }
+
     public enum RequestName {
 
         add,
@@ -187,6 +188,7 @@ public class Sonde {
             jsonObj.put("device-height", Util.getHeight(acCurrent));
             jsonObj.put("url", "");
             jsonObj.put("device-aspect-ratio", Util.getAspectRatio(acCurrent));
+            jsonObj.put("device-density", Util.getDensity(acCurrent));
             this.jsonChildreen = new JSONArray();
 
             jsonObj.put("children", jsonChildreen);
@@ -216,8 +218,8 @@ public class Sonde {
         return data;
     }
 
-    public String getDataImage(View v,MotionEvent event) {
-        this.getHierarchyActivity(v,event);
+    public String getDataImage(View v, MotionEvent event) {
+        this.getHierarchyActivity(v, event);
 
         String data = "";
         try {
@@ -254,13 +256,13 @@ public class Sonde {
 
     public void getHierarchyActivity(MotionEvent event) {
         serialiseWindow();
-        analyseViews((ViewGroup) this._view, 0, jsonChildreen,event);
+        analyseViews((ViewGroup) this._view, 0, jsonChildreen, event);
 
     }
 
-    public void getHierarchyActivity(View v,MotionEvent event) {
+    public void getHierarchyActivity(View v, MotionEvent event) {
         serialiseWindow();
-        analyseViews((ViewGroup) v, 0, jsonChildreen,event);
+        analyseViews((ViewGroup) v, 0, jsonChildreen, event);
 
     }
 
@@ -270,7 +272,7 @@ public class Sonde {
         }
     }
 
-  public   boolean isAttributeExists(String property_name) {
+    public boolean isAttributeExists(String property_name) {
 
 
         if (lstAttributes.contains(property_name))
@@ -289,11 +291,24 @@ public class Sonde {
             idMap.put(cornipickleid, new infoHighId(v.getId(), v.getWidth(), Util.getAbsoluteLeft(v), Util.getAbsoluteTop(v), v.getHeight()));
             // res.getResourceEntryName(view.getId())
             //v.getResources().getResourceEntryName(v.getId()
-            //    jNodeChild.put("idl", res.getResourceEntryName(view.getId());
+            if (isAttributeExists("id"))
+                if (v.getResources() != null) {
+                    String s = v.getResources().getResourceEntryName(v.getId());
+                   /* if (isAttributeExists("id") && s!=null) {
+
+                        jNodeChild.put("id", s);
+                    } else*/
+                    jNodeChild.put("id", s);
+
+                }
+            if (isAttributeExists("widthdp"))
+                jNodeChild.put("widthdp", Util.pxToDp(v.getWidth(), acCurrent));
+            if (isAttributeExists("heightdp"))
+                jNodeChild.put("heightdp", Util.pxToDp(v.getHeight(), acCurrent));
             if (isAttributeExists("width"))
-                jNodeChild.put("width", Util.pxToDp(v.getWidth(), acCurrent));
+                jNodeChild.put("width", v.getWidth());
             if (isAttributeExists("height"))
-                jNodeChild.put("height", Util.pxToDp(v.getHeight(), acCurrent));
+                jNodeChild.put("height", v.getHeight());
             Random r = new Random();
             //   int i1 = r.nextInt(500 - 20) + 20;
             if (isAttributeExists("left"))
@@ -304,7 +319,7 @@ public class Sonde {
                 jNodeChild.put("top", Util.getAbsoluteTop(v));
             if (isAttributeExists("bottom"))
                 jNodeChild.put("bottom", Util.getAbsoluteBottom(acCurrent, v));
-            if (isAttributeExists("size") && v instanceof  ViewGroup)
+            if (isAttributeExists("size") && v instanceof ViewGroup)
                 jNodeChild.put("size", ((ViewGroup) v).getChildCount());
             if (isAttributeExists("bgcolor")) {
                 //est appelle juste apres setbacgroundcolor
@@ -315,26 +330,26 @@ public class Sonde {
                         jNodeChild.put("bgcolor", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
                     }
 
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    jNodeChild.put("bgcolor", v.getBackground().getColorFilter());
                 }
-                // jNodeChild.put("backgroundColor", );
             }
-            if (isAttributeExists("event") && event!=null) {
+            if (isAttributeExists("event") && event != null) {
 
 
-                if(isViewContains(v,(int) event.getX(), (int)event.getY())){
+                if (isViewContains(v, (int) event.getX(), (int) event.getY())) {
                     if ((event.getAction() == MotionEvent.ACTION_DOWN))
-                        jNodeChild.put("event","click");
-                   else if ((event.getAction() == MotionEvent.ACTION_UP))
-                        jNodeChild.put("event","ACTION_UP");
-                   else if ((event.getAction() == MotionEvent.ACTION_MOVE))
-                        jNodeChild.put("event","move");
+                        jNodeChild.put("event", "click");
+                    else if ((event.getAction() == MotionEvent.ACTION_UP))
+                        jNodeChild.put("event", "ACTION_UP");
+                    else if ((event.getAction() == MotionEvent.ACTION_MOVE))
+                        jNodeChild.put("event", "move");
                 }
             }
             if (isAttributeExists("parent")) {
 
 
-
-                        jNodeChild.put("parent",v.getParent().getClass().getSimpleName());
+                jNodeChild.put("parent", v.getParent().getClass().getSimpleName());
 
             }
 
@@ -366,10 +381,15 @@ public class Sonde {
 
                 return true;
             }
-            //  int ID = Integer.parseInt("R.id."+s.substring(1));
+            if ((v.getTag() != null) && s.startsWith(".") && s.toLowerCase().equals("." + v.getTag().toString().toLowerCase())) {
+                try {
+                    jNodeChild.put("class", s.substring(1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
 
-            //  Log.d("gogogog",getidResourceByName(s.substring(1)) + " " +s.substring(1) +" "  + " "+v.getId());
-            //txtResult
             if (s.startsWith("#") && getidResourceByName(s.substring(1)) == v.getId()) {
                 try {
                     jNodeChild.put("id", s.substring(1));
@@ -378,7 +398,15 @@ public class Sonde {
                 }
                 return true;
             }
-
+            // all
+            if ((s.startsWith(".") && s.toLowerCase().equals(".all"))) {
+                try {
+                    jNodeChild.put("class", s.substring(1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
 
         }
 
@@ -401,7 +429,7 @@ public class Sonde {
 
      */
 
-    public void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren,MotionEvent event) {
+    public void analyseViews(ViewGroup v, int level, JSONArray jsArrayChildren, MotionEvent event) {
         final int childCount = v.getChildCount();
         v.getId();
         try {
@@ -418,7 +446,7 @@ public class Sonde {
 
                 jNode.put("tagname", _tagname);
 
-                addAttributeIfDefined(jNode, v,event);
+                addAttributeIfDefined(jNode, v, event);
             }
             jsArrayChildren.put(jNode);
 
@@ -457,11 +485,8 @@ public class Sonde {
 
                     if ((child instanceof ViewGroup)) {
 
-
-                        //  jsonChildreen.put(jsonObj);
                         jNodeChild.put("children", jArrayChild);
-                        //   jNode.put(String.valueOf(i),jNodeChild);
-                        analyseViews((ViewGroup) child, level + 1, jArrayChild,event);
+                        analyseViews((ViewGroup) child, level + 1, jArrayChild, event);
 
                     } else {
 
@@ -472,11 +497,11 @@ public class Sonde {
                         if (canIncludeThisView(jNodeChild, child)) {
 
                             jNodeChild.put("tagname", _tagname);
-                            addAttributeIfDefined(jNodeChild, child,event);
+                            addAttributeIfDefined(jNodeChild, child, event);
 
                             if (child instanceof Button) {
-
-                                jNodeChild.put("text", ((Button) child).getText());
+                                if (isAttributeExists("text"))
+                                    jNodeChild.put("text", ((Button) child).getText());
 
 
                             } else if (child instanceof TextView) {
@@ -501,21 +526,19 @@ public class Sonde {
                                     jNodeChild.put("color", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
                                 }
 
-                            }
-                            else {
+                            }/* else {
 
                                 jNodeChild.put("CDATA", _tagname);
-                            }
-
+                            }*/
 
 
                         } /*else {
 
                             jNodeChild.put("", _tagname);
                         }*/
-                        if(jNodeChild.length()>0)
+                        if (jNodeChild.length() > 0)
 
-                        jArrayChild.put(jNodeChild);
+                            jArrayChild.put(jNodeChild);
 
 // fin else
                     }
@@ -644,15 +667,15 @@ public class Sonde {
                 Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
                         Toast.LENGTH_LONG);
 
-                toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
+                toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
                 toast.show();
             } else if (this._requestName == RequestName.image) {
 
-                Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received",
+               /* Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received",
                         Toast.LENGTH_LONG);
 
                 toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-                toast.show();
+                toast.show();*/
 
             }
 
@@ -700,15 +723,61 @@ public class Sonde {
                         String _inter = jsonObj.getString("global-verdict");
                         JSONArray _hightlight = jsonObj.getJSONArray("highlight-ids");
 
-                        TextView txtView = (TextView) acCurrent.findViewById(R.id.txtResult);
-                        txtView.setText(_inter);
+                        //  TextView txtView = (TextView) acCurrent.findViewById(R.id.txtResult);
+                        //  txtView.setText(_inter);
                         Log.e("verdict", _inter + "/n" + _hightlight.toString());
                         //Nous récupérons un Set contenant des entiers
-                        Set<Integer> setInt = idMap.keySet();
+                        //      Set<Integer> setInt = idMap.keySet();
                         //Utilisation d'un itérateur générique
-                        Iterator<Integer> it = setInt.iterator();
+                        //   Iterator<Integer> it = setInt.iterator();
+                        // create the layout params that will be used to define how your
+                        // button will be displayed
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+
                         System.out.println("Parcours d'une Map avec keySet : ");
-                        RelativeLayout l5 = (RelativeLayout) acCurrent.findViewById(R.id.prest);
+                        ViewGroup vForResult = (ViewGroup) acCurrent.findViewById(android.R.id.content);
+                        if (vForResult != null) {
+                            RelativeLayout lr = (RelativeLayout) vForResult.findViewWithTag("lrResult");
+                            //Button btn=new Button(acCurrent);
+
+                            if (lr == null) {
+                                // params.set
+                                // Create LinearLayout
+                                lr = new RelativeLayout(acCurrent);
+                                lr.setLayoutParams(params);
+                                lr.setTag("lrResult");
+                                vForResult.addView(lr);
+
+
+                            }
+
+                            Button btn = (Button) lr.findViewWithTag("btnResult");
+                            if (btn == null) {
+                                btn = new Button(acCurrent);
+                                btn.setTag("btnResult");
+                                btn.setId(0);
+                                btn.setLayoutParams(params);
+                                lr.addView(btn);
+                                params.addRule(RelativeLayout.LEFT_OF, btn.getId());
+                                params.width = 80;
+                                params.height = 80;
+                                btn.setLayoutParams(params);
+                            }
+
+
+                            if (btn != null) {
+                                if (_inter.toLowerCase().equals("true") || _inter.toLowerCase().equals("inconclusive"))
+                                    btn.setBackgroundColor(Color.GREEN);
+                                else btn.setBackgroundColor(Color.RED);
+                                btn.setText("");
+
+                            }
+
+
+                        }
                         // Highlight elements, if any
                         for (int j = 0; j < _hightlight.length(); j++) {
 
@@ -716,12 +785,13 @@ public class Sonde {
                             JSONArray js = set_of_tuples1.getJSONArray("ids");
                             for (int z = 0; z < js.length(); z++) {
                                 JSONArray js2 = js.getJSONArray(0);
-                               for(int h=0;h< js2.length();h++) {
+                                for (int h = 0; h < js2.length(); h++) {
                                     Log.d("zzzzzz", js2.get(h) + "");
                                     int key = js2.getInt(h);
                                     if (idMap.containsKey(key)) {
                                         View v = acCurrent.findViewById(idMap.get(key).id);
-                                        v.setBackgroundResource(R.drawable.shape_border);
+                                        if (v != null)
+                                            v.setBackgroundResource(R.drawable.shape_border);
                                     }
 
                                 }
@@ -730,7 +800,7 @@ public class Sonde {
                         }
 
 
-                        //ensuite vous savez faire
+                      /*  //ensuite vous savez faire
                         while (it.hasNext()) {
                             int key = it.next();
                             Log.d("Valeur pour la clé ", key + " = " + idMap.get(key).toString());
@@ -739,7 +809,7 @@ public class Sonde {
                             // v.setBackgroundResource(R.drawable.shape_border_none);
                         }
 
-
+*/
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,12 +1,54 @@
 
-"""
-  @name Accommodate floating action button
-  @description The button should not be hidden
-  @severity Warning
-"""
-For each $x in $(Button) (
-    For each $y in $(Button) (
+# 1 condition
+We say that $x has a good size when (
+(($x's width / the device's device-density) is greater than 47) And (($x's height / the device's device-density) is greater than 47)
+).
 
-    (((($x's top addto $x's bottom) / 2) addto ($x's height / 2)) addto ((($y's top addto $y's bottom) / 2) addto ($y's height / 2))) is less than 20
-    )
+We say that $x and $y have a good space when (
+ ($x xspace $y)
+ And
+ ($x yspace $y)
+).
+
+We say that $x and $y have a good size when (
+ ($x has a good size)
+ And
+ ($y has a good size)
+).
+
+We say that $x xintersects $y when (
+  ($x's left is less than ($y's left addto ($y's width addto (8 * the device's device-density)))) And
+  ($y's left is less than ($x's left addto ($x's width addto (8 * the device's device-density))))
+).
+
+# Second condition
+We say that $x yintersects $y when (
+  ($x's top is less than ($y's top addto ($y's height addto (8 * the device's device-density)))) And
+  ($y's top is less than ($x's top addto ($x's height addto (8 * the device's device-density))))
+).
+
+# Both must be true
+We say that $x and $y overlap when (
+  ($x xintersects $y)
+  And
+  ($x yintersects $y)
+).
+
+# Define the negation to simplify the grammar
+We say that $x and $y don't overlap when (
+ Not($x and $y overlap)
+).
+
+"""
+  @name Overlapping squares
+  @description Coloured squares should not overlap in
+  @severity Error
+"""
+There exists  $x in $(.tag1) such that (
+  For each $y in $(.tag1) (
+
+   ($x's id equals $y's id)
+   Or
+   (($x and $y don't overlap) And ($y and $x have a good size))
+  )
 ).

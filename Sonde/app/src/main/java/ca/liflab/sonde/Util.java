@@ -97,5 +97,9 @@ public class Util {
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
     }
+public static  float getDensity(Activity ac){
 
+    DisplayMetrics displayMetrics = ac.getResources().getDisplayMetrics();
+    return  (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
+}
 }

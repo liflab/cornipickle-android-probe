@@ -1,12 +1,13 @@
 
 
 """
-  @name Menus aligned
-  @description All list items should either be left- or top-aligned.
+  @name Bottom Navigation aligned
+  @description The bottom navigation bar exposes the three to five top-level destinations of an app.
   @severity Warning
 """
 For each $x in $(BottomNavigationView) (
 
-    ($x's size is greater than  2) And   ($x's size is less than  5)
+    ($x's size is greater than  2) And
+     ($x's size is less than  5)
 
 ).
