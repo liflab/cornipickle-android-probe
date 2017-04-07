@@ -24,6 +24,7 @@ public class SondeActivity extends Activity {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_sonde);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
     }
 
     @Override

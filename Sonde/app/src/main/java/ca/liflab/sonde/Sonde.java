@@ -62,7 +62,7 @@ import static android.R.attr.accessibilityEventTypes;
 import static android.R.attr.max;
 import static android.R.attr.restoreAnyVersion;
 
-public class Sonde {
+public class Sonde{
     View _view;
     Activity acCurrent;
     /**
@@ -120,6 +120,7 @@ public class Sonde {
 
         this.lstAttributes.clear();
         this.lstAttributes.addAll(lst);
+     
 
     }
 

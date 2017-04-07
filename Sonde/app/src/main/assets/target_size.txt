@@ -4,11 +4,6 @@ We say that $x has a good size when (
 (($x's width / the device's device-density) is greater than 47) And (($x's height / the device's device-density) is greater than 47)
 ).
 
-We say that $x and $y have a good space when (
- ($x xspace $y)
- And
- ($x yspace $y)
-).
 
 We say that $x and $y have a good size when (
  ($x has a good size)

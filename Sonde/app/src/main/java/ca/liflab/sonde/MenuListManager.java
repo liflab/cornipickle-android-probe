@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 public class MenuListManager extends Activity{
     ListView listView1;
-    String activities[]={"Bottom Navigation","Groupe Item","Text Field","target touch size","Button Flat","List View","Button Floating"};
+    String activities[]={"Bottom Navigation","Groupe Item","Text Field","target touch size","Button Flat","List View","Button Floating","Mirroring"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,10 @@ public class MenuListManager extends Activity{
                     } break;
                    case 6:{
                        Intent intent = new Intent(view.getContext(), FloatingButton.class);
+                       startActivity(intent);
+                   } break;
+                   case 7:{
+                       Intent intent = new Intent(view.getContext(), RtlAcivity.class);
                        startActivity(intent);
                    } break;
                 }

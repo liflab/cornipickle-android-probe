@@ -34,8 +34,9 @@
         <activity android:name=".GoupeItemSlider" />
         <activity android:name=".TouchTargetSize" />
         <activity android:name=".CharacterActivityCounter" />
-        <activity android:name=".SortElement"></activity>
-        <activity android:name=".FloatingButton"></activity>
+        <activity android:name=".SortElement" />
+        <activity android:name=".FloatingButton" />
+        <activity android:name=".RtlAcivity"></activity>
     </application>
 
 </manifest>
