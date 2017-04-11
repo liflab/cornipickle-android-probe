@@ -17,9 +17,11 @@ public class BottomNav extends SondeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setPosLayoutResult(PosLayoutResult.right_top);
+        nameFile = "probButtomNav.txt";
         setContentView(R.layout.bottom_navigation);
 
-       nameFile = "probButtomNav.txt";
+
        // nameFile = "floating_button.txt";
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);

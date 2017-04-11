@@ -1,18 +1,28 @@
 package ca.liflab.sonde;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.widget.Button;
+
+import java.util.Locale;
 
 public class RtlAcivity extends SondeActivity {
+public  String lang="fr";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rtl_acivity_bug);
+
+        Locale locale = new Locale("ar");
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
         nameFile = "mirroring.txt";
+        setContentView(R.layout.activity_ltr_acivity);
+
 
     }
 
@@ -28,6 +38,8 @@ public class RtlAcivity extends SondeActivity {
             case KeyEvent.KEYCODE_N:
                 returnTonormal();
                 return true;
+            case  KeyEvent.KEYCODE_E:
+                setContentView(R.layout.activity_ltr_acivity);
 
             default:
                 return true;
@@ -37,13 +49,14 @@ public class RtlAcivity extends SondeActivity {
     // generer un bug
     public void generateBug() {
 
-        setContentView(R.layout.activity_rtl_acivity);
+
+        setContentView(R.layout.activity_rtl_acivity_bug);
     }
 
     // generer un bug
     public void returnTonormal() {
 
-        setContentView(R.layout.activity_rtl_acivity_bug);
+        setContentView(R.layout.activity_rtl_acivity);
 
 
     }

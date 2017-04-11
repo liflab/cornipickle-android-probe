@@ -15,13 +15,9 @@
 
         <EditText
             android:id="@+id/txtEdit1"
-            style="@style/Base.TextAppearance.AppCompat.Headline"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Text Hint 1"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.Design.Hint" />
+            android:hint="Text Hint 1" />
 
         <TextView
             android:id="@+id/colorLineCounter1"
@@ -43,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Text Hint 2"
-            android:singleLine="false"
+
       />
     </android.support.design.widget.TextInputLayout>
 

@@ -2,6 +2,7 @@
     <string name="app_name">Sonde</string>
     <string name="cornipicke_props">CorniPicke Props</string>
     <string name="name">Name</string>
+    <string name="tag">view</string>
     <string name="action_settings">Settings</string>
     <string name="text_favorites">Favorites </string>
     <string name="text_schedules">Schedules</string>

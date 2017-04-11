@@ -2,8 +2,8 @@
 
 
 We say that I click on button when (
-  	There exists $x in $(FloatingActionButton) such that (
-  		$x's event is "ACTION_UP"
+  	There exists $x in $(#fab) such that (
+  		$x's event is "click"
   	)
   ).
 
@@ -14,16 +14,13 @@ We say that I click on button when (
 """
 
 Always (
+                For each $x in $(#fab)  (
 
-     For each $x in $(#fab)  (
-
-         For each $y in $(TextView)(
-         If ($y's parent equals "SnackbarLayout")
-         Then (($y's top  - $x's top) is greater than $x's height)
-
-          )
-
-        )
+                     For each $y in $(TextView)(
+                         If ($y's parent equals "SnackbarLayout")
+                              Then (($y's top  - $x's top) is greater than $x's height)
+                     )
+                )
 
 
-   ).
+  ).

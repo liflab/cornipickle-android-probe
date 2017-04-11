@@ -10,14 +10,19 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SondeActivity extends Activity {
     Sonde s;
     String nameFile;
+    ArrayList<Integer> posLayoutResult = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,14 @@ public class SondeActivity extends Activity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (s == null || (s != null && s.acCurrent != this)) {
+
+        if ((s == null || (s != null && s.acCurrent != this)) && posLayoutResult.size() == 0) {
             s = new Sonde(this);
+            sendPropToserver(nameFile);
+
+        } else if (s == null || (s != null && s.acCurrent != this)) {
+            s = new Sonde(this, posLayoutResult);
+
             sendPropToserver(nameFile);
         }
         displayTost("you can send  now prop");
@@ -66,7 +77,7 @@ public class SondeActivity extends Activity {
 
         if (s != null) {
 
-            s.sendStart("http://192.168.109.1:10101/addProp/", readdPropFromFile(nameFile).toString(), Sonde.RequestName.add);
+            s.sendStart("http://192.168.109.1:10101/add", readdPropFromFile(nameFile).toString(), Sonde.RequestName.add);
 
         }
 
@@ -76,7 +87,7 @@ public class SondeActivity extends Activity {
 
         String l = s.getDataImage(event);
         //Log.d("interpret", l);
-        s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
+        s.sendStart("http://192.168.109.1:10101/image/", l, Sonde.RequestName.image);
 
     }
 
@@ -84,8 +95,45 @@ public class SondeActivity extends Activity {
 
         String l = s.getDataImage(v, event);
         //Log.d("interpret", l);
-        s.sendStart("http://192.168.109.1:10101/mobiletest/", l, Sonde.RequestName.image);
+        s.sendStart("http://192.168.109.1:10101/image/", l, Sonde.RequestName.image);
 
+    }
+
+    public enum PosLayoutResult {
+        right_top,
+        right_bottom,
+        left_top,
+        left_bottom;
+    }
+
+    protected void setPosLayoutResult(PosLayoutResult pos) {
+        String p = pos.toString();
+        switch (p) {
+            case "right_top": {
+                posLayoutResult.clear();
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_TOP);
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+            break;
+            case "right_Bottom": {
+                posLayoutResult.clear();
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+            break;
+            case "left_top": {
+                posLayoutResult.clear();
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_TOP);
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_LEFT);
+            }
+            break;
+            case "left_Bottom": {
+                posLayoutResult.clear();
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                posLayoutResult.add(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+            break;
+        }
     }
 
     public void displayTost(String msg) {
@@ -115,14 +163,16 @@ public class SondeActivity extends Activity {
         }
         return text;
     }
-public  boolean customiseSend=false;
+
+    public boolean customiseSend = false;
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
 
-       // if()
+        // if()
 
 
-        if (event.getAction() == MotionEvent.ACTION_UP) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
 //if(!customiseSend)
             sendActivityUiToServer(event);
         }

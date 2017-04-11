@@ -62,7 +62,7 @@ import static android.R.attr.accessibilityEventTypes;
 import static android.R.attr.max;
 import static android.R.attr.restoreAnyVersion;
 
-public class Sonde{
+public class Sonde {
     View _view;
     Activity acCurrent;
     /**
@@ -76,6 +76,9 @@ public class Sonde{
      * The probe's id
      */
     public String probe_id = "1";
+
+    public ArrayList<Integer> posLayout = new ArrayList<Integer>();
+
 
     /**
      * The probe's hash
@@ -120,7 +123,7 @@ public class Sonde{
 
         this.lstAttributes.clear();
         this.lstAttributes.addAll(lst);
-     
+
 
     }
 
@@ -159,7 +162,7 @@ public class Sonde{
 
         add,
         image,
-        autre
+        others
 
     }
 
@@ -167,7 +170,18 @@ public class Sonde{
         // ac.getWindow().getDecorView().getRootView();
         this._view = ac.findViewById(android.R.id.content);
         this.acCurrent = ac;
+        this.posLayout.clear();
+        this.posLayout.add(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        this.posLayout.add(RelativeLayout.ALIGN_PARENT_RIGHT);
 
+    }
+
+    public Sonde(Activity ac, ArrayList<Integer> posLayoutResult) {
+        // ac.getWindow().getDecorView().getRootView();
+        this._view = ac.findViewById(android.R.id.content);
+        this.acCurrent = ac;
+        this.posLayout.clear();
+        this.posLayout = posLayoutResult;
 
     }
 
@@ -294,12 +308,13 @@ public class Sonde{
             //v.getResources().getResourceEntryName(v.getId()
             if (isAttributeExists("id"))
                 if (v.getResources() != null) {
-                    String s = v.getResources().getResourceEntryName(v.getId());
-                   /* if (isAttributeExists("id") && s!=null) {
+             if(v.getId()!=-1)
 
-                        jNodeChild.put("id", s);
-                    } else*/
-                    jNodeChild.put("id", s);
+             {
+                 String s = v.getResources().getResourceEntryName(v.getId());
+                 jNodeChild.put("id", s);
+             }
+
 
                 }
             if (isAttributeExists("widthdp"))
@@ -379,11 +394,16 @@ public class Sonde{
         for (String s : lstContainer) {
 
             if (s.toLowerCase().equals(_tagname.toLowerCase())) {
-
+                try {
+                    jNodeChild.put("tagname", _tagname);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
             if ((v.getTag() != null) && s.startsWith(".") && s.toLowerCase().equals("." + v.getTag().toString().toLowerCase())) {
                 try {
+                    jNodeChild.put("tagname", _tagname);
                     jNodeChild.put("class", s.substring(1));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -393,6 +413,7 @@ public class Sonde{
 
             if (s.startsWith("#") && getidResourceByName(s.substring(1)) == v.getId()) {
                 try {
+                    jNodeChild.put("tagname", _tagname);
                     jNodeChild.put("id", s.substring(1));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -402,6 +423,7 @@ public class Sonde{
             // all
             if ((s.startsWith(".") && s.toLowerCase().equals(".all"))) {
                 try {
+                    jNodeChild.put("tagname", _tagname);
                     jNodeChild.put("class", s.substring(1));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -445,7 +467,7 @@ public class Sonde{
 
             if (canIncludeThisView(jNode, v)) {
 
-                jNode.put("tagname", _tagname);
+               // jNode.put("tagname", _tagname);
 
                 addAttributeIfDefined(jNode, v, event);
             }
@@ -497,7 +519,7 @@ public class Sonde{
 
                         if (canIncludeThisView(jNodeChild, child)) {
 
-                            jNodeChild.put("tagname", _tagname);
+                          //  jNodeChild.put("tagname", _tagname);
                             addAttributeIfDefined(jNodeChild, child, event);
 
                             if (child instanceof Button) {
@@ -735,7 +757,11 @@ public class Sonde{
                         // button will be displayed
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                        posLayout.size();
+                        for (Integer i : posLayout) {
+
+                            params.addRule(i);
+                        }
 
 
                         System.out.println("Parcours d'une Map avec keySet : ");

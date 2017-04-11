@@ -13,8 +13,8 @@ public class GoupeItemSlider extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goupe_item_slider);
+        setPosLayoutResult(PosLayoutResult.right_top);
         nameFile = "groupe_item.txt";
-
     }
 
     @Override

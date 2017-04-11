@@ -6,7 +6,7 @@ We say that $x and $y are redline when (
 ).
 
 We say that $x and $y are blueline when (
- ( $x's length is less than 9)
+ ( $x's length is less than 11)
  And ($y's color matches "RGB\(0,0,255\)")
 ).
 
