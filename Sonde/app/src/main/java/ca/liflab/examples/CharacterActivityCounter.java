@@ -1,11 +1,12 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
-import android.app.Activity;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import ca.liflab.sonde.R;
 
 public class CharacterActivityCounter extends SondeActivity {
     TextInputLayout text1, text2;
@@ -23,7 +24,7 @@ public class CharacterActivityCounter extends SondeActivity {
         text2.getEditText().addTextChangedListener(c2);
 
 
-        nameFile = "character_counter.txt";
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 

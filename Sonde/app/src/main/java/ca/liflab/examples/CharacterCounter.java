@@ -1,4 +1,4 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 /**
  * Created by chafik on 2017-03-21.
@@ -45,7 +45,7 @@ public class CharacterCounter implements TextWatcher {
 
         final int length = mTextInputLayout.getEditText().length();
 
-        if (length > 0) {
+        if (length >=0) {
             txtCounter.append(String.valueOf(length));
             txtCounter.append(" / ");
             txtCounter.append(String.valueOf(mMaxLen));

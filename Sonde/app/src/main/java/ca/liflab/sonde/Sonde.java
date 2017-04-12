@@ -64,7 +64,12 @@ import static android.R.attr.restoreAnyVersion;
 
 public class Sonde {
     View _view;
-    Activity acCurrent;
+
+    public Activity acCurrent;
+
+
+
+
     /**
      * The name of the server of the form "name:port"
      * e.g.: localhost:10101
@@ -79,7 +84,7 @@ public class Sonde {
 
     public ArrayList<Integer> posLayout = new ArrayList<Integer>();
 
-
+    public Boolean probAdded=false;
     /**
      * The probe's hash
      */
@@ -87,7 +92,7 @@ public class Sonde {
 
     public String interpreter = "";
 
-    JSONObject jsonObj = new JSONObject();
+    public JSONObject jsonObj = new JSONObject();
     JSONArray jsonChildreen;
     SendPostRequest _sendRequest;
 
@@ -166,6 +171,10 @@ public class Sonde {
 
     }
 
+    public Sonde() {
+
+    }
+
     public Sonde(Activity ac) {
         // ac.getWindow().getDecorView().getRootView();
         this._view = ac.findViewById(android.R.id.content);
@@ -173,7 +182,7 @@ public class Sonde {
         this.posLayout.clear();
         this.posLayout.add(RelativeLayout.ALIGN_PARENT_BOTTOM);
         this.posLayout.add(RelativeLayout.ALIGN_PARENT_RIGHT);
-
+        sendStart("http://192.168.109.1:10101/probe","", RequestName.others);
     }
 
     public Sonde(Activity ac, ArrayList<Integer> posLayoutResult) {
@@ -182,6 +191,8 @@ public class Sonde {
         this.acCurrent = ac;
         this.posLayout.clear();
         this.posLayout = posLayoutResult;
+
+        sendStart("http://192.168.109.1:10101/probe","", RequestName.others);
 
     }
 
@@ -308,12 +319,12 @@ public class Sonde {
             //v.getResources().getResourceEntryName(v.getId()
             if (isAttributeExists("id"))
                 if (v.getResources() != null) {
-             if(v.getId()!=-1)
+                    if (v.getId() != -1)
 
-             {
-                 String s = v.getResources().getResourceEntryName(v.getId());
-                 jNodeChild.put("id", s);
-             }
+                    {
+                        String s = v.getResources().getResourceEntryName(v.getId());
+                        jNodeChild.put("id", s);
+                    }
 
 
                 }
@@ -467,7 +478,7 @@ public class Sonde {
 
             if (canIncludeThisView(jNode, v)) {
 
-               // jNode.put("tagname", _tagname);
+                // jNode.put("tagname", _tagname);
 
                 addAttributeIfDefined(jNode, v, event);
             }
@@ -519,7 +530,7 @@ public class Sonde {
 
                         if (canIncludeThisView(jNodeChild, child)) {
 
-                          //  jNodeChild.put("tagname", _tagname);
+                            //  jNodeChild.put("tagname", _tagname);
                             addAttributeIfDefined(jNodeChild, child, event);
 
                             if (child instanceof Button) {
@@ -627,9 +638,7 @@ public class Sonde {
 
             try {
                 URL url1 = new URL(this._url); // here is your URL path
-                // url = new URL("http://192.168.2.12:10101/image/"); // here is your URL path
-                //URL url = new URL("http://192.168.113.1/test/test.php"); // here is your URL path
-                //http://studytutorial.in/post.php
+
 
 
                 String urlParameters =
@@ -687,11 +696,13 @@ public class Sonde {
         @Override
         protected void onPostExecute(String result) {
             if (this._requestName == RequestName.add) {
+
                 Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
                         Toast.LENGTH_LONG);
 
                 toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
                 toast.show();
+                probAdded=true;
             } else if (this._requestName == RequestName.image) {
 
                /* Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received",

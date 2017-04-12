@@ -1,4 +1,4 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,9 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.liflab.sonde.R;
+import ca.liflab.sonde.Sonde;
 
 
 public class Main2Activity extends AppCompatActivity {

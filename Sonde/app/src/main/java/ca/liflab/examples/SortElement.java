@@ -1,17 +1,13 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import ca.liflab.sonde.R;
 
 
 /**
@@ -26,7 +22,6 @@ public class SortElement extends SondeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort_element);
 
-        nameFile = "listview_sort.txt";
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);

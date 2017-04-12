@@ -13,6 +13,7 @@ import static java.security.AccessController.getContext;
  */
 public class Util {
 
+
     public static float getAspectRatio(Activity acCurrent) {
 
         DisplayMetrics metrics = new DisplayMetrics();
@@ -22,19 +23,19 @@ public class Util {
 
     }
 
-    public static int getScreenOrientation(Activity acCurrent) {
+    public static String getScreenOrientation(Activity acCurrent) {
         Display getOrient = acCurrent.getWindowManager().getDefaultDisplay();
 
-        int orientation = Configuration.ORIENTATION_UNDEFINED;
+        String orientation = "portrait";
         //noinspection deprecation
         if (getOrient.getWidth() == getOrient.getHeight()) {
             //noinspection deprecation
-            orientation = Configuration.ORIENTATION_SQUARE;
+            orientation = "Square";
         } else {
             if (getOrient.getWidth() < getOrient.getHeight()) {
-                orientation = Configuration.ORIENTATION_PORTRAIT;
+                orientation = "portrait";
             } else {
-                orientation = Configuration.ORIENTATION_LANDSCAPE;
+                orientation = "landscape";
             }
         }
         return orientation;

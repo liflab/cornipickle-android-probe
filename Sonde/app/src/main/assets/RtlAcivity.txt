@@ -6,10 +6,10 @@
 """
 Always (
   For each $x in $(#textView4) (
-
+Next (
       For each $y in $(#textView4) (
-      The next time ($x's id equals $x's id)
-       Then ( 0 equals 1)
+      0 equals 1
+      )
       )
     )
 

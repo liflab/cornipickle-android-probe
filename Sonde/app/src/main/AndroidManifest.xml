@@ -5,17 +5,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="ca.liflab.examples.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuListManager">
+        <activity android:name="ca.liflab.examples.MenuListManager">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuListManager" />
+                android:value="ca.liflab.examples.MenuListManager" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,15 +29,15 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MisalinedElement" />
-        <activity android:name=".BottomNav" />
-        <activity android:name=".FlatActivity" />
-        <activity android:name=".GoupeItemSlider" />
-        <activity android:name=".TouchTargetSize" />
-        <activity android:name=".CharacterActivityCounter" />
-        <activity android:name=".SortElement" />
-        <activity android:name=".FloatingButton" />
-        <activity android:name=".RtlAcivity"></activity>
+        <activity android:name="ca.liflab.examples.MisalinedElement" />
+        <activity android:name="ca.liflab.examples.BottomNav" />
+        <activity android:name="ca.liflab.examples.FlatActivity" />
+        <activity android:name="ca.liflab.examples.GoupeItemSlider" />
+        <activity android:name="ca.liflab.examples.TouchTargetSize" />
+        <activity android:name="ca.liflab.examples.CharacterActivityCounter" />
+        <activity android:name="ca.liflab.examples.SortElement" />
+        <activity android:name="ca.liflab.examples.FloatingButton" />
+        <activity android:name="ca.liflab.examples.RtlAcivity"></activity>
     </application>
 
 </manifest>

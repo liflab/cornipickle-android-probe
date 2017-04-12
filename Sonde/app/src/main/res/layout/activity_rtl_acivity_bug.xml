@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:supportsRtl="true"
-    tools:context="ca.liflab.sonde.RtlAcivity">
+    tools:context="ca.liflab.sonde.ca.liflab.examples.RtlAcivity">
 
     <TextView
         android:id="@+id/textView4"

@@ -1,11 +1,11 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.WindowManager;
 import android.widget.Button;
+
+import ca.liflab.sonde.R;
 
 public class FlatActivity extends SondeActivity {
 
@@ -13,8 +13,6 @@ public class FlatActivity extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flat);
-        nameFile = "button_flat.txt";
-
         returnTonormal();
     }
 

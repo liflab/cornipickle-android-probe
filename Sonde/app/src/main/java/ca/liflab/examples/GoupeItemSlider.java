@@ -1,11 +1,12 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
+
+import ca.liflab.sonde.R;
+import ca.liflab.sonde.SondeConfig;
 
 public class GoupeItemSlider extends SondeActivity {
 
@@ -13,8 +14,8 @@ public class GoupeItemSlider extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goupe_item_slider);
-        setPosLayoutResult(PosLayoutResult.right_top);
-        nameFile = "groupe_item.txt";
+        SondeConfig.setPosLayoutResult(SondeConfig.PosLayoutResult.right_top);
+
     }
 
     @Override

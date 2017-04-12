@@ -1,10 +1,13 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
 import java.util.Locale;
+
+import ca.liflab.examples.SondeActivity;
+import ca.liflab.sonde.R;
 
 public class RtlAcivity extends SondeActivity {
 public  String lang="fr";
@@ -20,7 +23,7 @@ public  String lang="fr";
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
 
-        nameFile = "mirroring.txt";
+
         setContentView(R.layout.activity_ltr_acivity);
 
 

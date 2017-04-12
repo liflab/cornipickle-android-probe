@@ -1,28 +1,29 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import ca.liflab.sonde.R;
+import ca.liflab.sonde.SondeConfig;
 
 public class BottomNav extends SondeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setPosLayoutResult(PosLayoutResult.right_top);
-        nameFile = "probButtomNav.txt";
+
+        SondeConfig.setPosLayoutResult(SondeConfig.PosLayoutResult.right_top);
+
         setContentView(R.layout.bottom_navigation);
 
-
-       // nameFile = "floating_button.txt";
+       // nameFile = "FloatingButton.txt";
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.bottom_navigation);
 

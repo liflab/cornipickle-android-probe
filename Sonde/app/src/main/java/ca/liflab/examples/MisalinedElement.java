@@ -1,11 +1,12 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import ca.liflab.sonde.R;
 
 public class MisalinedElement extends SondeActivity {
 
@@ -14,7 +15,7 @@ public class MisalinedElement extends SondeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misalined_element);
 
-        nameFile = "prop1.txt";
+
     }
 
 

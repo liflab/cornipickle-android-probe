@@ -1,4 +1,4 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -6,7 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.RelativeLayout;
+
+import ca.liflab.sonde.R;
+import ca.liflab.sonde.SondeConfig;
 
 public class FloatingButton extends SondeActivity {
 
@@ -14,8 +16,8 @@ public class FloatingButton extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wrong_floating_button);
-setPosLayoutResult(PosLayoutResult.right_top);
-        nameFile = "floating_button.txt";
+SondeConfig.setPosLayoutResult(SondeConfig.PosLayoutResult.right_top);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

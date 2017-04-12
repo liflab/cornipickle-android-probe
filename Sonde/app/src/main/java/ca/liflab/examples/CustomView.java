@@ -1,4 +1,4 @@
-package ca.liflab.sonde;
+package ca.liflab.examples;
 
 /**
  * Created by chafik on 2017-03-15.
