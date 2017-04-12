@@ -1,7 +1,8 @@
 
 # 1 condition
 We say that $x has a good size when (
-(($x's width / the device's device-density) is greater than 47) And (($x's height / the device's device-density) is greater than 47)
+(($x's width / the device's device-density) is greater than 47) And
+(($x's height / the device's device-density) is greater than 47)
 ).
 
 
@@ -35,8 +36,9 @@ We say that $x and $y don't overlap when (
 ).
 
 """
-  @name Overlapping squares
-  @description Coloured squares should not overlap in
+  @name Touch Target Size
+  @description To ensure balanced information density and usability, touch targets should be at least 48 x 48 dp. In most cases, there should be 8dp or more space between them.
+  @link https://material.io/guidelines/layout/metrics-keylines.html#metrics-keylines-touch-target-size
   @severity Error
 """
 There exists  $x in $(.tag1) such that (

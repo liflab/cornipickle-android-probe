@@ -16,7 +16,7 @@ import ca.liflab.sonde.R;
 
 public class MenuListManager extends Activity{
     ListView listView1;
-    String activities[]={"Bottom Navigation","Groupe Item","Text Field","target touch size","Button Flat","List View","Button Floating","Mirroring"};
+    String activities[]={"Bottom Navigation","Groupe Item","Text Field","Touch target size","Button Flat","List View","Button Floating","Mirroring"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

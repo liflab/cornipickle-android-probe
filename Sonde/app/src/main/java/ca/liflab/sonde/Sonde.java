@@ -1,12 +1,14 @@
 package ca.liflab.sonde;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Debug;
@@ -32,6 +34,7 @@ import android.widget.ToggleButton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -698,11 +701,11 @@ public class Sonde {
         protected void onPostExecute(String result) {
             if (this._requestName == RequestName.add) {
 
-                Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
-                        Toast.LENGTH_LONG);
+               // Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
+                     //   Toast.LENGTH_LONG);
 
-                toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-                toast.show();
+               // toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+               // toast.show();
                 probAdded=true;
             } else if (this._requestName == RequestName.image) {
 
@@ -778,6 +781,7 @@ public class Sonde {
 
                         System.out.println("Parcours d'une Map avec keySet : ");
                         ViewGroup vForResult = (ViewGroup) acCurrent.findViewById(android.R.id.content);
+                        Button btn = null;
                         if (vForResult != null) {
                             RelativeLayout lr = (RelativeLayout) vForResult.findViewWithTag("lrResult");
                             //Button btn=new Button(acCurrent);
@@ -793,7 +797,7 @@ public class Sonde {
 
                             }
 
-                            Button btn = (Button) lr.findViewWithTag("btnResult");
+                             btn = (Button) lr.findViewWithTag("btnResult");
                             if (btn == null) {
                                 btn = new Button(acCurrent);
                                 btn.setTag("btnResult");
@@ -822,6 +826,15 @@ public class Sonde {
 
                             JSONObject set_of_tuples1 = (JSONObject) _hightlight.get(j);
                             JSONArray js = set_of_tuples1.getJSONArray("ids");
+                            final String jlink=set_of_tuples1.getString("link");
+                            if(jlink!="")
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(jlink));
+                                   acCurrent.startActivity(intent);
+                                }
+                            });
+
                             for (int z = 0; z < js.length(); z++) {
                                 JSONArray js2 = js.getJSONArray(0);
                                 for (int h = 0; h < js2.length(); h++) {

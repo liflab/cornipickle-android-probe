@@ -4,7 +4,7 @@ We say that $x is rtl when (
     When $x is now $y (
     If (the device's device-langue equals "ar") Then ( ($x's left equals $y's right)
 
-    And (If ($x's id equals "textView10") Then ($x's text equals $y's text))
+    And (If ($x's id equals "txtPhone") Then ($x's text equals $y's text))
 
     )
 
@@ -16,9 +16,10 @@ We say that $x is rtl when (
 
 """
   @name RTL
-  @description RTL
+  @description When mirroring the layout, padding and margin around icons and text also switch placement to match RTL layouts.
+  @link https://material.io/guidelines/usability/bidirectionality.html#bidirectionality-ui-mirroring-overview
   @severity Error
 """
-There exists  $x in $(RelativeLayout TextView) such that(
+For each $x in $(LinearLayout TextView)(
   $x is rtl
 ).
