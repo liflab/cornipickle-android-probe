@@ -215,6 +215,7 @@ public class Sonde {
             jsonObj.put("url", "");
             jsonObj.put("device-aspect-ratio", Util.getAspectRatio(acCurrent));
             jsonObj.put("device-density", Util.getDensity(acCurrent));
+            jsonObj.put("device-langue", Util.getLangue(acCurrent));
             this.jsonChildreen = new JSONArray();
 
             jsonObj.put("children", jsonChildreen);

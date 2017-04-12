@@ -2,6 +2,7 @@ package ca.liflab.sonde;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -22,7 +23,12 @@ public class Util {
         return ratio;
 
     }
+public  static  String getLangue(Activity ac){
 
+    Configuration  f =ac.getBaseContext().getResources().getConfiguration();
+    return  f.locale.toString();
+
+}
     public static String getScreenOrientation(Activity acCurrent) {
         Display getOrient = acCurrent.getWindowManager().getDefaultDisplay();
 

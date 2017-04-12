@@ -16,7 +16,7 @@ public  String lang="fr";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Locale locale = new Locale("ar");
+        Locale locale = new Locale("en");
         Locale.setDefault(locale);
         Configuration config = getBaseContext().getResources().getConfiguration();
         config.locale = locale;
@@ -42,6 +42,10 @@ public  String lang="fr";
                 returnTonormal();
                 return true;
             case  KeyEvent.KEYCODE_E:
+                Locale locale = new Locale("en");
+                Locale.setDefault(locale);
+                Configuration config = getBaseContext().getResources().getConfiguration();
+                config.locale = locale;
                 setContentView(R.layout.activity_ltr_acivity);
 
             default:
@@ -52,13 +56,19 @@ public  String lang="fr";
     // generer un bug
     public void generateBug() {
 
-
+        Locale locale = new Locale("ar");
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
         setContentView(R.layout.activity_rtl_acivity_bug);
     }
 
     // generer un bug
     public void returnTonormal() {
-
+        Locale locale = new Locale("en");
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
         setContentView(R.layout.activity_rtl_acivity);
 
 

@@ -30,7 +30,7 @@
         android:layout_alignTop="@+id/quickContactBadge2"
         android:layout_centerHorizontal="true"
         android:layoutDirection="ltr"
-        android:text="545-5011(418)" />
+        android:text="(418) 545-5011" />
 
     <QuickContactBadge
         android:id="@+id/quickContactBadge"

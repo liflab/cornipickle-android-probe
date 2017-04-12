@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -90,7 +92,11 @@ public class SondeConfig {
 
         if (s != null) {
 
-            s.sendStart("http://192.168.109.1:10101/add", readdPropFromFile(nameFile).toString(), Sonde.RequestName.add);
+            try {
+                s.sendStart("http://192.168.109.1:10101/add", URLEncoder.encode(readdPropFromFile(nameFile).toString(),"UTF-8"), Sonde.RequestName.add);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
         }
 

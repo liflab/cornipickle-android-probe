@@ -1,17 +1,24 @@
 
-"""
-@description The value in the "#textView4" element always increases
-@name Increasing value
-@severity Error
-"""
-Always (
-  For each $x in $(#textView4) (
-Next (
-      For each $y in $(#textView4) (
-      0 equals 1
-      )
-      )
+We say that $x is rtl when (
+  Always (
+    When $x is now $y (
+    If (the device's device-langue equals "ar") Then ( ($x's left equals $y's right)
+
+    And (If ($x's id equals "textView10") Then ($x's text equals $y's text))
+
     )
+
+    )
+
+   )
 
 ).
 
+"""
+  @name RTL
+  @description RTL
+  @severity Error
+"""
+There exists  $x in $(RelativeLayout TextView) such that(
+  $x is rtl
+).
