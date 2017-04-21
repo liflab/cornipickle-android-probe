@@ -38,6 +38,7 @@
         <activity android:name="ca.liflab.examples.SortElement" />
         <activity android:name="ca.liflab.examples.FloatingButton" />
         <activity android:name="ca.liflab.examples.RtlAcivity"></activity>
+        <activity android:name="ca.liflab.examples.Menu_occurrence"></activity>
     </application>
 
 </manifest>

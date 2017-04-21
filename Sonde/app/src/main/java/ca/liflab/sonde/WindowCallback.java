@@ -68,6 +68,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
     @Nullable
     @Override
     public View onCreatePanelView(int featureId) {
+
         return localCallback.onCreatePanelView(featureId);
     }
 

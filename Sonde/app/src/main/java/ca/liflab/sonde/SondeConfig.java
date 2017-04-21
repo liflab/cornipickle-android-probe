@@ -70,7 +70,7 @@ public class SondeConfig {
 
                sendPropToserver(nameFile);
            }
-           displayTost("you can send  now prop");
+        //   displayTost("you can send  now prop");
        }
 
     }

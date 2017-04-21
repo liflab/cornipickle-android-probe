@@ -1,26 +1,14 @@
-# Define what it means to be hidden
-
-
-We say that I click on button when (
-  	There exists $x in $(#fab) such that (
-  		$x's event is "click"
-  	)
-  ).
-
 """
-  @name Accommodate floating action button
-  @description The button should not be hidden
-  @severity Warning
+  @name Floating action button
+  @description  the floating action button should not be hidden
+  @link https://material.io/guidelines/components/snackbars-toasts.html#snackbars-toasts-usage
+  @severity Error
 """
-
 Always (
-                For each $x in $(#fab)  (
-
-                     For each $y in $(TextView)(
-                         If ($y's parent equals "SnackbarLayout")
-                              Then (($y's top  - $x's top) is greater than $x's height)
-                     )
-                )
-
-
-  ).
+     For each $x in $(#fab)  (
+         For each $y in $(TextView)(
+             If ($y's parent equals "SnackbarLayout")
+             Then (($y's top  - $x's top) is greater than $x's height)
+         )
+     )
+).

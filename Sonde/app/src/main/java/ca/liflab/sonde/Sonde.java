@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -185,7 +186,7 @@ public class Sonde {
         this.posLayout.clear();
         this.posLayout.add(RelativeLayout.ALIGN_PARENT_BOTTOM);
         this.posLayout.add(RelativeLayout.ALIGN_PARENT_RIGHT);
-        sendStart("http://192.168.109.1:10101/probe","", RequestName.others);
+      //  sendStart("http://192.168.109.1:10101/probe","", RequestName.others);
     }
 
     public Sonde(Activity ac, ArrayList<Integer> posLayoutResult) {
@@ -195,7 +196,7 @@ public class Sonde {
         this.posLayout.clear();
         this.posLayout = posLayoutResult;
 
-        sendStart("http://192.168.109.1:10101/probe","", RequestName.others);
+       // sendStart("http://192.168.109.1:10101/probe","", RequestName.others);
 
     }
 
@@ -336,8 +337,10 @@ public class Sonde {
                 jNodeChild.put("widthdp", Util.pxToDp(v.getWidth(), acCurrent));
             if (isAttributeExists("heightdp"))
                 jNodeChild.put("heightdp", Util.pxToDp(v.getHeight(), acCurrent));
+
             if (isAttributeExists("width"))
                 jNodeChild.put("width", v.getWidth());
+
             if (isAttributeExists("height"))
                 jNodeChild.put("height", v.getHeight());
             Random r = new Random();
@@ -491,31 +494,69 @@ public class Sonde {
             // if(childCount>0)
             JSONArray jArrayChild = new JSONArray();
 
-            if (v instanceof BottomNavigationView) {
+     if (v instanceof BottomNavigationView) {
 
 
-                Menu m = ((BottomNavigationView) v).getMenu();
-                if (lstContainer.contains(_tagname)) {
-                    if (isAttributeExists("size")) {
-                        jNode.put("size", m.size());
-                    }
+         Menu m = ((BottomNavigationView) v).getMenu();
+         if (lstContainer.contains(_tagname)) {
+             if (isAttributeExists("size")) {
+                 jNode.put("size", m.size());
+             }
 
-                }
-                if (lstContainer.contains("menuItem")) {
-                    for (int i = 0; i < m.size(); i++) {
+         }
+         if (lstContainer.contains("menuItem")) {
+             for (int i = 0; i < m.size(); i++) {
 
 
-                        JSONObject jNodeChild = new JSONObject();
-                        Log.d("menu", m.getItem(i).toString());
-                        jNodeChild.put("tagname", "menuItem");
-                        if (isAttributeExists("menuItemText"))
-                            jNodeChild.put("menuItemText", m.getItem(i).toString());
-                        jArrayChild.put(jNodeChild);
-                    }
+                 JSONObject jNodeChild = new JSONObject();
+                 Log.d("menu", m.getItem(i).toString());
+                 jNodeChild.put("tagname", "menuItem");
+                 if (isAttributeExists("menuItemText"))
+                     jNodeChild.put("menuItemText", m.getItem(i).toString());
+                 jArrayChild.put(jNodeChild);
+             }
 
-                }
+         }
 
-            } else {
+     }
+  else   if(v instanceof Spinner){
+
+            Spinner sp=(Spinner)v;
+
+         if (lstContainer.contains(_tagname)) {
+             if (isAttributeExists("size")) {
+
+                 try {
+                     jNode.put("size", sp.getAdapter().getCount());
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+             }
+
+         }
+         if (lstContainer.contains("item")) {
+             for (int i = 0; i < sp.getAdapter().getCount(); i++) {
+
+                int n= sp.getChildCount();
+                 JSONObject jNodeChild = new JSONObject();
+                 Log.d("item", sp.getAdapter().getItem(i).toString());
+                 jNodeChild.put("tagname", "item");
+                 if (isAttributeExists("text"))
+                 jNodeChild.put("text",  sp.getAdapter().getItem(i).toString());
+                 if (isAttributeExists("id"))
+                     jNodeChild.put("id",  sp.getAdapter().getItem(i).hashCode());
+                 if (isAttributeExists("position"))
+                     jNodeChild.put("position",i);
+
+                 jArrayChild.put(jNodeChild);
+             }
+
+         }
+
+     }
+
+
+ else {
                 for (int i = 0; i < childCount; i++) {
                     View child = v.getChildAt(i);
 
@@ -537,7 +578,7 @@ public class Sonde {
                             //  jNodeChild.put("tagname", _tagname);
                             addAttributeIfDefined(jNodeChild, child, event);
 
-                            if (child instanceof Button) {
+                            if (child instanceof Button && child.getTag()!="btnResult") {
                                 if (isAttributeExists("text"))
                                     jNodeChild.put("text", ((Button) child).getText());
 
@@ -574,7 +615,7 @@ public class Sonde {
 
                             jNodeChild.put("", _tagname);
                         }*/
-                        if (jNodeChild.length() > 0)
+                        if (jNodeChild.length() > 0 &&  child.getTag()!="btnResult")
 
                             jArrayChild.put(jNodeChild);
 

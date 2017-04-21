@@ -1,7 +1,8 @@
-# Define what it means to be sort
+
 """
  @name ListView sort
- @description All list should be sort
+ @description The list can be sorted according to its needs
+ @link https://material.io/guidelines/components/lists.html#lists-behavior
  @severity Warning
 """
 

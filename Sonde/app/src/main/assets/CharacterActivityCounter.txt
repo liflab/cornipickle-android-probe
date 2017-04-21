@@ -1,10 +1,11 @@
 
-# Define what it means to be selected
+# We define what it means to be a redline
 We say that $x and $y are redline when (
   ($x's length is greater than 10) And
   ($y's color matches "RGB\(255,0,0\)")
 ).
 
+#We define what it means to be a blueline
 We say that $x and $y are blueline when (
  ( $x's length is less than 11)
  And ($y's color matches "RGB\(0,0,255\)")
@@ -12,8 +13,9 @@ We say that $x and $y are blueline when (
 
 
 """
-  @name Menus aligned
-  @description All list items
+  @name Text field input
+  @description Reporting by a color if the number of characters allowed or not is exceeded
+  @link https://material.io/guidelines/patterns/errors.html#errors-user-input-errors
   @severity Warning
 """
 

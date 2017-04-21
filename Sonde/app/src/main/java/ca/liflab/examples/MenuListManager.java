@@ -16,7 +16,7 @@ import ca.liflab.sonde.R;
 
 public class MenuListManager extends Activity{
     ListView listView1;
-    String activities[]={"Bottom Navigation","Groupe Item","Text Field","Touch target size","Button Flat","List View","Button Floating","Mirroring"};
+    String activities[]={"Bottom Navigation","Grouping Items","Text Field","Touch target size","Button Flat/Raised","List View","Button Floating","Mirroring","Menu Occurence"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,10 @@ public class MenuListManager extends Activity{
                    } break;
                    case 7:{
                        Intent intent = new Intent(view.getContext(), RtlAcivity.class);
+                       startActivity(intent);
+                   } break;
+                   case 8:{
+                       Intent intent = new Intent(view.getContext(), Menu_occurrence.class);
                        startActivity(intent);
                    } break;
                 }

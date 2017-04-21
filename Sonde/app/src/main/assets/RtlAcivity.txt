@@ -1,22 +1,27 @@
 
-We say that $x is rtl when (
+We say that $x has a numbers in the correct direction when(
+ If($x's id equals "txtPhone")
+ Then ($x's text equals $y's text)
+).
+
+# We define what it means right-to-left(rtl)
+We say that $x is rtl when(
   Always (
     When $x is now $y (
-    If (the device's device-langue equals "ar") Then ( ($x's left equals $y's right)
-
-    And (If ($x's id equals "txtPhone") Then ($x's text equals $y's text))
-
+    If (the device's device-langue equals "ar")
+    Then (
+         ($x's left equals $y's right) And (
+          $x has a numbers in the correct direction
+        )
+     )
     )
-
-    )
-
-   )
-
+  )
 ).
 
 """
-  @name RTL
-  @description When mirroring the layout, padding and margin around icons and text also switch placement to match RTL layouts.
+  @name UI Mirroring
+  @description When mirroring the layout, padding and margin around icons and text also switch placement
+  to match RTL layouts.
   @link https://material.io/guidelines/usability/bidirectionality.html#bidirectionality-ui-mirroring-overview
   @severity Error
 """

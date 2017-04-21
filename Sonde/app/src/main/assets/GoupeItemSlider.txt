@@ -1,13 +1,11 @@
-# Define what it means the flat button
 """
-  @name Menus aligned
-  @description All list should be aigned
+  @name Grouping items
+  @description All TextViews are aligned next to the sliders
+  @link https://material.io/guidelines/usability/accessibility.html#accessibility-style
   @severity Warning
 """
 For each $z in $(RelativeLayout SeekBar) (
-There exists $x in $(RelativeLayout TextView) such that (
-
-    $z's top equals  $x's top
-
-   )
+    There exists $x in $(RelativeLayout TextView) such that (
+        $z's top equals $x's top
+    )
 ).

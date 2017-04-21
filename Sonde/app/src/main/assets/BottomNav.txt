@@ -1,13 +1,11 @@
-
-
 """
-  @name Bottom Navigation aligned
-  @description The bottom navigation bar exposes the three to five top-level destinations of an app.
+  @name Bottom Navigation
+  @description  The Bottom Navigation can accommodate between 3 and 5 destinations.
+  @link  https://material.io/guidelines/components/bottom-navigation.html#bottom-navigation-usage
   @severity Warning
 """
 For each $x in $(BottomNavigationView) (
-
-    ($x's size is greater than  2) And
-     ($x's size is less than  5)
-
+    ($x's size is greater than  2)
+     And
+    ($x's size is less than  5)
 ).

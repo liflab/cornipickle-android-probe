@@ -1,0 +1,37 @@
+
+# attribute "event". Its value is the event's type
+
+We say that I click on Spinner when (
+  There exists $b in $(Spinner) such that (
+    $b's event is "click"
+  )
+).
+
+# We define what it means occurrence
+
+We say that $x and $y are not equals when (
+  Not(
+        $x's text equals $y's text
+    )
+).
+
+
+"""
+  @name Menu behavior
+  @description Appearance of an occurrence in the drop-down menu
+    and Menus are positioned over their emitting elements.
+  @link https://material.io/guidelines/components/menus.html#menus-behavior
+  @severity Warning
+"""
+
+If (I click on Spinner)
+Then (
+For each $x in $(Spinner item) (
+    For each $y in $(Spinner item) (
+    ($x's position equals $y's position) Or
+       ( $x and $y are not equals)
+    )
+ )
+).
+
+

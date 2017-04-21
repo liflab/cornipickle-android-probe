@@ -1,19 +1,23 @@
-# Define what it means the flat button
-#link https://material.io/guidelines/components/buttons.html#buttons-style
-We say that $x is Button1 when (
-  ((($x's width / the device's device-density)  is greater than  47 ) And (($x's height / the device's device-density) is greater than  47))   And
-  ( Not ($x's bgcolor matches "RGB\(0,0,0\)") )
+
+
+
+# Define what it means the raised Button and not a flat button
+We say that $x is RaisedButton when (
+  ( (($x's width / the device's device-density) is greater than 47 ) And
+     (($x's height / the device's device-density) is greater than 47)
+   ) And
+  ( Not ($x's bgcolor matches "RGB\(0,0,0\)")
+   )
 
 ).
 
-
 """
-  @name Menus aligned
-  @description All list items
+  @name Using raised buttons
+  @description It is better to use raised buttons instead of
+               flat buttons when there are many details
+  @link https://material.io/guidelines/components/buttons.html#buttons-flat-buttons
   @severity Warning
 """
-
-For each $z in $(Button) (
-
-$z is Button1
-).
+  For each $z in $(Button) (
+  $z is RaisedButton
+  ).

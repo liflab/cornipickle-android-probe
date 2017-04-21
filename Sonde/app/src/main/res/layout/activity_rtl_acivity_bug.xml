@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="UI mirroring"
+                android:text="واجهة المستخدم التطابق"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -58,7 +58,7 @@
                 android:layout_height="48dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="0.38"
-                android:text="Liflab" />
+                android:text="ليفلاب" />
 
         </LinearLayout>
 

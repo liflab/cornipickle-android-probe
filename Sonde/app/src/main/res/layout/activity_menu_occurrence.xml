@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.liflab.sonde.Menu_occurrence">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose your city :"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="24sp"
+        android:layout_marginTop="120dp"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="150dp" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="50dp"
+        tools:layout_editor_absoluteX="284dp"
+        tools:layout_editor_absoluteY="140dp" />
+
+    <TextView
+        android:id="@+id/txtResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp"/>
+
+</LinearLayout>
