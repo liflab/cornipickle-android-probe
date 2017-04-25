@@ -1,10 +1,12 @@
 package ca.liflab.sonde;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -31,7 +33,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-
+        Log.d("tessssssssssssss0","click");
         sendActivityUiToServer(null);
         return localCallback.dispatchKeyEvent(event);
     }
@@ -44,8 +46,8 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        _dispatchTouchEvent(event);
-
+        sendActivityUiToServer(event);
+        Log.d("tessssssssssssss0","touch");
         return localCallback.dispatchTouchEvent(event);
     }
 
@@ -68,7 +70,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
     @Nullable
     @Override
     public View onCreatePanelView(int featureId) {
-
+        Log.d("tessssssssssssss0","v");
         return localCallback.onCreatePanelView(featureId);
     }
 
@@ -99,6 +101,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
 
     @Override
     public void onContentChanged() {
+
         localCallback.onContentChanged();
     }
 

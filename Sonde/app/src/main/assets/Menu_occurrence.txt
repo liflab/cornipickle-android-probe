@@ -3,7 +3,7 @@
 
 We say that I click on Spinner when (
   There exists $b in $(Spinner) such that (
-    $b's event is "click"
+    $b's event is "ACTION_UP"
   )
 ).
 
@@ -18,8 +18,7 @@ We say that $x and $y are not equals when (
 
 """
   @name Menu behavior
-  @description Appearance of an occurrence in the drop-down menu
-    and Menus are positioned over their emitting elements.
+  @description Do not display a duplicate of the  menu item
   @link https://material.io/guidelines/components/menus.html#menus-behavior
   @severity Warning
 """

@@ -15,7 +15,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ca.liflab.examples.SondeActivity;
 
 /**
  * Created by chafik on 2017-04-11.
@@ -30,7 +29,7 @@ public class SondeConfig {
     String urlProP = "";
     String urlInterperation = "";
 
- private static  ArrayList<Integer> posLayoutResult = new ArrayList<Integer>();
+    private static  ArrayList<Integer> posLayoutResult = new ArrayList<Integer>();
 
     public enum PosLayoutResult {
         right_top,
@@ -58,41 +57,43 @@ public class SondeConfig {
     }
 
     public void _OnWindowChanged() {
-       if (isContinue()) {
+        if (isContinue()) {
 
 
-           if ((s == null || (s != null && s.acCurrent != a)) && posLayoutResult.size() == 0) {
-               s = new Sonde(a);
-               sendPropToserver(nameFile);
+            if ((s == null || (s != null && s.acCurrent != a)) && posLayoutResult.size() == 0) {
+                s = new Sonde(a);
+                sendPropToserver(nameFile);
 
-           } else if (s == null || (s != null && s.acCurrent != a)) {
-               s = new Sonde(a, posLayoutResult);
+            } else if (s == null || (s != null && s.acCurrent != a)) {
+                s = new Sonde(a, posLayoutResult);
 
-               sendPropToserver(nameFile);
-           }
-        //   displayTost("you can send  now prop");
-       }
+                sendPropToserver(nameFile);
+            }
+          //  displayTost("you can send  now prop");
+        }
 
     }
 
     public void _dispatchTouchEvent(MotionEvent event) {
-      if (isContinue())
+        if (isContinue() && !(s==null || !s.propAdded))
 
-      {
-          if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-              sendActivityUiToServer(event);
-          }
-      }
+                sendActivityUiToServer(event);
+            }
+        }
 
     }
 
     protected void sendPropToserver(String nameFile) {
         this.nameFile = nameFile;
-
-        if (s != null) {
+        _OnWindowChanged();
+        if (s != null && !s.propAdded && !s.propSending && isContinue()) {
 
             try {
+                s.propSending =true;
+            //    displayTost("you can send  now prop");
                 s.sendStart("http://192.168.109.1:10101/add", URLEncoder.encode(readdPropFromFile(nameFile).toString(),"UTF-8"), Sonde.RequestName.add);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -104,25 +105,35 @@ public class SondeConfig {
 
     protected void sendActivityUiToServer(MotionEvent event) {
 
-        if(!(s==null || !s.probAdded)) {
+        if(!(s==null || !s.getPropAdded()) && isContinue()) {
 
             String l = s.getDataImage(event);
+
             //Log.d("interpret", l);
             s.sendStart("http://192.168.109.1:10101/image/", l, Sonde.RequestName.image);
+        }else{
+
+
+            sendPropToserver(nameFile);
         }
+
 
     }
 
     protected void sendActivityUiToServer(View v, MotionEvent event) {
-        if(!(s==null || !s.probAdded)) {
+        if(!(s==null || !s.propAdded) && isContinue()) {
             String l = s.getDataImage(v, event);
             //Log.d("interpret", l);
             s.sendStart("http://192.168.109.1:10101/image/", l, Sonde.RequestName.image);
+        }else{
+
+
+            sendPropToserver(nameFile);
         }
     }
 
 
-   public static void setPosLayoutResult(PosLayoutResult pos) {
+    public static void setPosLayoutResult(PosLayoutResult pos) {
         String p = pos.toString();
         switch (p) {
             case "right_top": {
