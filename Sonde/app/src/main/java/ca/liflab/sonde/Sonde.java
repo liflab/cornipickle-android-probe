@@ -494,45 +494,7 @@ public class Sonde {
         return resId;
     }
 
-    @SuppressLint("NewApi")
-    protected boolean _navigationBottom(ViewGroup v, JSONObject jNode, JSONArray jArrayChild, String _tagname) {
 
-/*
-        if (v instanceof BottomNavigationView) {
-
-            try {
-                Menu m = ((BottomNavigationView) v).getMenu();
-                if (lstContainer.contains(_tagname)) {
-                    if (isAttributeExists("size")) {
-
-                        jNode.put("size", m.size());
-                    }
-                }
-
-
-                if (lstContainer.contains("menuItem")) {
-                    for (int i = 0; i < m.size(); i++) {
-
-
-                        JSONObject jNodeChild = new JSONObject();
-                        Log.d("menu", m.getItem(i).toString());
-                        jNodeChild.put("tagname", "menuItem");
-                        if (isAttributeExists("menuItemText"))
-                            jNodeChild.put("menuItemText", m.getItem(i).toString());
-                        jArrayChild.put(jNodeChild);
-                    }
-
-                }
-
-                return true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-*/
-        return false;
-    }
 
     /*
         *Ce analyse elements de chaque view recursivment et retourne tous les widgets
@@ -563,9 +525,7 @@ public class Sonde {
 
             JSONArray jArrayChild = new JSONArray();
 
-            if (_navigationBottom(v, jNode, jArrayChild, _tagname)) {
-
-            } else if (v instanceof Spinner) {
+           if (v instanceof Spinner) {
 
                 Spinner sp = (Spinner) v;
 
