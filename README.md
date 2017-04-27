@@ -13,6 +13,8 @@ Table of Contents                                                    {#toc}
 -----------------
 
 - [Compiling and installing Cornipickle](#install)
+    - Server
+    - Client (Sonde).
 - [Command-line usage](#cli)
 - [About the author](#about)
 
@@ -138,5 +140,5 @@ in your browser. Refresh the page to get updated info.
 About the author                                                   {#about}
 ----------------
 
-Cornipickle was written by Sylvain HallÃ©, associate professor at UniversitÃ©
-du QuÃ©bec Ã  Chicoutimi, Canada.
+Cornipickle was written by Sylvain Hallé, associate professor at Université
+du Québec à Chicoutimi, Canada.
