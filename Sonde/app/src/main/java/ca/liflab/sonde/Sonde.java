@@ -1,5 +1,6 @@
 package ca.liflab.sonde;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -59,7 +60,7 @@ public class Sonde {
      * e.g.: localhost:10101
      */
     public String server_name = "localhost:10101";
-     /**
+    /**
      * The probe's id
      */
     public String probe_id = "1";
@@ -70,12 +71,12 @@ public class Sonde {
     /**
      * propriete
      */
-    Boolean propAdded =false;
+    Boolean propAdded = false;
 
     /**
      *
      */
-    Boolean propSending =false;
+    Boolean propSending = false;
 
     /**
      * The probe's hash
@@ -94,9 +95,9 @@ public class Sonde {
      * First array in JSON
      */
     JSONArray jsonChildreen;
-/**
- * For Sending Request
- */
+    /**
+     * For Sending Request
+     */
     SendPostRequest _sendRequest;
     /**
      * A List of attributes to include.
@@ -125,6 +126,7 @@ public class Sonde {
     public void setPropSending(Boolean propSending) {
         this.propSending = propSending;
     }
+
     public Boolean getPropAdded() {
         return propAdded;
     }
@@ -132,6 +134,7 @@ public class Sonde {
     public void setPropAdded(Boolean propAdded) {
         this.propAdded = propAdded;
     }
+
     public JSONObject getResultJson() {
         return resultJson;
     }
@@ -174,6 +177,7 @@ public class Sonde {
 
         this.lstContainer.clear();
         this.lstContainer.addAll(lst);
+
 
     }
 
@@ -353,18 +357,13 @@ public class Sonde {
             cornipickleid = cornipickleid + 1;
             jNodeChild.put("cornipickleid", cornipickleid);
             idMap.put(cornipickleid, new infoHighId(v.getId(), v.getWidth(), Util.getAbsoluteLeft(v), Util.getAbsoluteTop(v), v.getHeight()));
-            // res.getResourceEntryName(view.getId())
-            //v.getResources().getResourceEntryName(v.getId()
             if (isAttributeExists("id"))
                 if (v.getResources() != null) {
                     if (v.getId() != -1)
-
                     {
                         String s = v.getResources().getResourceEntryName(v.getId());
                         jNodeChild.put("id", s);
                     }
-
-
                 }
             if (isAttributeExists("widthdp"))
                 jNodeChild.put("widthdp", Util.pxToDp(v.getWidth(), acCurrent));
@@ -495,8 +494,48 @@ public class Sonde {
         return resId;
     }
 
+    @SuppressLint("NewApi")
+    protected boolean _navigationBottom(ViewGroup v, JSONObject jNode, JSONArray jArrayChild, String _tagname) {
+
+/*
+        if (v instanceof BottomNavigationView) {
+
+            try {
+                Menu m = ((BottomNavigationView) v).getMenu();
+                if (lstContainer.contains(_tagname)) {
+                    if (isAttributeExists("size")) {
+
+                        jNode.put("size", m.size());
+                    }
+                }
+
+
+                if (lstContainer.contains("menuItem")) {
+                    for (int i = 0; i < m.size(); i++) {
+
+
+                        JSONObject jNodeChild = new JSONObject();
+                        Log.d("menu", m.getItem(i).toString());
+                        jNodeChild.put("tagname", "menuItem");
+                        if (isAttributeExists("menuItemText"))
+                            jNodeChild.put("menuItemText", m.getItem(i).toString());
+                        jArrayChild.put(jNodeChild);
+                    }
+
+                }
+
+                return true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+*/
+        return false;
+    }
+
     /*
-        *Cette methodes analyse les elements de chaque view recursivment et retourne tous les widgets
+        *Ce analyse elements de chaque view recursivment et retourne tous les widgets
     	*  les elements retournes sous forme json avec leur proprites
     	*  @parm v :L'objet parent d'une activité
     	*
@@ -508,88 +547,58 @@ public class Sonde {
         v.getId();
         try {
             JSONObject jNode = new JSONObject();
-            // Log.d("_tagname5", v.getClass().getSimpleName());
+
 
             String _tagname = v.getClass().getName();
 
-            _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);//.toLowerCase();
-            Log.d("_tagname2", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
-
+            _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);
+            Log.d("_tagname", _tagname + " ");
 
             if (canIncludeThisView(jNode, v)) {
 
-                // jNode.put("tagname", _tagname);
 
                 addAttributeIfDefined(jNode, v, event);
             }
             jsArrayChildren.put(jNode);
 
-            // if(childCount>0)
             JSONArray jArrayChild = new JSONArray();
 
-     if (v instanceof BottomNavigationView) {
+            if (_navigationBottom(v, jNode, jArrayChild, _tagname)) {
 
+            } else if (v instanceof Spinner) {
 
-         Menu m = ((BottomNavigationView) v).getMenu();
-         if (lstContainer.contains(_tagname)) {
-             if (isAttributeExists("size")) {
-                 jNode.put("size", m.size());
-             }
+                Spinner sp = (Spinner) v;
 
-         }
-         if (lstContainer.contains("menuItem")) {
-             for (int i = 0; i < m.size(); i++) {
+                if (lstContainer.contains(_tagname)) {
+                    if (isAttributeExists("size")) {
 
+                        try {
+                            jNode.put("size", sp.getAdapter().getCount());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                 JSONObject jNodeChild = new JSONObject();
-                 Log.d("menu", m.getItem(i).toString());
-                 jNodeChild.put("tagname", "menuItem");
-                 if (isAttributeExists("menuItemText"))
-                     jNodeChild.put("menuItemText", m.getItem(i).toString());
-                 jArrayChild.put(jNodeChild);
-             }
+                }
+                if (lstContainer.contains("item")) {
+                    for (int i = 0; i < sp.getAdapter().getCount(); i++) {
 
-         }
+                        JSONObject jNodeChild = new JSONObject();
+                        Log.d("item", sp.getAdapter().getItem(i).toString());
+                        jNodeChild.put("tagname", "item");
+                        if (isAttributeExists("text"))
+                            jNodeChild.put("text", sp.getAdapter().getItem(i).toString());
+                        if (isAttributeExists("id"))
+                            jNodeChild.put("id", sp.getAdapter().getItem(i).hashCode());
+                        if (isAttributeExists("position"))
+                            jNodeChild.put("position", i);
 
-     }
+                        jArrayChild.put(jNodeChild);
+                    }
 
-  else   if(v instanceof Spinner){
+                }
 
-            Spinner sp=(Spinner)v;
-
-         if (lstContainer.contains(_tagname)) {
-             if (isAttributeExists("size")) {
-
-                 try {
-                     jNode.put("size", sp.getAdapter().getCount());
-                 } catch (JSONException e) {
-                     e.printStackTrace();
-                 }
-             }
-
-         }
-         if (lstContainer.contains("item")) {
-             for (int i = 0; i < sp.getAdapter().getCount(); i++) {
-
-                 JSONObject jNodeChild = new JSONObject();
-                 Log.d("item", sp.getAdapter().getItem(i).toString());
-                 jNodeChild.put("tagname", "item");
-                 if (isAttributeExists("text"))
-                 jNodeChild.put("text",  sp.getAdapter().getItem(i).toString());
-                 if (isAttributeExists("id"))
-                     jNodeChild.put("id",  sp.getAdapter().getItem(i).hashCode());
-                 if (isAttributeExists("position"))
-                     jNodeChild.put("position",i);
-
-                 jArrayChild.put(jNodeChild);
-             }
-
-         }
-
-     }
-
-
- else {
+            } else {
                 for (int i = 0; i < childCount; i++) {
                     View child = v.getChildAt(i);
 
@@ -603,20 +612,23 @@ public class Sonde {
                     } else {
 
                         _tagname = child.getClass().getName();
-                        _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);//.toLowerCase();
+
+                        _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);
+
                         Log.d("_tagname", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
+
 
                         if (canIncludeThisView(jNodeChild, child)) {
 
-                            //  jNodeChild.put("tagname", _tagname);
                             addAttributeIfDefined(jNodeChild, child, event);
 
-                            if (child instanceof Button && child.getTag()!="btnResult") {
+                            if (child instanceof Button && child.getTag() != "btnResult") {
                                 if (isAttributeExists("text"))
                                     jNodeChild.put("text", ((Button) child).getText());
 
 
                             } else if (child instanceof TextView) {
+
                                 TextView tx = (TextView) child;
                                 if (isAttributeExists("length"))
                                     jNodeChild.put("length", tx.getText().length());
@@ -638,21 +650,12 @@ public class Sonde {
                                     jNodeChild.put("color", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
                                 }
 
-                            }/* else {
-
-                                jNodeChild.put("CDATA", _tagname);
-                            }*/
-
-
-                        } /*else {
-
-                            jNodeChild.put("", _tagname);
-                        }*/
-                        if (jNodeChild.length() > 0 &&  child.getTag()!="btnResult")
+                            }
+                        }
+                        if (jNodeChild.length() > 0 && child.getTag() != "btnResult")
 
                             jArrayChild.put(jNodeChild);
 
-// fin else
                     }
 
 
@@ -672,10 +675,14 @@ public class Sonde {
 
 
     public class SendPostRequest extends AsyncTask<String, Void, String> {
-        String _url = "http://192.168.109.1:10101/addProp";
+
+
+        String _url = "";
         String _dataToSend = "";
         boolean _addPro = false;
         RequestName _requestName = RequestName.add;
+        final String hashTagResult = "Sonde_Tag_Layout_this";
+        final String hashTagResult_Button = "Sonde_Tag_Layout_this_Button";
 
         public SendPostRequest() {
 
@@ -716,19 +723,10 @@ public class Sonde {
 
             try {
                 URL url1 = new URL(this._url); // here is your URL path
-
-
-
-                String urlParameters =
-                        "fName=" + URLEncoder.encode("???", "UTF-8") +
-                                "&lName=" + URLEncoder.encode("???", "UTF-8");
-
-
                 HttpURLConnection conn;
                 conn = (HttpURLConnection) url1.openConnection();
-
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);/* milliseconds */
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
@@ -752,8 +750,6 @@ public class Sonde {
                     while ((line = in.readLine()) != null) {
 
                         sb.append(line);
-                        //    Log.e("params2", sb.toString());
-                        //    handleRepsonse(sb.toString());
                         break;
                     }
 
@@ -775,14 +771,14 @@ public class Sonde {
         protected void onPostExecute(String result) {
             if (this._requestName == RequestName.add) {
 
-               // Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
-                     //   Toast.LENGTH_LONG);
+                // Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "prop added",
+                //   Toast.LENGTH_LONG);
 
-               // toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-               // toast.show();
-                propSending =false;
+                // toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+                // toast.show();
+                propSending = false;
 
-                propAdded =true;
+                propAdded = true;
             } else if (this._requestName == RequestName.image) {
 
                /* Toast toast = Toast.makeText(acCurrent.getApplicationContext(), "result received",
@@ -851,23 +847,23 @@ public class Sonde {
                         ViewGroup vForResult = (ViewGroup) acCurrent.findViewById(android.R.id.content);
                         Button btn = null;
                         if (vForResult != null) {
-                            RelativeLayout lr = (RelativeLayout) vForResult.findViewWithTag("lrResult");
+                            RelativeLayout lr = (RelativeLayout) vForResult.findViewWithTag(hashTagResult);
 
 
                             if (lr == null) {
 
                                 lr = new RelativeLayout(acCurrent);
                                 lr.setLayoutParams(params);
-                                lr.setTag("lrResult");
+                                lr.setTag(hashTagResult);
                                 vForResult.addView(lr);
 
 
                             }
 
-                             btn = (Button) lr.findViewWithTag("btnResult");
+                            btn = (Button) lr.findViewWithTag(hashTagResult_Button);
                             if (btn == null) {
                                 btn = new Button(acCurrent);
-                                btn.setTag("btnResult");
+                                btn.setTag(hashTagResult_Button);
                                 btn.setId(0);
                                 btn.setLayoutParams(params);
                                 lr.addView(btn);
@@ -893,24 +889,26 @@ public class Sonde {
 
                             JSONObject set_of_tuples1 = (JSONObject) _hightlight.get(j);
                             JSONArray js = set_of_tuples1.getJSONArray("ids");
-                            final String jlink=set_of_tuples1.getString("link");
-                            if(jlink!="")
-                            btn.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(jlink));
-                                   acCurrent.startActivity(intent);
-                                }
-                            });
+                            final String jlink = set_of_tuples1.getString("link");
+                            if (jlink != "")
+                                btn.setOnClickListener(new View.OnClickListener() {
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(jlink));
+                                        acCurrent.startActivity(intent);
+                                    }
+                                });
 
                             for (int z = 0; z < js.length(); z++) {
                                 JSONArray js2 = js.getJSONArray(0);
                                 for (int h = 0; h < js2.length(); h++) {
-                                    Log.d("zzzzzz", js2.get(h) + "");
+                                    // Log.d("zzzzzz", js2.get(h) + "");
                                     int key = js2.getInt(h);
                                     if (idMap.containsKey(key)) {
                                         View v = acCurrent.findViewById(idMap.get(key).id);
                                         if (v != null)
-                                            v.setBackgroundResource(R.drawable.shape_border);
+                                            Util.customViewBorder(v, Color.RED);
+
+                                        // v.setBackgroundResource(R.drawable.shape_border);
                                     }
 
                                 }

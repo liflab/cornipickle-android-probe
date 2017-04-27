@@ -3,6 +3,8 @@ package ca.liflab.sonde;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -14,6 +16,19 @@ import static java.security.AccessController.getContext;
  */
 public class Util {
 
+    public static void customViewBorder(View v,  int borderColor)
+    {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
+       // shape.setColor(backgroundColor);
+        shape.setStroke(4, borderColor);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            v.setBackground(shape);
+        }
+        else   v.setBackgroundDrawable(shape);
+    }
 
     public static float getAspectRatio(Activity acCurrent) {
 
@@ -23,12 +38,14 @@ public class Util {
         return ratio;
 
     }
-public  static  String getLangue(Activity ac){
 
-    Configuration  f =ac.getBaseContext().getResources().getConfiguration();
-    return  f.locale.toString();
+    public static String getLangue(Activity ac) {
 
-}
+        Configuration f = ac.getBaseContext().getResources().getConfiguration();
+        return f.locale.toString();
+
+    }
+
     public static String getScreenOrientation(Activity acCurrent) {
         Display getOrient = acCurrent.getWindowManager().getDefaultDisplay();
 
@@ -83,13 +100,15 @@ public  static  String getLangue(Activity ac){
         int y = location[1];
         return y;
     }
-    public static float getAbsoluteBottom(Activity ac,View v) {
+
+    public static float getAbsoluteBottom(Activity ac, View v) {
 
 
         float height = v.getHeight();
         float bottom = getHeight(ac) - (getAbsoluteTop(v) + height);
         return bottom;
     }
+
     public static float getAbsoluteRight(Activity ac, View v) {
 
         float width = v.getWidth();
@@ -99,14 +118,15 @@ public  static  String getLangue(Activity ac){
         return right;
     }
 
-    public static int pxToDp(int px,Activity ac) {
+    public static int pxToDp(int px, Activity ac) {
         DisplayMetrics displayMetrics = ac.getResources().getDisplayMetrics();
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
     }
-public static  float getDensity(Activity ac){
 
-    DisplayMetrics displayMetrics = ac.getResources().getDisplayMetrics();
-    return  (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
-}
+    public static float getDensity(Activity ac) {
+
+        DisplayMetrics displayMetrics = ac.getResources().getDisplayMetrics();
+        return (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
 }

@@ -1,10 +1,14 @@
 package ca.liflab.sonde;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.res.Resources;
+import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -15,21 +19,52 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static android.provider.Settings.Global.getString;
+
 
 /**
- * Created by chafik on 2017-04-11.
+ * Created by Liflab
  */
 
 public class SondeConfig {
 
 
     protected Activity a;
-    public Sonde s;
-    public String nameFile = "";
-    String urlProP = "";
-    String urlInterperation = "";
 
-    private static  ArrayList<Integer> posLayoutResult = new ArrayList<Integer>();
+    public Sonde s;
+
+    public String nameFile = "";
+
+
+    static String server = "";
+
+    final String urlInterperation = "/image/";
+
+    final String urlProP = "/add";
+
+    public String getUrlProP() {
+        return getServer() + urlProP;
+
+    }
+
+    public String getUrlInterperation() {
+        return getServer() + urlInterperation;
+
+    }
+
+    public static String getServer() {
+
+        //if(server=="")
+      //  server = a.getResources().getString(R.string.sonde_server);
+        return server;
+    }
+    public static void setServer(String ser) {
+
+
+         server=ser;
+    }
+
+    private static ArrayList<Integer> posLayoutResult = new ArrayList<Integer>();
 
     public enum PosLayoutResult {
         right_top,
@@ -42,8 +77,16 @@ public class SondeConfig {
 
         return this.a.getClass().getSimpleName();
     }
+    public static void subscribeToWindow(Activity activity){
 
+        //on va creer event window
+        Window win = activity.getWindow();
+        Window.Callback localCallback = win.getCallback();
+        win.setCallback(new WindowCallback(localCallback, activity));
+
+    }
     protected boolean isContinue() {
+
 
         try {
             if (Arrays.asList(a.getResources().getAssets().list("")).contains(nameFile))
@@ -69,13 +112,13 @@ public class SondeConfig {
 
                 sendPropToserver(nameFile);
             }
-          //  displayTost("you can send  now prop");
+            //  displayTost("you can send  now prop");
         }
 
     }
 
     public void _dispatchTouchEvent(MotionEvent event) {
-        if (isContinue() && !(s==null || !s.propAdded))
+        if (isContinue() && !(s == null || !s.propAdded))
 
         {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -92,9 +135,9 @@ public class SondeConfig {
         if (s != null && !s.propAdded && !s.propSending && isContinue()) {
 
             try {
-                s.propSending =true;
-            //    displayTost("you can send  now prop");
-                s.sendStart("http://192.168.109.1:10101/add", URLEncoder.encode(readdPropFromFile(nameFile).toString(),"UTF-8"), Sonde.RequestName.add);
+                s.propSending = true;
+                //    displayTost("you can send  now prop");
+                s.sendStart(getUrlProP(), URLEncoder.encode(readdPropFromFile(nameFile).toString(), "UTF-8"), Sonde.RequestName.add);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -105,13 +148,13 @@ public class SondeConfig {
 
     protected void sendActivityUiToServer(MotionEvent event) {
 
-        if(!(s==null || !s.getPropAdded()) && isContinue()) {
+        if (!(s == null || !s.getPropAdded()) && isContinue()) {
 
             String l = s.getDataImage(event);
 
             //Log.d("interpret", l);
-            s.sendStart("http://192.168.109.1:10101/image/", l, Sonde.RequestName.image);
-        }else{
+            s.sendStart(getUrlInterperation(), l, Sonde.RequestName.image);
+        } else {
 
 
             sendPropToserver(nameFile);
@@ -121,11 +164,11 @@ public class SondeConfig {
     }
 
     protected void sendActivityUiToServer(View v, MotionEvent event) {
-        if(!(s==null || !s.propAdded) && isContinue()) {
+        if (!(s == null || !s.propAdded) && isContinue()) {
             String l = s.getDataImage(v, event);
             //Log.d("interpret", l);
-            s.sendStart("http://192.168.109.1:10101/image/", l, Sonde.RequestName.image);
-        }else{
+            s.sendStart(getUrlInterperation(), l, Sonde.RequestName.image);
+        } else {
 
 
             sendPropToserver(nameFile);

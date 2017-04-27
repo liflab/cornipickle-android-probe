@@ -29,7 +29,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="ca.liflab.examples.MisalinedElement" />
         <activity android:name="ca.liflab.examples.BottomNav" />
         <activity android:name="ca.liflab.examples.FlatActivity" />
         <activity android:name="ca.liflab.examples.GoupeItemSlider" />

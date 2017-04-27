@@ -18,9 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
-/**
- * Created by chafik on 2017-04-11.
- */
+
 
 public class WindowCallback extends SondeConfig implements Window.Callback {
     Window.Callback localCallback;
@@ -33,7 +31,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        Log.d("tessssssssssssss0","click");
+
         sendActivityUiToServer(null);
         return localCallback.dispatchKeyEvent(event);
     }
@@ -47,7 +45,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         sendActivityUiToServer(event);
-        Log.d("tessssssssssssss0","touch");
+
         return localCallback.dispatchTouchEvent(event);
     }
 
@@ -70,7 +68,7 @@ public class WindowCallback extends SondeConfig implements Window.Callback {
     @Nullable
     @Override
     public View onCreatePanelView(int featureId) {
-        Log.d("tessssssssssssss0","v");
+        //Log.d("tessssssssssssss0","v");
         return localCallback.onCreatePanelView(featureId);
     }
 

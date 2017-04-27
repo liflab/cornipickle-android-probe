@@ -1,5 +1,7 @@
 <resources>
+
     <string name="app_name">Sonde</string>
+    <string name="sonde_server">http://192.168.109.1:10101</string>
     <string name="cornipicke_props">CorniPicke Props</string>
     <string name="name">Name</string>
     <string name="tag">view</string>
