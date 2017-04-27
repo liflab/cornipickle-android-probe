@@ -1,7 +1,7 @@
 Building
 First Navigate to Root Folder Sonde and run the following command:
 
-   gradlew.bat assembleDebug or gradlew.bat assembleRelease (For mode release)
+   gradlew assembleDebug or gradlew assembleRelease (For mode release)
    
 Run on the emulator :
 1. create an Android Virtual Device (AVD) 
