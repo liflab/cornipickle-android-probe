@@ -13,14 +13,14 @@ Table of Contents                                                    {#toc}
 -----------------
 
 - [Compiling and installing Cornipickle](#install)
-    - Server
-    - Client (Sonde).
+    - [Server](https://github.com/liflab/cornipickle)
+    - [Client (Sonde)](#sonde).
 - [Command-line usage](#cli)
 - [About the author](#about)
 
 Compiling and Installing Cornipickle                             {#install}
 ------------------------------------
-
+    For compile and run server you get all information [here](https://github.com/liflab/cornipickle)
 First make sure you have the following installed:
 
 - The Java Development Kit (JDK) to compile. Cornipickle was developed and
@@ -29,7 +29,7 @@ First make sure you have the following installed:
 - [Ant](http://ant.apache.org) to automate the compilation and build process
 
 Download the sources for Cornipickle from
-[Bitbucket](http://bitbucket.org.com/sylvainhalle/cornipickle) or clone the
+[Bitbucket](https://github.com/liflab/cornipickle) or clone the
 repository using Git:
 
     git@bitbucket.org:sylvainhalle/cornipickle.git
@@ -140,5 +140,5 @@ in your browser. Refresh the page to get updated info.
 About the author                                                   {#about}
 ----------------
 
-Cornipickle was written by Sylvain Hallé, associate professor at Université
-du Québec à Chicoutimi, Canada.
+Cornipickle was written by Sylvain Hallï¿½, associate professor at Universitï¿½
+du Quï¿½bec ï¿½ Chicoutimi, Canada.
