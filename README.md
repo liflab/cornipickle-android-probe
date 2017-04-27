@@ -20,121 +20,41 @@ Table of Contents                                                    {#toc}
 
 Compiling and Installing Cornipickle                             {#install}
 ------------------------------------
-    For compile and run server you get all information [here](https://github.com/liflab/cornipickle)
-First make sure you have the following installed:
+-Server : 
+   For install and run server ,you can more information
+   [here](https://github.com/liflab/cornipickle) 
 
-- The Java Development Kit (JDK) to compile. Cornipickle was developed and
-  tested on version 7 of the JDK, but it is probably safe to use either
-  version 6 or 8.
-- [Ant](http://ant.apache.org) to automate the compilation and build process
+-Sonde 
+   
+   Download the sources for Cornipickle from or clone the
+   repository using Git:
 
-Download the sources for Cornipickle from
-[Bitbucket](https://github.com/liflab/cornipickle) or clone the
-repository using Git:
-
-    git@bitbucket.org:sylvainhalle/cornipickle.git
+    git@https://bitbucket.org/chafdev/cornipickle-sonde-mobile
 
 ### Installing dependencies
 
-The project requires the following libraries to be present in the system:
+Building 
 
-- The [Apache Commons CLI](http://commons.apache.org/proper/commons-cli/)
-  to handle command-line parameters *(tested with version 1.3)*
-- The [json-lif](https://github.com/liflab/json-lif) library for
-  fast JSON parsing *(tested with version 1.2)*
-- The [Azrael](https://github.com/sylvainhale/Azrael) library for
-  serialization of Java objects. *(tested with version 0.3-alpha)*
-- The [Bullwinkle parser](https://github.com/sylvainhalle/Bullwinkle),
-  an on-the-fly parser for BNF grammars. *(tested with version 1.2)*
-- The [Jerrydog server](https://github.com/sylvainhalle/Jerrydog) for basic
-  HTTP server capabilities. *(tested with version 0.1-alpha)*
+First Navigate to Root Folder Sonde and run the following command:
 
-Using Ant, you can automatically download any libraries missing from your
-system by typing:
+     gradlew assembleDebug or gradlew assembleRelease (For mode release)
 
-    ant download-deps
+Run on the emulator :
 
-This will put the missing JAR files in the `deps` folder in the project's
-root. These libraries should then be put somewhere in the classpath, such as
-in Java's extension folder (don't leave them there, it won't work). You can
-do that by typing (**with administrator rights**):
-
-    ant install-deps
-
-or by putting them manually in the extension folder. Type `ant init` and it
-will print out what that folder is for your system.
-
-Do **not** create subfolders there (i.e. put the archive directly in that
-folder).
-
-### Compiling
-
-Compile the sources by simply typing:
-
-    ant
-
-This will produce a file called `Cornipickle.jar` in the folder. This file
-is runnable and stand-alone, or can be used as a library, so it can be moved
-around to the location of your choice.
-
-In addition, the script generates in the `doc` folder the Javadoc
-documentation for using Cornipickle. This documentation is also embedded in
-the JAR file. To show documentation in Eclipse, right-click on the jar,
-click "Properties", then fill the Javadoc location (which is the JAR
-itself).
-
-### Testing
-
-Cornipickle can test itself by running:
-
-    ant test
-
-Unit tests are run with [jUnit](http://junit.org); a detailed report of
-these tests in HTML format is availble in the folder `tests/junit`, which
-is automatically created. Code coverage is also computed with
-[JaCoCo](http://www.eclemma.org/jacoco/); a detailed report is available
-in the folder `tests/coverage`.
-
-Command-line Usage                                                   {#cli}
-------------------
-
-Cornipickle works as a server. You start it on the command line with:
-
-    java -jar Cornipickle.jar [options] [file1 [file2 ...]]
-
-where `file1`, `file2`, etc. are optional filenames containing Cornipickle
-specifications that the server can pre-load. Available options are:
-
-`-h`, `--help`
-:  Display command line usage
-
-`-p`,`--port <x>` 
-:  Listen on port x (default: 10101)
-
-`-s`,`--servername <x>`
-:  Set server name or IP address x (default: localhost)
-
-`--serve-as <path>`
-:  Serve local folder as remote folder <path>. For example, with the default
-   settings, when launching Cornipickle with `--serve-as myfolder/` (note the
-   trailing slash), the URL `http://localhost:10101/myfolder/foo.bar` will
-   refer to `foo.bar` from the local folder where Cornipickle is launched.
-   This also works for nested folders.
+     1. create an Android Virtual Device (AVD) 
+     2. emulator -avd 
 
 ### Built-in Examples
 
-Cornipickle contains a few examples. Using the default settings, you can
-try these examples by starting the server and visiting
-[http://localhost:10101/examples/index.html](http://localhost:10101/examples/index.html)
-in your browser.
+Cornipickle contains a few examples.  you can
+try these examples by starting the server and launching the app but you must 
+setup the adress of the server in  [values.xml](https://bitbucket.org/chafdev/cornipickle-sonde-mobile/src/fff2094c47e07d12bce9069bf10eeabb7fe7f37e/Sonde/app/src/main/res/values/strings.xml?at=master&fileviewer=file-view-default).
+For example :    <string name="sonde_server">http://192.168.109.1:10101</string>
+  
+For displaying Bug ,click on key (B)
+For returning to normal, click on key (N).
 
-### Status page
 
-You can have more detailed status on the specifications that Cornipickle is
-watching through a simple web interface. Using the default settings, you can
-try these examples by starting the server and visiting
-[http://localhost:10101/status](http://localhost:10101/status)
-in your browser. Refresh the page to get updated info.
 
 
 About the author                                                   {#about}
