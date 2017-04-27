@@ -2,7 +2,7 @@ Building
 First Navigate to Root Folder Sonde and run the following command:
 
    gradlew assembleDebug or gradlew assembleRelease (For mode release)
-   
+   <h4> jgjgjjfg</h4>
 Run on the emulator :
 1. create an Android Virtual Device (AVD) 
 2.emulator -avd 
