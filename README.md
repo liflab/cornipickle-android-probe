@@ -1,9 +1,6 @@
 Cornipickle: a runtime monitor for layout constraints
 =====================================================
 
-[![Travis](https://img.shields.io/travis/liflab/cornipickle.svg?style=flat-square)]()
-[![SonarQube Coverage](https://img.shields.io/sonar/http/sonarqube.com/liflab:cornipickle/coverage.svg?style=flat-square)]()
-
 Cornichon is a declarative language that can express desirable properties of
 a web application  and mobile app as a set of human-readable assertions .
 Cornipickle, an automated testing tool that can verify
@@ -21,10 +18,10 @@ Table of Contents                                                    {#toc}
 Compiling and Installing Cornipickle                             {#install}
 ------------------------------------
 -Server : 
-   For install and run server ,you can more information
+   For install and run server ,you can find more information
    [here](https://github.com/liflab/cornipickle) 
 
--Sonde 
+-Sonde                                                             {#sonde}
    
    Download the sources for Cornipickle from or clone the
    repository using Git:
@@ -59,5 +56,5 @@ For returning to normal, click on key (N).
 About the author                                                   {#about}
 ----------------
 
-Cornipickle was written by Sylvain Hallé, associate professor at Université
-du Québec À Chicoutimi, Canada.
+Cornipickle was written by Sylvain Hallï¿½, associate professor at Universitï¿½
+du Quï¿½bec ï¿½ Chicoutimi, Canada.
