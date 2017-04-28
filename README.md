@@ -4,8 +4,8 @@ The Cornipickle testing tool can automatically detect and report violations of
 Android user interface guidelines. Users write statements in a high level language,
 called Cornichon, and Cornipickle can automatically check during the execution of 
 the application that these statements are respected at all times.
-Client code is a probe that send all information about 
-the current state of the window activity and relaying it to the server
+[Client code]() is a probe  that send all information about 
+the current state of the window activity and relaying it to [the server](https://github.com/liflab/cornipickle)
 for further processing.
 
 For more informations about UI guidelines, please visit [https://material.io/guidelines/](https://material.io/guidelines/) 
@@ -15,7 +15,7 @@ Table of Contents                                                    {#toc}
 
 - [Compiling and installing Cornipickle](#install)
     - [Server](https://github.com/liflab/cornipickle)
-    - [Client (Sonde)](#sonde).
+    - [Client (Probe)](#probe).
 - [About the author](#about)
 
 Compiling and Installing Cornipickle                             {#install}
@@ -25,7 +25,7 @@ Compiling and Installing Cornipickle                             {#install}
    For install and run server ,you can find more informations
    [here](https://github.com/liflab/cornipickle) 
 
--Sonde                                                             {#sonde}
+-Probe                                                             {#probe}
    
    Download or clone the source for Cornipickle  using Git:
 
