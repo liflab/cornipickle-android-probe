@@ -8,7 +8,7 @@ Client code is a probe that send all information about
 the current state of the window activity and relaying it to the server
 for further processing.
 
-For more informations guidelines please visit [UI guideline](https://material.io/guidelines/) 
+For more informations about UI guidelines, please visit [https://material.io/guidelines/](https://material.io/guidelines/) 
 
 Table of Contents                                                    {#toc}
 -----------------
