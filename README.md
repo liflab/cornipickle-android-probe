@@ -1,9 +1,14 @@
 ﻿Cornipickle: a runtime monitor for layout constraints
 =====================================================
-
-Probe code is a probe that send all information about 
+The Cornipickle testing tool can automatically detect and report violations of 
+Android user interface guidelines. Users write statements in a high level language,
+called Cornichon, and Cornipickle can automatically check during the execution of 
+the application that these statements are respected at all times.
+Client code is a probe that send all information about 
 the current state of the window activity and relaying it to the server
-for further processing
+for further processing.
+
+For more informations please visit [UI guideline](https://material.io/guidelines/) 
 
 Table of Contents                                                    {#toc}
 -----------------
