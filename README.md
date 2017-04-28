@@ -54,7 +54,6 @@ set the address of the server in  [values.xml](https://bitbucket.org/chafdev/cor
  Click on key (N) for returning to normal
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YNxxV8hIIzY" frameborder="0" allowfullscreen></iframe>
 
 About the author                                                   {#about}
 ----------------
