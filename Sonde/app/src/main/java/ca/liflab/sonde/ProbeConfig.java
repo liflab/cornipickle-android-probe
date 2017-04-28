@@ -1,9 +1,6 @@
 package ca.liflab.sonde;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.res.Resources;
-import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -19,19 +16,17 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static android.provider.Settings.Global.getString;
-
 
 /**
  * Created by Liflab
  */
 
-public class SondeConfig {
+public class ProbeConfig {
 
 
     protected Activity a;
 
-    public Sonde s;
+    public Probe s;
 
     public String nameFile = "";
 
@@ -104,11 +99,11 @@ public class SondeConfig {
 
 
             if ((s == null || (s != null && s.acCurrent != a)) && posLayoutResult.size() == 0) {
-                s = new Sonde(a);
+                s = new Probe(a);
                 sendPropToserver(nameFile);
 
             } else if (s == null || (s != null && s.acCurrent != a)) {
-                s = new Sonde(a, posLayoutResult);
+                s = new Probe(a, posLayoutResult);
 
                 sendPropToserver(nameFile);
             }
@@ -137,7 +132,7 @@ public class SondeConfig {
             try {
                 s.propSending = true;
                 //    displayTost("you can send  now prop");
-                s.sendStart(getUrlProP(), URLEncoder.encode(readdPropFromFile(nameFile).toString(), "UTF-8"), Sonde.RequestName.add);
+                s.sendStart(getUrlProP(), URLEncoder.encode(readdPropFromFile(nameFile).toString(), "UTF-8"), Probe.RequestName.add);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -153,7 +148,7 @@ public class SondeConfig {
             String l = s.getDataImage(event);
 
             //Log.d("interpret", l);
-            s.sendStart(getUrlInterperation(), l, Sonde.RequestName.image);
+            s.sendStart(getUrlInterperation(), l, Probe.RequestName.image);
         } else {
 
 
@@ -167,7 +162,7 @@ public class SondeConfig {
         if (!(s == null || !s.propAdded) && isContinue()) {
             String l = s.getDataImage(v, event);
             //Log.d("interpret", l);
-            s.sendStart(getUrlInterperation(), l, Sonde.RequestName.image);
+            s.sendStart(getUrlInterperation(), l, Probe.RequestName.image);
         } else {
 
 

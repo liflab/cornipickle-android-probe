@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import ca.liflab.sonde.R;
-import ca.liflab.sonde.SondeConfig;
+import ca.liflab.sonde.ProbeConfig;
 
 public class GoupeItemSlider extends SondeActivity {
 
@@ -14,7 +14,7 @@ public class GoupeItemSlider extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goupe_item_slider);
-        SondeConfig.setPosLayoutResult(SondeConfig.PosLayoutResult.right_top);
+        ProbeConfig.setPosLayoutResult(ProbeConfig.PosLayoutResult.right_top);
 
     }
 

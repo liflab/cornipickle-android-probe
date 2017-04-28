@@ -13,7 +13,7 @@ import android.os.Bundle;
 public class ActivityLifeCycleCallBack implements Application.ActivityLifecycleCallbacks
 {
         public ActivityLifeCycleCallBack(String server) {
-                SondeConfig.server=server;
+                ProbeConfig.server=server;
         }
 
         public ActivityLifeCycleCallBack() {
@@ -23,7 +23,7 @@ public class ActivityLifeCycleCallBack implements Application.ActivityLifecycleC
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
-         SondeConfig.subscribeToWindow(activity);
+         ProbeConfig.subscribeToWindow(activity);
         }
 
         @Override

@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import ca.liflab.sonde.R;
-import ca.liflab.sonde.SondeConfig;
+import ca.liflab.sonde.ProbeConfig;
 
 public class CharacterActivityCounter extends SondeActivity {
     TextInputLayout text1, text2;
@@ -24,7 +24,7 @@ public class CharacterActivityCounter extends SondeActivity {
         text1.getEditText().addTextChangedListener(c1);
         text2.getEditText().addTextChangedListener(c2);
 
-        SondeConfig.setPosLayoutResult(SondeConfig.PosLayoutResult.right_top);
+        ProbeConfig.setPosLayoutResult(ProbeConfig.PosLayoutResult.right_top);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }

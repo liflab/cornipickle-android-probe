@@ -1,10 +1,9 @@
-Cornipickle: a runtime monitor for layout constraints
+ï»¿Cornipickle: a runtime monitor for layout constraints
 =====================================================
 
-Cornichon is a declarative language that can express desirable properties of
-a web application  and mobile app as a set of human-readable assertions .
-Cornipickle, an automated testing tool that can verify
-Cornichon properties on-the-fly as a user interacts with an application.
+Probe code is a probe that send all information about 
+the current state of the window activity and relaying it to the server
+for further processing
 
 Table of Contents                                                    {#toc}
 -----------------
@@ -53,5 +52,5 @@ set the address of the server in  [values.xml](https://bitbucket.org/chafdev/cor
 
 About the author                                                   {#about}
 ----------------
-Cornipickle was written by Sylvain Hallé, associate professor at Université
-du Québec À Chicoutimi, Canada.
+Cornipickle was written by Sylvain HallÃ©, associate professor at UniversitÃ©
+du QuÃ©bec Ã€ Chicoutimi, Canada.

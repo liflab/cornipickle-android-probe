@@ -43,7 +43,7 @@ import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Sonde {
+public class Probe {
     /**
      * Current View Parent
      */
@@ -217,11 +217,11 @@ public class Sonde {
     /**
      * Constructor of the sonde
      */
-    public Sonde() {
+    public Probe() {
 
     }
 
-    public Sonde(Activity ac) {
+    public Probe(Activity ac) {
         // ac.getWindow().getDecorView().getRootView();
         this._view = ac.findViewById(android.R.id.content);
         this.acCurrent = ac;
@@ -231,7 +231,7 @@ public class Sonde {
 
     }
 
-    public Sonde(Activity ac, ArrayList<Integer> posLayoutResult) {
+    public Probe(Activity ac, ArrayList<Integer> posLayoutResult) {
 
         this._view = ac.findViewById(android.R.id.content);
         this.acCurrent = ac;

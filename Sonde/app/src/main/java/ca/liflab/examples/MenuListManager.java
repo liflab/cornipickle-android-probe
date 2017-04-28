@@ -118,7 +118,7 @@ View v;
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
-       // s=new Sonde(this);
+       // s=new Probe(this);
 
         super.onCreateContextMenu(menu, v, menuInfo);
 

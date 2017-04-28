@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import ca.liflab.sonde.R;
-import ca.liflab.sonde.SondeConfig;
+import ca.liflab.sonde.ProbeConfig;
 
 public class FloatingButton extends SondeActivity {
 
@@ -16,7 +16,7 @@ public class FloatingButton extends SondeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wrong_floating_button);
-SondeConfig.setPosLayoutResult(SondeConfig.PosLayoutResult.right_top);
+ProbeConfig.setPosLayoutResult(ProbeConfig.PosLayoutResult.right_top);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -1,12 +1,8 @@
 package ca.liflab.sonde;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -20,7 +16,7 @@ import android.view.accessibility.AccessibilityEvent;
 
 
 
-public class WindowCallback extends SondeConfig implements Window.Callback {
+public class WindowCallback extends ProbeConfig implements Window.Callback {
     Window.Callback localCallback;
 
     public WindowCallback(Window.Callback localCallback, Activity a) {
