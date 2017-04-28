@@ -45,7 +45,7 @@ Run on the emulator :
 
 ### Built-in Examples
 
-Cornipickle contains a few examples. You can
+Cornipickle contains a few examples for testing ui guidelines. You can
 try these examples by starting the server and launching the app but you must 
 set the address of the server in  [values.xml](https://bitbucket.org/chafdev/cornipickle-sonde-mobile/src/fff2094c47e07d12bce9069bf10eeabb7fe7f37e/Sonde/app/src/main/res/values/strings.xml?at=master&fileviewer=file-view-default).
 
@@ -54,7 +54,7 @@ set the address of the server in  [values.xml](https://bitbucket.org/chafdev/cor
  Click on key (N) for returning to normal
 
 
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YNxxV8hIIzY" frameborder="0" allowfullscreen></iframe>
 
 About the author                                                   {#about}
 ----------------
