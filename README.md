@@ -17,12 +17,13 @@ Table of Contents                                                    {#toc}
 Compiling and Installing Cornipickle                             {#install}
 ------------------------------------
 -Server : 
-   For install and run server ,you can find more information
+
+   For install and run server ,you can find more informations
    [here](https://github.com/liflab/cornipickle) 
 
 -Sonde                                                             {#sonde}
    
-   Download the sources for Cornipickle from or clone the
+   Download or clone the sources for Cornipickle from the
    repository using Git:
 
     git@https://bitbucket.org/chafdev/cornipickle-sonde-mobile
@@ -44,15 +45,13 @@ Run on the emulator :
 Cornipickle contains a few examples. You can
 try these examples by starting the server and launching the app but you must 
 set the address of the server in  [values.xml](https://bitbucket.org/chafdev/cornipickle-sonde-mobile/src/fff2094c47e07d12bce9069bf10eeabb7fe7f37e/Sonde/app/src/main/res/values/strings.xml?at=master&fileviewer=file-view-default).
-  
-For displaying Bug ,click on key (B)
-For returning to normal, click on key (N).
+ Click on key (B) for displaying Bug
+ Click on key (N) for returning to normal
 
 
 
 
 About the author                                                   {#about}
 ----------------
-
 Cornipickle was written by Sylvain Hallé, associate professor at Université
 du Québec À Chicoutimi, Canada.
