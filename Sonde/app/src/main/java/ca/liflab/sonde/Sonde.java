@@ -118,7 +118,8 @@ public class Sonde {
      */
     Map<Integer, infoHighId> idMap = new HashMap<Integer, infoHighId>();
 
-
+    final String hashTagResult = "Sonde_Tag_Layout_this";
+    final  String hashTagResult_Button = "Sonde_Tag_Layout_this_Button";
     public Boolean getPropSending() {
         return propSending;
     }
@@ -564,7 +565,7 @@ public class Sonde {
 
                     JSONObject jNodeChild = new JSONObject();
 
-                    if ((child instanceof ViewGroup)) {
+                    if ((child instanceof ViewGroup) && child.getTag() != hashTagResult) {
 
                         jNodeChild.put("children", jArrayChild);
                         analyseViews((ViewGroup) child, level + 1, jArrayChild, event);
@@ -582,7 +583,7 @@ public class Sonde {
 
                             addAttributeIfDefined(jNodeChild, child, event);
 
-                            if (child instanceof Button && child.getTag() != "btnResult") {
+                            if (child instanceof Button && child.getTag() != hashTagResult_Button) {
                                 if (isAttributeExists("text"))
                                     jNodeChild.put("text", ((Button) child).getText());
 
@@ -612,7 +613,7 @@ public class Sonde {
 
                             }
                         }
-                        if (jNodeChild.length() > 0 && child.getTag() != "btnResult")
+                        if (jNodeChild.length() > 0 && child.getTag() != hashTagResult_Button)
 
                             jArrayChild.put(jNodeChild);
 
@@ -641,8 +642,7 @@ public class Sonde {
         String _dataToSend = "";
         boolean _addPro = false;
         RequestName _requestName = RequestName.add;
-        final String hashTagResult = "Sonde_Tag_Layout_this";
-        final String hashTagResult_Button = "Sonde_Tag_Layout_this_Button";
+
 
         public SendPostRequest() {
 

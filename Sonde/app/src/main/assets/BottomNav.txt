@@ -1,7 +1,7 @@
 """
   @name Bottom Navigation
   @description  The Bottom Navigation can accommodate between 3 and 5 destinations.
-  @link  https://material.io/guidelines/components/bottom-navigation.html#bottom-navigation-usage
+  @link https://material.io/guidelines/components/bottom-navigation.html#bottom-navigation-usage
   @severity Warning
 """
 For each $x in $(BottomNavigationMenuView) (

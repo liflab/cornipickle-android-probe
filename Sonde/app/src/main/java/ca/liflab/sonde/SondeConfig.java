@@ -38,9 +38,9 @@ public class SondeConfig {
 
     static String server = "";
 
-    final String urlInterperation = "/image/";
+    final String urlInterperation = "/imageMobile/";
 
-    final String urlProP = "/add";
+    final String urlProP = "/addMobile";
 
     public String getUrlProP() {
         return getServer() + urlProP;
