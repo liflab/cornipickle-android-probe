@@ -48,8 +48,8 @@ We say that $x and $y don't overlap when (
   @link https://material.io/guidelines/layout/metrics-keylines.html#metrics-keylines-touch-target-size
   @severity Error
 """
-There exists  $x in $(.tag1) such that (
-  For each $y in $(.tag1) (
+There exists  $x in $(.tag) such that (
+  For each $y in $(.tag) (
    ($x's id equals $y's id)
     Or
    (($x and $y don't overlap)

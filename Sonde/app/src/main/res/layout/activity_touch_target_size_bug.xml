@@ -44,7 +44,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="1.10"
             android:checked="false"
-            android:tag="tag1"
+            android:tag="tag"
             android:text="Developer"
             android:textSize="25dp" />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:checked="false"
-            android:tag="tag1"
+            android:tag="tag"
             android:text="Designer"
             android:textSize="25dp" />
     </RadioGroup>
@@ -80,7 +80,7 @@
         android:layout_marginBottom="21dp"
         android:layout_toLeftOf="@+id/button11"
         android:layout_toStartOf="@+id/button11"
-        android:tag="tag1"
+        android:tag="tag"
         android:text="New Button" />
 
     <Button
@@ -92,7 +92,7 @@
         android:layout_alignEnd="@+id/imageView"
         android:layout_alignRight="@+id/imageView"
         android:layout_gravity="center_horizontal"
-        android:tag="tag1"
+        android:tag="tag"
         android:text="New Button" />
 
 </RelativeLayout>

@@ -248,7 +248,7 @@ public class Probe {
     void serialiseWindow() {
 
         try {
-            resultJson.put("tagname", "window");
+            resultJson.put("element", "window");
             resultJson.put("aspect-ratio", Util.getAspectRatio(acCurrent));
             resultJson.put("orientation", Util.getScreenOrientation(acCurrent));
             resultJson.put("width", Util.getWidth(acCurrent));
@@ -276,7 +276,7 @@ public class Probe {
 
         String data = "";
         try {
-            data = "contents=" + URLEncoder.encode(resultJson.toString(), "UTF-8");// "contents=%7B%22tagname%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22tagname%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(resultJson.toString(),"UTF-8");
+            data = "contents=" + URLEncoder.encode(resultJson.toString(), "UTF-8");// "contents=%7B%22element%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22element%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(resultJson.toString(),"UTF-8");
             data += "&interpreter=" + URLEncoder.encode(interpreter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -292,7 +292,7 @@ public class Probe {
 
         String data = "";
         try {
-            data = "contents=" + URLEncoder.encode(resultJson.toString(), "UTF-8");// "contents=%7B%22tagname%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22tagname%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22tagname%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22tagname%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(resultJson.toString(),"UTF-8");
+            data = "contents=" + URLEncoder.encode(resultJson.toString(), "UTF-8");// "contents=%7B%22element%22%3A%22window%22%2C%22URL%22%3A%22localhost%3A11019%2Fexamples%2Fmisaligned-elements.html%22%2C%22aspect-ratio%22%3A3.747072599531616%2C%22orientation%22%3A%22portrait%22%2C%22width%22%3A1600%2C%22height%22%3A427%2C%22device-width%22%3A1615%2C%22device-height%22%3A1026%2C%22device-aspect-ratio%22%3A1.5740740740740742%2C%22mediaqueries%22%3A%7B%220%22%3A%22true%22%7D%2C%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Example%22%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Back%20to%20example%20list%22%7D%5D%7D%5D%7D%2C%7B%22children%22%3A%5B%7B%22element%22%3A%22ul%22%2C%22cornipickleid%22%3A0%2C%22class%22%3A%22menu%22%2C%22top%22%3A153%2C%22left%22%3A29%2C%22children%22%3A%5B%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A1%2C%22top%22%3A153%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22First%20menu%20item%22%7D%5D%7D%2C%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A2%2C%22top%22%3A172%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Second%20menu%20item%22%7D%5D%7D%2C%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A3%2C%22top%22%3A191%2C%22left%22%3A79%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Another%20menu%20item%22%7D%5D%7D%2C%7B%22element%22%3A%22li%22%2C%22cornipickleid%22%3A4%2C%22top%22%3A210%2C%22left%22%3A69%2C%22children%22%3A%5B%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22Final%20menu%20item%22%7D%5D%7D%5D%7D%5D%7D%2C%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22%20Cornipickle%20explanation%20%22%7D%2C%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fexplanation%20%22%7D%5D%7D%2C%7B%22element%22%3A%22CDATA%22%2C%22text%22%3A%22%20%2Fcontents%20%22%7D%5D%7D%5D%7D";//URLEncoder.encode(resultJson.toString(),"UTF-8");
             data += "&interpreter=" + URLEncoder.encode(interpreter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -441,12 +441,12 @@ public class Probe {
 
 
         int id = v.getId();
-        String _tagname = v.getClass().getSimpleName();
+        String _element = v.getClass().getSimpleName();
         for (String s : lstContainer) {
 
-            if (s.toLowerCase().equals(_tagname.toLowerCase())) {
+            if (s.toLowerCase().equals(_element.toLowerCase())) {
                 try {
-                    jNodeChild.put("tagname", _tagname);
+                    jNodeChild.put("element", _element);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -454,8 +454,8 @@ public class Probe {
             }
             if ((v.getTag() != null) && s.startsWith(".") && s.toLowerCase().equals("." + v.getTag().toString().toLowerCase())) {
                 try {
-                    jNodeChild.put("tagname", _tagname);
-                    jNodeChild.put("class", s.substring(1));
+                    jNodeChild.put("element", _element);
+                    jNodeChild.put("tag", s.substring(1));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -464,7 +464,7 @@ public class Probe {
 
             if (s.startsWith("#") && getidResourceByName(s.substring(1)) == v.getId()) {
                 try {
-                    jNodeChild.put("tagname", _tagname);
+                    jNodeChild.put("element", _element);
                     jNodeChild.put("id", s.substring(1));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -474,8 +474,8 @@ public class Probe {
             // all
             if ((s.startsWith(".") && s.toLowerCase().equals(".all"))) {
                 try {
-                    jNodeChild.put("tagname", _tagname);
-                    jNodeChild.put("class", s.substring(1));
+                    jNodeChild.put("element", _element);
+                    jNodeChild.put("tag", s.substring(1));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -512,10 +512,10 @@ public class Probe {
             JSONObject jNode = new JSONObject();
 
 
-            String _tagname = v.getClass().getName();
+            String _element = v.getClass().getName();
 
-            _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);
-            Log.d("_tagname", _tagname + " ");
+            _element = _element.substring(_element.lastIndexOf(".") + 1);
+            Log.d("_element", _element + " ");
 
             if (canIncludeThisView(jNode, v)) {
 
@@ -530,7 +530,7 @@ public class Probe {
 
                 Spinner sp = (Spinner) v;
 
-                if (lstContainer.contains(_tagname)) {
+                if (lstContainer.contains(_element)) {
                     if (isAttributeExists("size")) {
 
                         try {
@@ -546,7 +546,7 @@ public class Probe {
 
                         JSONObject jNodeChild = new JSONObject();
                         Log.d("item", sp.getAdapter().getItem(i).toString());
-                        jNodeChild.put("tagname", "item");
+                        jNodeChild.put("element", "item");
                         if (isAttributeExists("text"))
                             jNodeChild.put("text", sp.getAdapter().getItem(i).toString());
                         if (isAttributeExists("id"))
@@ -572,11 +572,11 @@ public class Probe {
 
                     } else {
 
-                        _tagname = child.getClass().getName();
+                        _element = child.getClass().getName();
 
-                        _tagname = _tagname.substring(_tagname.lastIndexOf(".") + 1);
+                        _element = _element.substring(_element.lastIndexOf(".") + 1);
 
-                        Log.d("_tagname", _tagname + " " + this.lstContainer.size() + " " + v.getTag());
+                        Log.d("_element", _element + " " + this.lstContainer.size() + " " + v.getTag());
 
 
                         if (canIncludeThisView(jNodeChild, child)) {
@@ -760,7 +760,7 @@ public class Probe {
                     JSONObject jsonObj = new JSONObject(result);
                     // Getting JSON Array node
                     JSONArray arr = jsonObj.getJSONArray("attributes");
-                    JSONArray arrTags = jsonObj.getJSONArray("tagnames");
+                    JSONArray arrTags = jsonObj.getJSONArray("elements");
                     String _inter = jsonObj.getString("interpreter");
                     interpreter = _inter;
                     // looping through All Contacts
