@@ -1,4 +1,4 @@
-package ca.liflab.sonde;
+package ca.liflab.probe;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

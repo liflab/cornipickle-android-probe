@@ -1,4 +1,4 @@
-package ca.liflab.sonde;
+package ca.liflab.probe;
 
 import org.junit.Test;
 

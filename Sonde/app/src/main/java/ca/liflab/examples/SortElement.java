@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import ca.liflab.sonde.R;
+import ca.liflab.probe.R;
 
 
 /**

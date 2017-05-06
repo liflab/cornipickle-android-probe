@@ -16,16 +16,16 @@ We say that $x and $y have a good size when (
 
 # We define what it means x intersection
 We say that $x xintersects $y when (
-  ($x's left is less than ($y's left addto ($y's width addto (8 * the device's device-density))))
+  ($x's left is less than ($y's left + ($y's width + (8 * the device's device-density))))
    And
-  ($y's left is less than ($x's left addto ($x's width addto (8 * the device's device-density))))
+  ($y's left is less than ($x's left + ($x's width + (8 * the device's device-density))))
 ).
 
 # We define what it means y intersection
 We say that $x yintersects $y when (
-  ($x's top is less than ($y's top addto ($y's height addto (8 * the device's device-density))))
+  ($x's top is less than ($y's top + ($y's height + (8 * the device's device-density))))
    And
-  ($y's top is less than ($x's top addto ($x's height addto (8 * the device's device-density))))
+  ($y's top is less than ($x's top + ($x's height + (8 * the device's device-density))))
 ).
 
 # We define what it means overlap

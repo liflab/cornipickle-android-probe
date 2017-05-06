@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.liflab.sonde.ca.liflab.examples.GoupeItemSlider">
+    tools:context="ca.liflab.examples.GoupeItemSlider">
 
 
     <SeekBar
@@ -34,12 +35,12 @@
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:max="100"
-        android:progress="50"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
+        android:max="100"
+        android:progress="50" />
 
     <TextView
         android:id="@+id/txtS1"
@@ -69,23 +70,23 @@
         android:id="@+id/txtS3"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/seekbar1"
         android:gravity="center"
         android:text="50"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        android:layout_below="@+id/seekbar1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textSize="18sp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="129dp"
         android:layout_marginStart="129dp"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+        android:orientation="horizontal">
 
     </LinearLayout>
 

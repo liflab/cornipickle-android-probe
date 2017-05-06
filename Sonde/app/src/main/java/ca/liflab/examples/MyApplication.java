@@ -1,11 +1,10 @@
 package ca.liflab.examples;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Build;
 
-import ca.liflab.sonde.ActivityLifeCycleCallBack;
-import ca.liflab.sonde.R;
+import ca.liflab.probe.ActivityLifeCycleCallBack;
+import ca.liflab.probe.R;
 
 
 public class MyApplication extends Application {

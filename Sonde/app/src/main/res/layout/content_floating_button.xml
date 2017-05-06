@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ca.liflab.sonde.ca.liflab.examples.FloatingButton"
+    tools:context="ca.liflab.probe.ca.liflab.examples.FloatingButton"
     tools:showIn="@layout/activity_floating_button">
 
 </android.support.constraint.ConstraintLayout>

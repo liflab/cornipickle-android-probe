@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.liflab.sonde.ca.liflab.examples.GoupeItemSlider">
+    tools:context="ca.liflab.examples.GoupeItemSlider">
 
 
     <SeekBar
@@ -45,26 +46,14 @@
         android:id="@+id/txtS1"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="70"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        android:layout_below="@+id/txtS2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/txtS2"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/txtS3"
+        android:layout_alignRight="@+id/txtS3"
         android:gravity="center"
         android:text="30"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        android:layout_alignRight="@+id/txtS3"
-        android:layout_alignEnd="@+id/txtS3" />
+        android:textSize="18sp" />
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/txtS3"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
@@ -72,7 +61,19 @@
         android:text="50"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
-        android:layout_below="@+id/txtS1" />
+        android:layout_below="@+id/txtS1" />-->
+    <TextView
+        android:id="@+id/txtS2"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtS1"
+        android:gravity="center"
+        android:text="70"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"

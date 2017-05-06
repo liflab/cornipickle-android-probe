@@ -1,6 +1,5 @@
 package ca.liflab.examples;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
@@ -9,7 +8,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.liflab.sonde.R;
+import ca.liflab.probe.R;
 
 public class Menu_occurrence extends SondeActivity {
 

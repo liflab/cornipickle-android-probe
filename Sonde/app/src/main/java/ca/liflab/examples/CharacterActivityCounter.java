@@ -6,8 +6,8 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import ca.liflab.sonde.R;
-import ca.liflab.sonde.ProbeConfig;
+import ca.liflab.probe.R;
+import ca.liflab.probe.ProbeConfig;
 
 public class CharacterActivityCounter extends SondeActivity {
     TextInputLayout text1, text2;

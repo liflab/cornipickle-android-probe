@@ -1,6 +1,5 @@
-package ca.liflab.sonde;
+package ca.liflab.probe;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -10,9 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -388,17 +385,17 @@ public class Probe {
                 jNodeChild.put("bottom", Util.getAbsoluteBottom(acCurrent, v));
             if (isAttributeExists("size") && v instanceof ViewGroup)
                 jNodeChild.put("size", ((ViewGroup) v).getChildCount());
-            if (isAttributeExists("bgcolor")) {
+            if (isAttributeExists("background")) {
                 //est appelle juste apres setbacgroundcolor
                 if (v.getBackground() instanceof ColorDrawable) {
                     ColorDrawable vColor = (ColorDrawable) v.getBackground();
                     if (vColor != null) {
                         int clr = vColor.getColor();
-                        jNodeChild.put("bgcolor", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
+                        jNodeChild.put("background", "RGB(" + Color.red(clr) + "," + Color.green(clr) + "," + Color.blue(clr) + ")");
                     }
 
                 } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    jNodeChild.put("bgcolor", v.getBackground().getColorFilter());
+                    jNodeChild.put("background", v.getBackground().getColorFilter());
                 }
             }
             if (isAttributeExists("event") && event != null) {

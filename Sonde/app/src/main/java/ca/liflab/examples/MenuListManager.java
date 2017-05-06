@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import ca.liflab.sonde.R;
+import ca.liflab.probe.R;
 
 public class MenuListManager extends Activity{
     ListView listView1;

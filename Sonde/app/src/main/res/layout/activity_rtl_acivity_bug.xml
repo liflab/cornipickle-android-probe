@@ -8,7 +8,7 @@
     android:layoutDirection="rtl"
     android:supportsRtl="true"
     android:textDirection="rtl"
-    tools:context="ca.liflab.sonde.ca.liflab.examples.RtlAcivity">
+    tools:context="ca.liflab.probe.ca.liflab.examples.RtlAcivity">
 
     <LinearLayout
         android:layout_width="match_parent"

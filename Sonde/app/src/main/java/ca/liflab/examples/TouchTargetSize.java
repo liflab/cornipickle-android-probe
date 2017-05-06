@@ -3,7 +3,7 @@ package ca.liflab.examples;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-import ca.liflab.sonde.R;
+import ca.liflab.probe.R;
 
 public class TouchTargetSize extends SondeActivity {
 

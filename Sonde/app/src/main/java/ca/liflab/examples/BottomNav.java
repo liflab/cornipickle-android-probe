@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import ca.liflab.sonde.R;
-import ca.liflab.sonde.ProbeConfig;
+import ca.liflab.probe.R;
+import ca.liflab.probe.ProbeConfig;
 
 public class BottomNav extends SondeActivity {
 

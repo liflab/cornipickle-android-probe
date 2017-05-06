@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Button;
 
-import ca.liflab.sonde.R;
+import ca.liflab.probe.R;
 
 public class FlatActivity extends SondeActivity {
 

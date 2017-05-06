@@ -6,8 +6,7 @@ import android.view.KeyEvent;
 
 import java.util.Locale;
 
-import ca.liflab.examples.SondeActivity;
-import ca.liflab.sonde.R;
+import ca.liflab.probe.R;
 
 public class RtlAcivity extends SondeActivity {
 public  String lang="fr";

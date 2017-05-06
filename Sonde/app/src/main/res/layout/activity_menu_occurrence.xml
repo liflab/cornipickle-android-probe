@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.liflab.sonde.Menu_occurrence">
+    tools:context="ca.liflab.probe.Menu_occurrence">
 
     <TextView
         android:id="@+id/textView9"

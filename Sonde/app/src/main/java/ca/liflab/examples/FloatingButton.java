@@ -7,8 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 
-import ca.liflab.sonde.R;
-import ca.liflab.sonde.ProbeConfig;
+import ca.liflab.probe.R;
+import ca.liflab.probe.ProbeConfig;
 
 public class FloatingButton extends SondeActivity {
 
