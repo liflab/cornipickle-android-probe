@@ -1,5 +1,6 @@
-﻿Cornipickle: a runtime monitor for layout constraints
-=====================================================
+﻿A Cornipickle probe for Android Applications
+============================================
+
 The Cornipickle testing tool can automatically detect and report violations of 
 Android user interface guidelines. Users write statements in a high level language,
 called Cornichon, and Cornipickle can automatically check during the execution of 
@@ -7,6 +8,13 @@ the application that these statements are respected at all times.
 The [client code](#) is a probe  that send all information about 
 the current state of the window activity and relaying it to 
 [the server](https://github.com/liflab/cornipickle) for further processing.
+
+The probe in this repository has been described in the following research
+paper:
+
+- C. Meniar, F. Opalvens, S. Hallé. (2017). Runtime Verification of
+  User Interface Guidelines in Mobile Devices. In *Proc. of the 9th International
+  Conference on Runtime Verification*, RV 2017.
 
 For more information about UI guidelines, please visit
 [https://material.io/guidelines/](https://material.io/guidelines/).
@@ -56,8 +64,5 @@ set the address of the server in `values.xml`.
 
 About the author                                                   {#about}
 ----------------
-The Cornipickle Android Probe was written by Chafik Meniar,
-then a Masters' Student at at Université du Québec À Chicoutimi, Canada.
-
-Cornipickle was written by Sylvain Hallé, associate professor at Université
-du Québec À Chicoutimi, Canada.
+The Cornipickle Android Probe was written by **Chafik Meniar**,
+then a Masters' Student at Université du Québec à Chicoutimi, Canada.
